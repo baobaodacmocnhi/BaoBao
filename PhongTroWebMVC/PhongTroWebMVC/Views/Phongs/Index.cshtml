@@ -48,6 +48,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.ChiSoNuoc)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHangs)
+            </th>
             <th></th>
         </tr>
     
@@ -82,6 +85,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ChiSoNuoc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHangs.Count)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
