@@ -87,7 +87,7 @@
                 @Html.DisplayFor(modelItem => item.ChiSoNuoc)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.KhachHangs.Count)
+                @Html.DisplayFor(modelItem => item.KhachHangs.Where(itemA=>itemA.Thue==true).ToList().Count)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
