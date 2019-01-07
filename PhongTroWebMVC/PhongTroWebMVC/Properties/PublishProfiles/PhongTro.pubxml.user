@@ -67,7 +67,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2018 09:50:19</publishTime>
     </File>
     <File Include="bin/PhongTroWebMVC.dll">
-      <publishTime>01/04/2019 13:55:24</publishTime>
+      <publishTime>01/07/2019 10:57:43</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>12/28/2018 09:50:15</publishTime>
@@ -415,10 +415,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2018 09:49:51</publishTime>
     </File>
     <File Include="Views/KhachHangs/Details.cshtml">
-      <publishTime>12/28/2018 09:49:51</publishTime>
+      <publishTime>01/07/2019 10:53:50</publishTime>
     </File>
     <File Include="Views/KhachHangs/Edit.cshtml">
-      <publishTime>12/28/2018 09:49:51</publishTime>
+      <publishTime>01/07/2019 10:55:16</publishTime>
     </File>
     <File Include="Views/KhachHangs/Index.cshtml">
       <publishTime>12/28/2018 09:49:51</publishTime>

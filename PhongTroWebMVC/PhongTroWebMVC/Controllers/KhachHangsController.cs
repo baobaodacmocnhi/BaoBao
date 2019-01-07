@@ -114,7 +114,7 @@ namespace PhongTroWebMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HoTen,GioiTinh,NgaySinh,DienThoai,BienSoXe,Thue,IDPhong,CreateDate,ModifyDate")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "ID,HoTen,GioiTinh,NgaySinh,DienThoai,BienSoXe,Thue,NgayVao,NgayRa,IDPhong,CreateDate,ModifyDate")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {

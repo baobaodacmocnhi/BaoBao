@@ -47,6 +47,14 @@
         [Display(Name = "Thuê")]
         public bool Thue { get; set; }
 
+        [Display(Name = "Ngày vào")]
+        [Column(TypeName = "date")]
+        public DateTime? NgayVao { get; set; }
+
+        [Display(Name = "Ngày ra")]
+        [Column(TypeName = "date")]
+        public DateTime? NgayRa { get; set; }
+
         [Display(Name = "Ngày tạo")]
         public DateTime? CreateDate { get; set; }
 
