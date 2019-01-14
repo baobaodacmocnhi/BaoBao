@@ -37,6 +37,10 @@
         [StringLength(50)]
         public string DienThoai { get; set; }
 
+        [Display(Name = "Nghề nghiệp")]
+        [StringLength(100)]
+        public string NgheNghiep { get; set; }
+
         [Display(Name = "Biển số xe")]
         [StringLength(50)]
         public string BienSoXe { get; set; }

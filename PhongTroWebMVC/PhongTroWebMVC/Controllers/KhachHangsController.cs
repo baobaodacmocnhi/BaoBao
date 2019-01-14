@@ -15,26 +15,37 @@ namespace PhongTroWebMVC.Controllers
         private dbPhongTro db = new dbPhongTro();
 
         // GET: KhachHangs
-        public ActionResult Index(string cmbPhong, bool? chkAll)
+        public ActionResult Index(bool? chkAll, string cmbPhong, string txtSearch)
         {
             ViewBag.lstPhong = new SelectList(db.Phongs, "ID", "Name");
-
+            if (txtSearch == null)
+                txtSearch = "";
             List<KhachHang> khachHangs;
-            if (cmbPhong != null && cmbPhong != "")
+            if (chkAll != null && chkAll == true)
             {
-                var ID = Convert.ToInt32(cmbPhong);
-                if (chkAll!=null&&chkAll == true)
-                    khachHangs = db.KhachHangs.Where(item => item.IDPhong == ID).Include(k => k.Phong).ToList();
+                if (cmbPhong != null && cmbPhong != "")
+                {
+                    var ID = Convert.ToInt32(cmbPhong);
+                    khachHangs = db.KhachHangs.Where(item => item.IDPhong == ID && (item.HoTen.Contains(txtSearch)|| item.NgheNghiep.Contains(txtSearch) || item.BienSoXe.Contains(txtSearch))).Include(k => k.Phong).ToList();
+                }
                 else
-                    khachHangs = db.KhachHangs.Where(item => item.IDPhong == ID&&item.Thue==true).Include(k => k.Phong).ToList();
+                {
+                    khachHangs = db.KhachHangs.Where(item=> (item.HoTen.Contains(txtSearch) || item.NgheNghiep.Contains(txtSearch) || item.BienSoXe.Contains(txtSearch))).Include(k => k.Phong).ToList();
+                }
             }
             else
             {
-                if (chkAll != null && chkAll == true)
-                    khachHangs = db.KhachHangs.Include(k => k.Phong).ToList();
+                if (cmbPhong != null && cmbPhong != "")
+                {
+                    var ID = Convert.ToInt32(cmbPhong);
+                    khachHangs = db.KhachHangs.Where(item => item.IDPhong == ID && item.Thue == true &&(item.HoTen.Contains(txtSearch) || item.NgheNghiep.Contains(txtSearch) || item.BienSoXe.Contains(txtSearch))).Include(k => k.Phong).ToList();
+                }
                 else
-                    khachHangs = db.KhachHangs.Where(item => item.Thue == true).Include(k => k.Phong).ToList();
+                {
+                    khachHangs = db.KhachHangs.Where(item => item.Thue == true&& (item.HoTen.Contains(txtSearch) || item.NgheNghiep.Contains(txtSearch) || item.BienSoXe.Contains(txtSearch))).Include(k => k.Phong).ToList();
+                }
             }
+
             return View(khachHangs.OrderBy(item => item.IDPhong).ThenBy(item => item.Ten).ToList());
         }
 
@@ -65,7 +76,7 @@ namespace PhongTroWebMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,HoTen,GioiTinh,NgaySinh,DienThoai,BienSoXe,Thue,IDPhong,CreateDate,ModifyDate")] KhachHang khachHang, IEnumerable<HttpPostedFileBase> imageUploads)
+        public ActionResult Create([Bind(Include = "ID,HoTen,GioiTinh,NgaySinh,DienThoai,NgheNghiep,BienSoXe,Thue,IDPhong,CreateDate,ModifyDate")] KhachHang khachHang, IEnumerable<HttpPostedFileBase> imageUploads)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +125,7 @@ namespace PhongTroWebMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,HoTen,GioiTinh,NgaySinh,DienThoai,BienSoXe,Thue,NgayVao,NgayRa,IDPhong,CreateDate,ModifyDate")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "ID,HoTen,GioiTinh,NgaySinh,DienThoai,NgheNghiep,BienSoXe,Thue,NgayVao,NgayRa,IDPhong,CreateDate,ModifyDate")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
