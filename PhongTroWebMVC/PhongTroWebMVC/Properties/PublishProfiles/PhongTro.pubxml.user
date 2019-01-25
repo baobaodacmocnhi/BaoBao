@@ -67,7 +67,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2018 09:50:19</publishTime>
     </File>
     <File Include="bin/PhongTroWebMVC.dll">
-      <publishTime>01/14/2019 16:19:57</publishTime>
+      <publishTime>01/25/2019 10:22:48</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>12/28/2018 09:50:15</publishTime>
@@ -457,19 +457,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/20/2018 16:19:56</publishTime>
     </File>
     <File Include="Views/Phongs/Create.cshtml">
-      <publishTime>12/28/2018 09:49:52</publishTime>
+      <publishTime>01/25/2019 10:20:33</publishTime>
     </File>
     <File Include="Views/Phongs/Delete.cshtml">
       <publishTime>12/28/2018 09:49:52</publishTime>
     </File>
     <File Include="Views/Phongs/Details.cshtml">
-      <publishTime>12/28/2018 09:49:52</publishTime>
+      <publishTime>01/25/2019 10:21:54</publishTime>
     </File>
     <File Include="Views/Phongs/Edit.cshtml">
-      <publishTime>12/28/2018 09:49:52</publishTime>
+      <publishTime>01/25/2019 10:21:54</publishTime>
     </File>
     <File Include="Views/Phongs/Index.cshtml">
-      <publishTime>01/05/2019 08:25:19</publishTime>
+      <publishTime>01/25/2019 10:21:54</publishTime>
     </File>
     <File Include="Views/PhongTro/GiaDien.cshtml">
       <publishTime>12/19/2018 16:46:54</publishTime>

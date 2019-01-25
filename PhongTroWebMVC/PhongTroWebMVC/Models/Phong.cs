@@ -56,6 +56,10 @@
         [Display(Name = "Chỉ số nước mới")]
         public int? ChiSoNuoc { get; set; }
 
+        [Display(Name = "Ngày Đăng Ký Tạm Trú")]
+        [Column(TypeName = "date")]
+        public DateTime? NgayDangKyTamTru { get; set; }
+
         [Display(Name = "Ngày tạo")]
         public DateTime? CreateDate { get; set; }
 
