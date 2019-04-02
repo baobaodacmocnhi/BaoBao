@@ -67,7 +67,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2018 09:50:19</publishTime>
     </File>
     <File Include="bin/PhongTroWebMVC.dll">
-      <publishTime>03/21/2019 11:11:22</publishTime>
+      <publishTime>04/02/2019 13:23:54</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>12/28/2018 09:50:15</publishTime>
@@ -349,10 +349,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2018 09:49:51</publishTime>
     </File>
     <File Include="Views/HinhAnhs/Edit.cshtml">
-      <publishTime>12/28/2018 09:49:51</publishTime>
+      <publishTime>02/04/2019 09:02:25</publishTime>
     </File>
     <File Include="Views/HinhAnhs/Index.cshtml">
-      <publishTime>12/28/2018 09:49:51</publishTime>
+      <publishTime>04/02/2019 13:22:42</publishTime>
     </File>
     <File Include="Views/HoaDon/Create.cshtml">
       <publishTime>12/20/2018 16:09:09</publishTime>
@@ -421,7 +421,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/14/2019 16:12:57</publishTime>
     </File>
     <File Include="Views/KhachHangs/Index.cshtml">
-      <publishTime>01/14/2019 16:12:04</publishTime>
+      <publishTime>04/02/2019 11:05:16</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>12/19/2018 10:26:34</publishTime>

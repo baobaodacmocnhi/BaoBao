@@ -20,7 +20,7 @@ namespace PhongTroWebMVC.Controllers
             ViewBag.lstPhong = new SelectList(db.Phongs, "ID", "Name");
             if (txtSearch == null)
                 txtSearch = "";
-            List<KhachHang> khachHangs;
+            List<KhachHang> khachHangs=null;
             if (chkAll != null && chkAll == true)
             {
                 if (cmbPhong != null && cmbPhong != "")
@@ -45,8 +45,7 @@ namespace PhongTroWebMVC.Controllers
                     khachHangs = db.KhachHangs.Where(item => item.Thue == true&& (item.HoTen.Contains(txtSearch) || item.NgheNghiep.Contains(txtSearch) || item.BienSoXe.Contains(txtSearch))).Include(k => k.Phong).ToList();
                 }
             }
-
-            return View(khachHangs.OrderBy(item => item.IDPhong).ThenBy(item => item.Ten).ToList());
+                return View(khachHangs.OrderBy(item => item.IDPhong).ThenBy(item => item.Ten).ToList());
         }
 
         // GET: KhachHangs/Details/5

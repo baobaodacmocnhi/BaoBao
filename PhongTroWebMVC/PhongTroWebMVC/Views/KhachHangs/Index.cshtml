@@ -18,6 +18,7 @@
         <p>
             @Html.ActionLink("Create New", "Create")
         </p>
+
         <div class="form-group">
             @Html.CheckBox("chkAll", false) Tất Cả (Thuê & Hết Thuê)
             <br />
@@ -58,6 +59,7 @@
                 </th>
                 <th></th>
             </tr>
+
             @{ int rowNumber = 0; }
             @foreach (var item in Model)
             {
@@ -95,8 +97,8 @@
                         @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { onclick = "return confirm('Bạn có chắc chắn xóa?');" })
                     </td>
                 </tr>
-            }
 
+            }
         </table>
                 }
 </body>

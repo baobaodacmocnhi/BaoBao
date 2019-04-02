@@ -111,41 +111,54 @@
 
 </head>
 <body>
-    <h2>DANH SÁCH HÌNH ẢNH</h2>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Image_Thumb)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KhachHang.HoTen)
-            </th>
-            <th></th>
-        </tr>
+    @using (Html.BeginForm("Index", "HinhAnhs", FormMethod.Post))
+    {
+        <h2>DANH SÁCH HÌNH ẢNH</h2>
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
 
-        @foreach (var item in Model)
-        {
+        <div class="form-group">
+            @Html.CheckBox("chkAll", false) Tất Cả (Thuê & Hết Thuê)
+            <br />
+            @Html.DisplayNameFor(model => model.KhachHang.Phong.Name)
+            @Html.DropDownList("cmbPhong", ViewBag.lstPhong as SelectList, "Tất Cả", new { onchange = "this.form.submit();" })
+            <input type="submit" value="Load" class="btn btn-default" />
+        </div>
+
+        <table class="table">
             <tr>
-                <td>
-                    <img src="@Url.Action("GetImage", new { id=item.ID})" width="100" height="100" class="modal-img" />
-
-                    @*@Html.DisplayFor(modelItem => item.Image)*@
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { onclick = "return confirm('Bạn có chắc chắn xóa?');" })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Image_Thumb)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.KhachHang.HoTen)
+                </th>
+                <th></th>
             </tr>
-        }
+            @if (Model == null)
+            {
+                return;
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@Url.Action("GetImage", new { id = item.ID })" width="100" height="100" class="modal-img" />
 
-    </table>
-
+                        @*@Html.DisplayFor(modelItem => item.Image)*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @*@Html.ActionLink("Details", "Details", new { id = item.ID }) |*@
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { onclick = "return confirm('Bạn có chắc chắn xóa?');" })
+                    </td>
+                </tr>
+            }
+        </table>
+    }
 </body>
 </html>

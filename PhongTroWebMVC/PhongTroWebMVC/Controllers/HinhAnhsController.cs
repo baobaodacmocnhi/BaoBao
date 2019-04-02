@@ -17,10 +17,38 @@ namespace PhongTroWebMVC.Controllers
         private dbPhongTro db = new dbPhongTro();
 
         // GET: HinhAnhs
-        public ActionResult Index()
+        public ActionResult Index(bool? chkAll, string cmbPhong)
         {
-            var hinhAnhs = db.HinhAnhs.Include(h => h.KhachHang);
-            return View(hinhAnhs.ToList());
+            ViewBag.lstPhong = new SelectList(db.Phongs, "ID", "Name");
+            List<HinhAnh> hinhAnhs = null;
+            if (chkAll != null && chkAll == true)
+            {
+                if (cmbPhong != null && cmbPhong != "")
+                {
+                    var ID = Convert.ToInt32(cmbPhong);
+                    hinhAnhs = db.HinhAnhs.Where(item => item.KhachHang.Phong.ID == ID).Include(h => h.KhachHang).ToList();
+                }
+                else
+                {
+                    //hinhAnhs = db.HinhAnhs.Include(h => h.KhachHang).ToList();
+                }
+            }
+            else
+            {
+                if (cmbPhong != null && cmbPhong != "")
+                {
+                    var ID = Convert.ToInt32(cmbPhong);
+                    hinhAnhs = db.HinhAnhs.Where(item => item.KhachHang.Phong.ID == ID && item.KhachHang.Thue == true).Include(h => h.KhachHang).ToList();
+                }
+                else
+                {
+                    //hinhAnhs = db.HinhAnhs.Where(item => item.KhachHang.Thue == true).Include(h => h.KhachHang).ToList();
+                }
+            }
+            if (hinhAnhs == null)
+                return View();
+            else
+                return View(hinhAnhs.ToList());
         }
 
         // GET: HinhAnhs/Details/5
