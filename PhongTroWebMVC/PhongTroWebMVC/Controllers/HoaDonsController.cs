@@ -244,13 +244,14 @@ namespace PhongTroWebMVC.Controllers
 
         public int TinhTienDien(int SoNKDien, int TieuThu, out string ChiTiet)
         {
-            int B1 = (int)Math.Round(50 * ((double)SoNKDien / 4), 1);
-            int B2 = (int)Math.Round(100 * ((double)SoNKDien / 4), 1);
-            int B3 = (int)Math.Round(200 * ((double)SoNKDien / 4), 1);
-            int B4 = (int)Math.Round(300 * ((double)SoNKDien / 4), 1);
-            int B5 = (int)Math.Round(400 * ((double)SoNKDien / 4), 1);
-
             List<GiaDien> dtGiaDien = db.GiaDiens.ToList();
+            int B1 = (int)Math.Round(dtGiaDien[0].DinhMuc.Value * ((double)SoNKDien / 4), 1);
+            int B2 = (int)Math.Round((dtGiaDien[1].DinhMuc.Value- dtGiaDien[0].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
+            int B3 = (int)Math.Round((dtGiaDien[2].DinhMuc.Value - dtGiaDien[1].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
+            int B4 = (int)Math.Round((dtGiaDien[3].DinhMuc.Value - dtGiaDien[2].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
+            int B5 = (int)Math.Round((dtGiaDien[4].DinhMuc.Value - dtGiaDien[3].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
+
+            //List<GiaDien> dtGiaDien = db.GiaDiens.ToList();
             int TienDien = 0;
             ChiTiet = "";
             if (TieuThu <= B1)
