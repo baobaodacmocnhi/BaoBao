@@ -26,8 +26,8 @@ namespace QuanLyBanHang.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=113.161.88.180,1133;Initial Catalog=QuanLyBanHang;Persist Security In" +
-            "fo=True;User ID=sa;Password=db11@tanhoa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=serverg8-01;Initial Catalog=QuanLyBanHang;User ID=sa;Password=db11@ta" +
+            "nhoa")]
         public string QuanLyBanHangConnectionString {
             get {
                 return ((string)(this["QuanLyBanHangConnectionString"]));

@@ -60,16 +60,6 @@ namespace QuanLyBanHang.GUI.HeThong
                             CNguoiDung.dtQuyenNhom = _cPhanQuyenNhom.GetDSByMaNhom(true, nguoidung.MaNhom.Value);
                         CNguoiDung.dtQuyenNguoiDung = _cPhanQuyenNguoiDung.GetDSByMaND(true, nguoidung.MaU);
 
-                        CNguoiDung.Name_PC = SystemInformation.ComputerName;
-                        var host = Dns.GetHostEntry(Dns.GetHostName());
-                        foreach (var ip in host.AddressList)
-                        {
-                            if (ip.AddressFamily == AddressFamily.InterNetwork)
-                            {
-                                CNguoiDung.IP_PC = ip.ToString();
-                            }
-                        }
-
                         GetLoginResult(true);
                         this.Hide();
                     }

@@ -23,18 +23,18 @@ namespace QuanLyBanHang.DAL.QuanTri
             set { CNguoiDung._HoTen = value; }
         }
 
-        static int _MaTo;
-        public static int MaTo
+        static int _MaPhong;
+        public static int MaPhong
         {
-            get { return CNguoiDung._MaTo; }
-            set { CNguoiDung._MaTo = value; }
+            get { return CNguoiDung._MaPhong; }
+            set { CNguoiDung._MaPhong = value; }
         }
 
-        static string _TenTo;
-        public static string TenTo
+        static string _TenPhong;
+        public static string TenPhong
         {
-            get { return CNguoiDung._TenTo; }
-            set { CNguoiDung._TenTo = value; }
+            get { return CNguoiDung._TenPhong; }
+            set { CNguoiDung._TenPhong = value; }
         }
 
         static bool _Admin;
@@ -42,34 +42,6 @@ namespace QuanLyBanHang.DAL.QuanTri
         {
             get { return CNguoiDung._Admin; }
             set { CNguoiDung._Admin = value; }
-        }
-
-        static bool _PhoGiamDoc;
-        public static bool PhoGiamDoc
-        {
-            get { return CNguoiDung._PhoGiamDoc; }
-            set { CNguoiDung._PhoGiamDoc = value; }
-        }
-
-        static bool _Doi;
-        public static bool Doi
-        {
-            get { return CNguoiDung._Doi; }
-            set { CNguoiDung._Doi = value; }
-        }
-
-        static bool _ToTruong;
-        public static bool ToTruong
-        {
-            get { return CNguoiDung._ToTruong; }
-            set { CNguoiDung._ToTruong = value; }
-        }
-
-        static bool _SyncNopTien;
-        public static bool SyncNopTien
-        {
-            get { return CNguoiDung._SyncNopTien; }
-            set { CNguoiDung._SyncNopTien = value; }
         }
 
         static System.Data.DataTable _dtQuyenNhom;
@@ -84,27 +56,6 @@ namespace QuanLyBanHang.DAL.QuanTri
         {
             get { return CNguoiDung._dtQuyenNguoiDung; }
             set { CNguoiDung._dtQuyenNguoiDung = value; }
-        }
-
-        static string _Name_PC;
-        public static string Name_PC
-        {
-            get { return CNguoiDung._Name_PC; }
-            set { CNguoiDung._Name_PC = value; }
-        }
-
-        static string _IP_PC;
-        public static string IP_PC
-        {
-            get { return CNguoiDung._IP_PC; }
-            set { CNguoiDung._IP_PC = value; }
-        }
-
-        static int _ID_DangNhap = -1;
-        public static int ID_DangNhap
-        {
-            get { return CNguoiDung._ID_DangNhap; }
-            set { CNguoiDung._ID_DangNhap = value; }
         }
 
         public static bool CheckQuyen(string TenMenu, string LoaiQuyen)
@@ -166,17 +117,10 @@ namespace QuanLyBanHang.DAL.QuanTri
             CNguoiDung.MaU = -1;
             CNguoiDung.HoTen = "";
             CNguoiDung.Admin = false;
-            CNguoiDung.PhoGiamDoc = false;
-            CNguoiDung.Doi = false;
-            CNguoiDung.ToTruong = false;
-            CNguoiDung.SyncNopTien = false;
-            CNguoiDung.MaTo = -1;
-            CNguoiDung.TenTo = "";
+            CNguoiDung.MaPhong= -1;
+            CNguoiDung.TenPhong = "";
             CNguoiDung.dtQuyenNhom = null;
             CNguoiDung.dtQuyenNguoiDung = null;
-            CNguoiDung.Name_PC = "";
-            CNguoiDung.IP_PC = "";
-            CNguoiDung.ID_DangNhap = -1;
         }
 
         public bool Them(User nguoidung)

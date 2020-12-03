@@ -42,10 +42,10 @@ namespace QuanLyBanHang
 
         void Application_Idle(object sender, EventArgs e)
         {
-            if (CNguoiDung.MaTo == 5 && CNguoiDung.MaU != 51)
-                timer.Stop();
-            else
-                timer.Start();
+            //if (CNguoiDung.MaTo == 5 && CNguoiDung.MaU != 51)
+            //    timer.Stop();
+            //else
+            //    timer.Start();
         }
 
         private void frmMain_MouseMove(object sender, MouseEventArgs e)
@@ -178,7 +178,7 @@ namespace QuanLyBanHang
 
         #region Quản Trị
 
-             private void mnuNhom_Click(object sender, EventArgs e)
+        private void mnuNhom_Click(object sender, EventArgs e)
         {
             if (CNguoiDung.CheckQuyen("mnuNhom", "Xem"))
             {
@@ -200,6 +200,17 @@ namespace QuanLyBanHang
                 MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void mnuPhongBan_Click(object sender, EventArgs e)
+        {
+            if (CNguoiDung.CheckQuyen("mnuPhongBan", "Xem"))
+            {
+                frmPhongBan frm = new frmPhongBan();
+                OpenForm(frm);
+            }
+            else
+                MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         #endregion
 
 
@@ -208,6 +219,7 @@ namespace QuanLyBanHang
         {
         }
 
+
+
     }
 }
-    

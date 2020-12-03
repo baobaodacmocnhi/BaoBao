@@ -14,143 +14,201 @@ namespace QuanLyBanHang.GUI.QuanTri
     public partial class frmNguoiDung : Form
     {
         CNhom _cNhom = new CNhom();
+        CPhongBan _cPB = new CPhongBan();
         CNguoiDung _cNguoiDung = new CNguoiDung();
         CMenu _cMenu = new CMenu();
         CPhanQuyenNguoiDung _cPhanQuyenNguoiDung = new CPhanQuyenNguoiDung();
-        int _selectedindex = -1;
         string _mnu = "mnuNguoiDung";
         BindingList<User> _blNguoiDung;
+        User _user = null;
+
 
         public frmNguoiDung()
         {
             InitializeComponent();
         }
 
-        public void Clear()
-        {
-            _selectedindex = -1;
-            txtHoTen.Text = "";
-            txtTaiKhoan.Text = "";
-            txtMatKhau.Text = "";
-            txtDienThoai.Text = "";
-            if (CNguoiDung.Admin)
-            {
-                _blNguoiDung = new BindingList<User>(_cNguoiDung.GetDS_Admin());
-            }
-            else
-            {
-                _blNguoiDung = new BindingList<User>(_cNguoiDung.GetDSExceptMaND(CNguoiDung.MaU));
-            }
-            dgvNguoiDung.DataSource = _blNguoiDung;
-        }
-
         private void frmNguoiDung_Load(object sender, EventArgs e)
         {
-            loaddgv();
             dgvNguoiDung.AutoGenerateColumns = false;
+
+            cmbPhongBan.DataSource = _cPB.getDS();
+            cmbPhongBan.DisplayMember = "HoTen";
+            cmbPhongBan.ValueMember = "ID";
 
             cmbNhom.DataSource = _cNhom.GetDS();
             cmbNhom.DisplayMember = "TenNhom";
             cmbNhom.ValueMember = "MaNhom";
             //cmbNhom.SelectedIndex = -1;
 
-            dgvNguoiDung.DataSource = _blNguoiDung;
+            Clear();
         }
 
-        public void loaddgv()
+        public void Clear()
         {
+            txtHoTen.Text = "";
+            radNam.Checked = true;
+            dateNgaySinh.Value = DateTime.Now;
+            txtDiaChi.Text = "";
+            txtLuong.Text = "";
+            txtPhuCap.Text = "";
+            txtDienThoai.Text = "";
+            txtTaiKhoan.Text = "";
+            txtMatKhau.Text = "";
+            cmbPhongBan.SelectedIndex = -1;
+            cmbNhom.SelectedIndex = -1;
+            picHinh.Image = null;
+            chkAn.Checked = false;
+            _user = null;
             if (CNguoiDung.Admin)
             {
                 chkAn.Visible = true;
                 _blNguoiDung = new BindingList<User>(_cNguoiDung.GetDS_Admin());
             }
             else
-                if (CNguoiDung.Doi)
-                {
-                    chkAn.Visible = true;
-                    _blNguoiDung = new BindingList<User>(_cNguoiDung.GetDSExceptMaND_Doi(CNguoiDung.MaU));
-                }
-                else
-                {
-                    chkAn.Visible = false;
-                    _blNguoiDung = new BindingList<User>(_cNguoiDung.GetDSExceptMaND(CNguoiDung.MaU));
-                }
+            {
+                chkAn.Visible = false;
+                _blNguoiDung = new BindingList<User>(_cNguoiDung.GetDSExceptMaND(CNguoiDung.MaU));
+            }
+            dgvNguoiDung.DataSource = _blNguoiDung;
+        }
+
+        public void loadEntity(User en)
+        {
+            txtHoTen.Text = en.HoTen;
+            if (en.GioiTinh == true)
+                radNam.Checked = true;
+            else
+                radNu.Checked = true;
+            dateNgaySinh.Value = en.NgaySinh.Value;
+            txtDiaChi.Text = en.DiaChi;
+            if (en.Luong != null)
+                txtLuong.Text = en.Luong.Value.ToString();
+            else
+                txtLuong.Text = "";
+            if (en.PhuCap != null)
+                txtPhuCap.Text = en.PhuCap.Value.ToString();
+            else
+                txtPhuCap.Text="";
+            txtDienThoai.Text = en.DienThoai;
+            txtTaiKhoan.Text = en.TaiKhoan;
+            txtMatKhau.Text = en.MatKhau;
+            if (en.IDPhong != null)
+                cmbPhongBan.SelectedValue = en.IDPhong;
+            else
+                cmbPhongBan.SelectedIndex = -1;
+            if (en.MaNhom != null)
+                cmbNhom.SelectedValue = en.MaNhom;
+            else
+                cmbNhom.SelectedIndex = -1;
+            if (en.Hinh != null)
+                picHinh.Image = _cNguoiDung.byteArrayToImage(en.Hinh.ToArray());
+            else
+                picHinh.Image = QuanLyBanHang.Properties.Resources.questionmark128x128;
+                
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (CNguoiDung.CheckQuyen(_mnu, "Them"))
+            try
             {
-                if (txtHoTen.Text.Trim() != "" && txtTaiKhoan.Text.Trim() != "" && txtMatKhau.Text.Trim() != "")
+                if (CNguoiDung.CheckQuyen(_mnu, "Them"))
                 {
-                    User nguoidung = new User();
-                    nguoidung.HoTen = txtHoTen.Text.Trim();
-                    nguoidung.DienThoai = txtDienThoai.Text.Trim();
-                    nguoidung.TaiKhoan = txtTaiKhoan.Text.Trim();
-                    nguoidung.MatKhau = txtMatKhau.Text.Trim();
-                    nguoidung.STT = _cNguoiDung.GetMaxSTT() + 1;
-                    if (cmbNhom.SelectedIndex != -1)
-                        nguoidung.MaNhom = (int)cmbNhom.SelectedValue;
-                    nguoidung.An = chkAn.Checked;
-                    ///tự động thêm quyền cho người mới
-                    foreach (var item in _cMenu.GetDS())
+                    if (txtHoTen.Text.Trim() != "" && txtTaiKhoan.Text.Trim() != "" && txtMatKhau.Text.Trim() != "")
                     {
-                        PhanQuyenNguoiDung phanquyennguoidung = new PhanQuyenNguoiDung();
-                        phanquyennguoidung.MaMenu = item.MaMenu;
-                        phanquyennguoidung.MaU = nguoidung.MaU;
-                        nguoidung.PhanQuyenNguoiDungs.Add(phanquyennguoidung);
-                    }
-                    if (_cNguoiDung.Them(nguoidung))
-                    {
-                        MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Clear();
+                        User nguoidung = new User();
+                        nguoidung.HoTen = txtHoTen.Text.Trim();
+                        if (radNam.Checked == true)
+                            nguoidung.GioiTinh = true;
+                        else
+                            nguoidung.GioiTinh = false;
+                        nguoidung.NgaySinh = dateNgaySinh.Value;
+                        nguoidung.DiaChi = txtDiaChi.Text.Trim();
+                        if (txtLuong.Text.Trim() != "")
+                            nguoidung.Luong = int.Parse(txtLuong.Text.Trim());
+                        if (txtPhuCap.Text.Trim() != "")
+                            nguoidung.PhuCap = int.Parse(txtPhuCap.Text.Trim());
+                        nguoidung.DienThoai = txtDienThoai.Text.Trim();
+                        nguoidung.TaiKhoan = txtTaiKhoan.Text.Trim();
+                        nguoidung.MatKhau = txtMatKhau.Text.Trim();
+                        nguoidung.STT = _cNguoiDung.GetMaxSTT() + 1;
+                        if (cmbPhongBan.SelectedIndex != -1)
+                            nguoidung.IDPhong = (int)cmbPhongBan.SelectedValue;
+                        if (cmbNhom.SelectedIndex != -1)
+                            nguoidung.MaNhom = (int)cmbNhom.SelectedValue;
+                        if (picHinh.Image != null)
+                            nguoidung.Hinh = _cNguoiDung.imgToByteArray(picHinh.Image);
+                        nguoidung.An = chkAn.Checked;
+                        ///tự động thêm quyền cho người mới
+                        foreach (var item in _cMenu.GetDS())
+                        {
+                            PhanQuyenNguoiDung phanquyennguoidung = new PhanQuyenNguoiDung();
+                            phanquyennguoidung.MaMenu = item.MaMenu;
+                            phanquyennguoidung.MaU = nguoidung.MaU;
+                            nguoidung.PhanQuyenNguoiDungs.Add(phanquyennguoidung);
+                        }
+                        if (_cNguoiDung.Them(nguoidung))
+                        {
+                            MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Clear();
+                        }
                     }
                 }
+                else
+                    MessageBox.Show("Bạn không có quyền Thêm Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("Bạn không có quyền Thêm Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
+            try
             {
-                if (_selectedindex != -1)
+                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
                 {
-                    User nguoidung = _cNguoiDung.GetByMaND(int.Parse(dgvNguoiDung["MaU", _selectedindex].Value.ToString()));
-                    if (txtHoTen.Text.Trim() != "" && txtTaiKhoan.Text.Trim() != "" && txtMatKhau.Text.Trim() != "")
+                    if (_user != null)
                     {
-                        nguoidung.HoTen = txtHoTen.Text.Trim();
-                        nguoidung.DienThoai = txtDienThoai.Text.Trim();
-                        nguoidung.TaiKhoan = txtTaiKhoan.Text.Trim();
-                        nguoidung.MatKhau = txtMatKhau.Text.Trim();
-                        nguoidung.MaNhom = (int)cmbNhom.SelectedValue;
-                        nguoidung.An = chkAn.Checked;
-
-                        _cNguoiDung.Sua(nguoidung);
-                    }
-                    DataTable dt = ((DataView)gridView.DataSource).Table;
-                    foreach (DataRow item in dt.Rows)
-                    {
-                        PhanQuyenNguoiDung phanquyennguoidung = _cPhanQuyenNguoiDung.GetByMaMenuMaND(int.Parse(item["MaMenu"].ToString()), nguoidung.MaU);
-                        if (phanquyennguoidung.Xem != bool.Parse(item["Xem"].ToString()) || phanquyennguoidung.Them != bool.Parse(item["Them"].ToString()) ||
-                            phanquyennguoidung.Sua != bool.Parse(item["Sua"].ToString()) || phanquyennguoidung.Xoa != bool.Parse(item["Xoa"].ToString()) ||
-                            phanquyennguoidung.QuanLy != bool.Parse(item["QuanLy"].ToString()))
+                        if (txtHoTen.Text.Trim() != "" && txtTaiKhoan.Text.Trim() != "" && txtMatKhau.Text.Trim() != "")
                         {
-                            phanquyennguoidung.Xem = bool.Parse(item["Xem"].ToString());
-                            phanquyennguoidung.Them = bool.Parse(item["Them"].ToString());
-                            phanquyennguoidung.Sua = bool.Parse(item["Sua"].ToString());
-                            phanquyennguoidung.Xoa = bool.Parse(item["Xoa"].ToString());
-                            phanquyennguoidung.QuanLy = bool.Parse(item["QuanLy"].ToString());
-                            _cPhanQuyenNguoiDung.Sua(phanquyennguoidung);
+                            _user.HoTen = txtHoTen.Text.Trim();
+                            _user.DienThoai = txtDienThoai.Text.Trim();
+                            _user.TaiKhoan = txtTaiKhoan.Text.Trim();
+                            _user.MatKhau = txtMatKhau.Text.Trim();
+                            _user.MaNhom = (int)cmbNhom.SelectedValue;
+                            _user.An = chkAn.Checked;
+
+                            _cNguoiDung.Sua(_user);
                         }
+                        DataTable dt = ((DataView)gridView.DataSource).Table;
+                        foreach (DataRow item in dt.Rows)
+                        {
+                            PhanQuyenNguoiDung phanquyennguoidung = _cPhanQuyenNguoiDung.GetByMaMenuMaND(int.Parse(item["MaMenu"].ToString()), _user.MaU);
+                            if (phanquyennguoidung.Xem != bool.Parse(item["Xem"].ToString()) || phanquyennguoidung.Them != bool.Parse(item["Them"].ToString()) ||
+                                phanquyennguoidung.Sua != bool.Parse(item["Sua"].ToString()) || phanquyennguoidung.Xoa != bool.Parse(item["Xoa"].ToString()) ||
+                                phanquyennguoidung.QuanLy != bool.Parse(item["QuanLy"].ToString()))
+                            {
+                                phanquyennguoidung.Xem = bool.Parse(item["Xem"].ToString());
+                                phanquyennguoidung.Them = bool.Parse(item["Them"].ToString());
+                                phanquyennguoidung.Sua = bool.Parse(item["Sua"].ToString());
+                                phanquyennguoidung.Xoa = bool.Parse(item["Xoa"].ToString());
+                                phanquyennguoidung.QuanLy = bool.Parse(item["QuanLy"].ToString());
+                                _cPhanQuyenNguoiDung.Sua(phanquyennguoidung);
+                            }
+                        }
+                        MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Clear();
                     }
-                    Clear();
-                    MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+                else
+                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -158,45 +216,22 @@ namespace QuanLyBanHang.GUI.QuanTri
             if (CNguoiDung.CheckQuyen(_mnu, "Xoa"))
             {
                 if (MessageBox.Show("Bạn có chắc chắn xóa?", "Xác nhận xóa", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                    if (_selectedindex != -1)
+                    if (_user != null)
                     {
-                        User nguoidung = _cNguoiDung.GetByMaND(int.Parse(dgvNguoiDung["MaU", _selectedindex].Value.ToString()));
                         ///xóa quan hệ 1 nhiều
                         //_cPhanQuyenNguoiDung.Xoa(nguoidung.PhanQuyenNguoiDungs.ToList());
-                        nguoidung.An = true;
-                        _cNguoiDung.Sua(nguoidung);
-                        Clear();
-                        MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        _user.An = true;
+                        if (_cNguoiDung.Sua(_user) == true)
+                        {
+                            MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            Clear();
+                        }
                     }
                     else
                         MessageBox.Show("Lỗi, Vui lòng chọn Người Dùng cần xóa", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
                 MessageBox.Show("Bạn không có quyền Xóa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void dgvNguoiDung_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                _selectedindex = e.RowIndex;
-                txtHoTen.Text = dgvNguoiDung["HoTen", e.RowIndex].Value.ToString();
-                if (dgvNguoiDung["DienThoai", e.RowIndex].Value != null)
-                    txtDienThoai.Text = dgvNguoiDung["DienThoai", e.RowIndex].Value.ToString();
-                txtTaiKhoan.Text = dgvNguoiDung["TaiKhoan", e.RowIndex].Value.ToString();
-                txtMatKhau.Text = dgvNguoiDung["MatKhau", e.RowIndex].Value.ToString();
-                if (dgvNguoiDung["MaNhom", e.RowIndex].Value != null)
-                    cmbNhom.SelectedValue = int.Parse(dgvNguoiDung["MaNhom", e.RowIndex].Value.ToString());
-                chkAn.Checked = bool.Parse(dgvNguoiDung["An", e.RowIndex].Value.ToString());
-                if (CNguoiDung.Admin)
-                    gridControl.DataSource = _cPhanQuyenNguoiDung.GetDSByMaND(true, int.Parse(dgvNguoiDung["MaU", e.RowIndex].Value.ToString()));
-                else
-                    gridControl.DataSource = _cPhanQuyenNguoiDung.GetDSByMaND(false, int.Parse(dgvNguoiDung["MaU", e.RowIndex].Value.ToString()));
-            }
-            catch (Exception)
-            {
-            }
-
         }
 
         private void dgvNguoiDung_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -348,6 +383,38 @@ namespace QuanLyBanHang.GUI.QuanTri
                     rowIndexFromMouseDown = dgvNguoiDung.SelectedRows[0].Index;
                     dgvNguoiDung.DoDragDrop(rw, DragDropEffects.Move);
                 }
+            }
+        }
+
+        private void dgvNguoiDung_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                _user = _cNguoiDung.GetByMaND(int.Parse(dgvNguoiDung["MaND", e.RowIndex].Value.ToString()));
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void picHinh_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png";
+                dialog.Multiselect = false;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    //byte[] bytes = System.IO.File.ReadAllBytes(dialog.FileName);
+                    picHinh.Image = Image.FromFile(dialog.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

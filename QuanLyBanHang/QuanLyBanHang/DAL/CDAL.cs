@@ -430,5 +430,39 @@ namespace QuanLyBanHang.DAL
             }
         }
 
+        //public Bitmap ByteToImage(byte[] blob)
+        //{
+        //    MemoryStream mStream = new MemoryStream();
+        //    byte[] pData = blob;
+        //    mStream.Write(pData, 0, Convert.ToInt32(pData.Length));
+        //    Bitmap bm = new Bitmap(mStream, false);
+        //    mStream.Dispose();
+        //    return bm;
+        //}
+
+        //convert image to bytearray
+        public byte[] imgToByteArray(Image img)
+        {
+            using (MemoryStream mStream = new MemoryStream())
+            {
+                img.Save(mStream, img.RawFormat);
+                return mStream.ToArray();
+            }
+        }
+        //convert bytearray to image
+        public Image byteArrayToImage(byte[] byteArrayIn)
+        {
+            using (MemoryStream mStream = new MemoryStream(byteArrayIn))
+            {
+                return Image.FromStream(mStream);
+            }
+        }
+        //another easy way to convert image to bytearray
+        public static byte[] imgToByteConverter(Image inImg)
+        {
+            ImageConverter imgCon = new ImageConverter();
+            return (byte[])imgCon.ConvertTo(inImg, typeof(byte[]));
+        }
+
     }
 }

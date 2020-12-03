@@ -91,6 +91,7 @@
     <Compile Include="DAL\QuanTri\CNhom.cs" />
     <Compile Include="DAL\QuanTri\CPhanQuyenNguoiDung.cs" />
     <Compile Include="DAL\QuanTri\CPhanQuyenNhom.cs" />
+    <Compile Include="DAL\QuanTri\CPhongBan.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +158,12 @@
     <Compile Include="GUI\QuanTri\frmNhom.designer.cs">
       <DependentUpon>frmNhom.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\QuanTri\frmPhongBan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\QuanTri\frmPhongBan.Designer.cs">
+      <DependentUpon>frmPhongBan.cs</DependentUpon>
+    </Compile>
     <Compile Include="LinQ\dbBanHang.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -200,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\QuanTri\frmNhom.resx">
       <DependentUpon>frmNhom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\QuanTri\frmPhongBan.resx">
+      <DependentUpon>frmPhongBan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -263,7 +273,9 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\questionmark128x128.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
