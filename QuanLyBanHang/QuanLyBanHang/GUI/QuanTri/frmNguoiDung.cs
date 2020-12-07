@@ -57,8 +57,9 @@ namespace QuanLyBanHang.GUI.QuanTri
             txtMatKhau.Text = "";
             cmbPhongBan.SelectedIndex = -1;
             cmbNhom.SelectedIndex = -1;
-            picHinh.Image = null;
+            picHinh.Image = QuanLyBanHang.Properties.Resources.questionmark128x128;
             chkAn.Checked = false;
+            chkChamCong.Checked = false;
             _user = null;
             if (CNguoiDung.Admin)
             {
@@ -80,7 +81,8 @@ namespace QuanLyBanHang.GUI.QuanTri
                 radNam.Checked = true;
             else
                 radNu.Checked = true;
-            dateNgaySinh.Value = en.NgaySinh.Value;
+            if (en.NgaySinh != null)
+                dateNgaySinh.Value = en.NgaySinh.Value;
             txtDiaChi.Text = en.DiaChi;
             if (en.Luong != null)
                 txtLuong.Text = en.Luong.Value.ToString();
@@ -89,7 +91,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             if (en.PhuCap != null)
                 txtPhuCap.Text = en.PhuCap.Value.ToString();
             else
-                txtPhuCap.Text="";
+                txtPhuCap.Text = "";
             txtDienThoai.Text = en.DienThoai;
             txtTaiKhoan.Text = en.TaiKhoan;
             txtMatKhau.Text = en.MatKhau;
@@ -105,7 +107,9 @@ namespace QuanLyBanHang.GUI.QuanTri
                 picHinh.Image = _cNguoiDung.byteArrayToImage(en.Hinh.ToArray());
             else
                 picHinh.Image = QuanLyBanHang.Properties.Resources.questionmark128x128;
-                
+            chkAn.Checked = en.An;
+            chkChamCong.Checked = en.ChamCong;
+            gridControl.DataSource = _cPhanQuyenNguoiDung.GetDSByMaND(false, en.MaU);
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -139,6 +143,7 @@ namespace QuanLyBanHang.GUI.QuanTri
                         if (picHinh.Image != null)
                             nguoidung.Hinh = _cNguoiDung.imgToByteArray(picHinh.Image);
                         nguoidung.An = chkAn.Checked;
+                        nguoidung.ChamCong = chkChamCong.Checked;
                         ///tự động thêm quyền cho người mới
                         foreach (var item in _cMenu.GetDS())
                         {
@@ -177,8 +182,12 @@ namespace QuanLyBanHang.GUI.QuanTri
                             _user.DienThoai = txtDienThoai.Text.Trim();
                             _user.TaiKhoan = txtTaiKhoan.Text.Trim();
                             _user.MatKhau = txtMatKhau.Text.Trim();
-                            _user.MaNhom = (int)cmbNhom.SelectedValue;
+                            if (cmbPhongBan.SelectedIndex != -1)
+                                _user.IDPhong = (int)cmbPhongBan.SelectedValue;
+                            if (cmbNhom.SelectedIndex != -1)
+                                _user.MaNhom = (int)cmbNhom.SelectedValue;
                             _user.An = chkAn.Checked;
+                            _user.ChamCong = chkChamCong.Checked;
 
                             _cNguoiDung.Sua(_user);
                         }
@@ -244,8 +253,6 @@ namespace QuanLyBanHang.GUI.QuanTri
 
         private void dgvNguoiDung_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (dgvNguoiDung.Columns[e.ColumnIndex].Name == "TenNhom" && dgvNguoiDung["MaNhom", e.RowIndex].Value != null)
-                e.Value = _cNhom.GetTenNhomByMaNhom(int.Parse(dgvNguoiDung["MaNhom", e.RowIndex].Value.ToString()));
         }
 
         private void gridView_CellValueChanging(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
@@ -390,8 +397,8 @@ namespace QuanLyBanHang.GUI.QuanTri
         {
             try
             {
-                _user = _cNguoiDung.GetByMaND(int.Parse(dgvNguoiDung["MaND", e.RowIndex].Value.ToString()));
-
+                _user = _cNguoiDung.GetByMaND(int.Parse(dgvNguoiDung["MaU", e.RowIndex].Value.ToString()));
+                loadEntity(_user);
             }
             catch (Exception ex)
             {

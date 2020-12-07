@@ -189,9 +189,14 @@ namespace QuanLyBanHang.DAL.QuanTri
             }
         }
 
-        public List<User> GetDS()
+        public List<User> getDS()
         {
             return _db.Users.OrderBy(item => item.STT).ToList();
+        }
+
+        public List<User> getDS_ChamCong()
+        {
+            return _db.Users.Where(item => item.MaU != 0 && item.ChamCong == true && item.An == false).OrderBy(item => item.STT).ToList();
         }
 
         /// <summary>

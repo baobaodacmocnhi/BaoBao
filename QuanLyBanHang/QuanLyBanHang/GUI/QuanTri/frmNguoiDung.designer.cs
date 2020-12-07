@@ -77,7 +77,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.picHinh = new System.Windows.Forms.PictureBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.MaND = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkChamCong = new System.Windows.Forms.CheckBox();
+            this.MaU = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DienThoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TaiKhoan = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,6 +87,7 @@
             this.TenPhong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaNhom = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenNhom = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ChamCong = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.An = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNguoiDung)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -171,7 +173,7 @@
             this.dgvNguoiDung.AllowUserToAddRows = false;
             this.dgvNguoiDung.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNguoiDung.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.MaND,
+            this.MaU,
             this.HoTen,
             this.DienThoai,
             this.TaiKhoan,
@@ -180,6 +182,7 @@
             this.TenPhong,
             this.MaNhom,
             this.TenNhom,
+            this.ChamCong,
             this.An});
             this.dgvNguoiDung.Location = new System.Drawing.Point(12, 171);
             this.dgvNguoiDung.MultiSelect = false;
@@ -564,12 +567,22 @@
             this.label12.TabIndex = 23;
             this.label12.Text = "Hình";
             // 
-            // MaND
+            // chkChamCong
             // 
-            this.MaND.DataPropertyName = "MaND";
-            this.MaND.HeaderText = "MaND";
-            this.MaND.Name = "MaND";
-            this.MaND.Visible = false;
+            this.chkChamCong.AutoSize = true;
+            this.chkChamCong.Location = new System.Drawing.Point(481, 148);
+            this.chkChamCong.Name = "chkChamCong";
+            this.chkChamCong.Size = new System.Drawing.Size(81, 17);
+            this.chkChamCong.TabIndex = 42;
+            this.chkChamCong.Text = "Chấm Công";
+            this.chkChamCong.UseVisualStyleBackColor = true;
+            // 
+            // MaU
+            // 
+            this.MaU.DataPropertyName = "MaU";
+            this.MaU.HeaderText = "MaND";
+            this.MaU.Name = "MaU";
+            this.MaU.Visible = false;
             // 
             // HoTen
             // 
@@ -624,6 +637,12 @@
             this.TenNhom.Name = "TenNhom";
             this.TenNhom.Width = 70;
             // 
+            // ChamCong
+            // 
+            this.ChamCong.HeaderText = "Chấm Công";
+            this.ChamCong.Name = "ChamCong";
+            this.ChamCong.Width = 40;
+            // 
             // An
             // 
             this.An.DataPropertyName = "An";
@@ -638,6 +657,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1281, 666);
+            this.Controls.Add(this.chkChamCong);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.picHinh);
             this.Controls.Add(this.txtPhuCap);
@@ -739,7 +759,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.PictureBox picHinh;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaND;
+        private System.Windows.Forms.CheckBox chkChamCong;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaU;
         private System.Windows.Forms.DataGridViewTextBoxColumn HoTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn DienThoai;
         private System.Windows.Forms.DataGridViewTextBoxColumn TaiKhoan;
@@ -748,6 +769,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn TenPhong;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaNhom;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenNhom;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ChamCong;
         private System.Windows.Forms.DataGridViewCheckBoxColumn An;
     }
 }

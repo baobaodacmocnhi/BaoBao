@@ -82,10 +82,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dsBaoCao.xsd</DependentUpon>
     </Compile>
+    <Compile Include="BaoCao\QuanTri\rptBangLuong.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptBangLuong.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DAL\CDAL.cs" />
     <Compile Include="DAL\DanhMuc\CNhaCungCap.cs" />
     <Compile Include="DAL\DanhMuc\CSanPham.cs" />
     <Compile Include="DAL\NhapXuat\CNhapXuatKho.cs" />
+    <Compile Include="DAL\QuanTri\CChamCong.cs" />
     <Compile Include="DAL\QuanTri\CMenu.cs" />
     <Compile Include="DAL\QuanTri\CNguoiDung.cs" />
     <Compile Include="DAL\QuanTri\CNhom.cs" />
@@ -146,6 +153,12 @@
     <Compile Include="GUI\NhapXuat\frmXuatKho.Designer.cs">
       <DependentUpon>frmXuatKho.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\QuanTri\frmChamCong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\QuanTri\frmChamCong.designer.cs">
+      <DependentUpon>frmChamCong.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\QuanTri\frmNguoiDung.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,6 +188,10 @@
     <None Include="LinQ\dbBanHang.dbml.layout">
       <DependentUpon>dbBanHang.dbml</DependentUpon>
     </None>
+    <EmbeddedResource Include="BaoCao\QuanTri\rptBangLuong.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptBangLuong.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,6 +218,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\NhapXuat\frmXuatKho.resx">
       <DependentUpon>frmXuatKho.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\QuanTri\frmChamCong.resx">
+      <DependentUpon>frmChamCong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\QuanTri\frmNguoiDung.resx">
       <DependentUpon>frmNguoiDung.cs</DependentUpon>
@@ -272,6 +292,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\questionmark128x128.png" />

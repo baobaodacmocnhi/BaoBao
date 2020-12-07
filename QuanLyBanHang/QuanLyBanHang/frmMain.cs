@@ -211,6 +211,17 @@ namespace QuanLyBanHang
                 MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        private void mnuChamCong_Click(object sender, EventArgs e)
+        {
+            if (CNguoiDung.CheckQuyen("mnuChamCong", "Xem"))
+            {
+                frmChamCong frm = new frmChamCong();
+                OpenForm(frm);
+            }
+            else
+                MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         #endregion
 
 
@@ -218,6 +229,8 @@ namespace QuanLyBanHang
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
         }
+
+        
 
 
 

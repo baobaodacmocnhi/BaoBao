@@ -1,16 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<xs:schema id="dsBaoCao" 
-                  targetNamespace="http://tempuri.org/dsBaoCao.xsd"
-                  elementFormDefault="qualified"
-                  attributeFormDefault="qualified"
-                  xmlns="http://tempuri.org/dsBaoCao.xsd"
-                  xmlns:mstns="http://tempuri.org/dsBaoCao.xsd"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
-                  xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-    <xs:element name="dsBaoCao" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true">
-        <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded"></xs:choice>
-        </xs:complexType>
-    </xs:element>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsBaoCao" targetNamespace="http://tempuri.org/dsBaoCao.xsd" xmlns:mstns="http://tempuri.org/dsBaoCao.xsd" xmlns="http://tempuri.org/dsBaoCao.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsBaoCao" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsBaoCao" msprop:Generator_UserDSName="dsBaoCao">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtBaoCao" msprop:Generator_TableClassName="dtBaoCaoDataTable" msprop:Generator_TableVarName="tabledtBaoCao" msprop:Generator_TablePropName="dtBaoCao" msprop:Generator_RowDeletingName="dtBaoCaoRowDeleting" msprop:Generator_RowChangingName="dtBaoCaoRowChanging" msprop:Generator_RowEvHandlerName="dtBaoCaoRowChangeEventHandler" msprop:Generator_RowDeletedName="dtBaoCaoRowDeleted" msprop:Generator_UserTableName="dtBaoCao" msprop:Generator_RowChangedName="dtBaoCaoRowChanged" msprop:Generator_RowEvArgName="dtBaoCaoRowChangeEvent" msprop:Generator_RowClassName="dtBaoCaoRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PhongBan" msprop:Generator_ColumnVarNameInTable="columnPhongBan" msprop:Generator_ColumnPropNameInRow="PhongBan" msprop:Generator_ColumnPropNameInTable="PhongBanColumn" msprop:Generator_UserColumnName="PhongBan" type="xs:string" minOccurs="0" />
+              <xs:element name="NhanVien" msprop:Generator_ColumnVarNameInTable="columnNhanVien" msprop:Generator_ColumnPropNameInRow="NhanVien" msprop:Generator_ColumnPropNameInTable="NhanVienColumn" msprop:Generator_UserColumnName="NhanVien" type="xs:string" minOccurs="0" />
+              <xs:element name="ThoiGian" msprop:Generator_ColumnVarNameInTable="columnThoiGian" msprop:Generator_ColumnPropNameInRow="ThoiGian" msprop:Generator_ColumnPropNameInTable="ThoiGianColumn" msprop:Generator_UserColumnName="ThoiGian" type="xs:string" minOccurs="0" />
+              <xs:element name="SoNgayNghi" msprop:Generator_ColumnVarNameInTable="columnSoNgayNghi" msprop:Generator_ColumnPropNameInRow="SoNgayNghi" msprop:Generator_ColumnPropNameInTable="SoNgayNghiColumn" msprop:Generator_UserColumnName="SoNgayNghi" type="xs:string" minOccurs="0" />
+              <xs:element name="Luong" msprop:Generator_ColumnVarNameInTable="columnLuong" msprop:Generator_ColumnPropNameInRow="Luong" msprop:Generator_ColumnPropNameInTable="LuongColumn" msprop:Generator_UserColumnName="Luong" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

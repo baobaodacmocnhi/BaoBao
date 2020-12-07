@@ -56,7 +56,7 @@ namespace QuanLyBanHang.GUI.HeThong
                             phanquyennhom.CreateDate = DateTime.Now;
                             menu.PhanQuyenNhoms.Add(phanquyennhom);
                         }
-                        foreach (var item in _cNguoiDung.GetDS())
+                        foreach (var item in _cNguoiDung.getDS())
                         {
                             PhanQuyenNguoiDung phanquyennguoidung = new PhanQuyenNguoiDung();
                             phanquyennguoidung.MaMenu = menu.MaMenu;
@@ -107,7 +107,7 @@ namespace QuanLyBanHang.GUI.HeThong
         {
             foreach (var itemMenu in _cMenu.GetDS())
             {
-                foreach (var itemND in _cNguoiDung.GetDS())
+                foreach (var itemND in _cNguoiDung.getDS())
                 {
                     if (!_cPhanQuyenNguoiDung.CheckByMaMenuMaND(itemMenu.MaMenu, itemND.MaU))
                     {

@@ -37,8 +37,9 @@
             this.mnuDangXuat = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAdmin = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuQuanTri = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuNhom = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNguoiDung = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuNhom = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuPhongBan = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDanhMuc = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSanPham = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNhaCungCap = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +54,7 @@
             this.StripStatus_HoTen = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.mnuPhongBan = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuChamCong = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -117,12 +118,20 @@
             // mnuQuanTri
             // 
             this.mnuQuanTri.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuChamCong,
             this.mnuNguoiDung,
             this.mnuNhom,
             this.mnuPhongBan});
             this.mnuQuanTri.Name = "mnuQuanTri";
             this.mnuQuanTri.Size = new System.Drawing.Size(63, 19);
             this.mnuQuanTri.Text = "Quản Trị";
+            // 
+            // mnuNguoiDung
+            // 
+            this.mnuNguoiDung.Name = "mnuNguoiDung";
+            this.mnuNguoiDung.Size = new System.Drawing.Size(152, 22);
+            this.mnuNguoiDung.Text = "Người Dùng";
+            this.mnuNguoiDung.Click += new System.EventHandler(this.mnuNguoiDung_Click);
             // 
             // mnuNhom
             // 
@@ -131,12 +140,12 @@
             this.mnuNhom.Text = "Nhóm";
             this.mnuNhom.Click += new System.EventHandler(this.mnuNhom_Click);
             // 
-            // mnuNguoiDung
+            // mnuPhongBan
             // 
-            this.mnuNguoiDung.Name = "mnuNguoiDung";
-            this.mnuNguoiDung.Size = new System.Drawing.Size(152, 22);
-            this.mnuNguoiDung.Text = "Người Dùng";
-            this.mnuNguoiDung.Click += new System.EventHandler(this.mnuNguoiDung_Click);
+            this.mnuPhongBan.Name = "mnuPhongBan";
+            this.mnuPhongBan.Size = new System.Drawing.Size(152, 22);
+            this.mnuPhongBan.Text = "Phòng Ban";
+            this.mnuPhongBan.Click += new System.EventHandler(this.mnuPhongBan_Click);
             // 
             // mnuDanhMuc
             // 
@@ -239,12 +248,12 @@
             this.timer.Interval = 1200000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // mnuPhongBan
+            // mnuChamCong
             // 
-            this.mnuPhongBan.Name = "mnuPhongBan";
-            this.mnuPhongBan.Size = new System.Drawing.Size(152, 22);
-            this.mnuPhongBan.Text = "Phòng Ban";
-            this.mnuPhongBan.Click += new System.EventHandler(this.mnuPhongBan_Click);
+            this.mnuChamCong.Name = "mnuChamCong";
+            this.mnuChamCong.Size = new System.Drawing.Size(152, 22);
+            this.mnuChamCong.Text = "Chấm Công";
+            this.mnuChamCong.Click += new System.EventHandler(this.mnuChamCong_Click);
             // 
             // frmMain
             // 
@@ -301,6 +310,7 @@
         private System.Windows.Forms.ToolStripMenuItem mnuXuatKho;
         private System.Windows.Forms.ToolStripMenuItem mnuBaoCao;
         private System.Windows.Forms.ToolStripMenuItem mnuPhongBan;
+        private System.Windows.Forms.ToolStripMenuItem mnuChamCong;
     }
 }
 
