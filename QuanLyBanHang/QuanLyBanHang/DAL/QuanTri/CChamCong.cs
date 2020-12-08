@@ -76,6 +76,11 @@ namespace QuanLyBanHang.DAL.QuanTri
             return _db.ChamCongs.SingleOrDefault(item => item.ID == ID);
         }
 
+        public ChamCong get(int Thang, int Nam)
+        {
+            return _db.ChamCongs.SingleOrDefault(item => item.Thang.Value == Thang && item.Nam.Value == Nam);
+        }
+
         public DataTable getDS()
         {
             var query = from item in _db.ChamCongs
@@ -132,16 +137,34 @@ namespace QuanLyBanHang.DAL.QuanTri
                             item.N29,
                             item.N30,
                             item.N31,
-                            Nghi=0,
+                            Nghi = 0,
+                            item.LuongCoBan,
+                            item.LuongThucLanh,
+                            item.TamUng1,
+                            item.TamUng2,
+                            item.TamUng3,
+                            item.BoiDuong,
+                            item.ThuongDotXuat,
+                            item.ThuongLe,
+                            item.ThuongThang,
+                            item.ThuongQuy,
+                            item.ThuongNam,
+                            item.PhuCapXang,
+                            item.PhuCapDienThoai,
+                            item.TienCom1Ngay,
                         };
             return LINQToDataTable(query);
         }
 
-
-
-        public bool ChamCong(int ID, int MaNV, string Ngay, bool Nghi)
+        public bool suaChamCong(int ID, int MaNV, string Ngay, bool Nghi)
         {
-            string sql = "update ChamCong_ChiTiet set " + Ngay + "='" + Nghi + "' where ID=" + ID + " and MaU=" + MaNV;
+            string sql = "update ChamCong_ChiTiet set " + Ngay + "='" + Nghi + "',ModifyBy=" + CNguoiDung.MaU + ",ModifyDate=getdate() where ID=" + ID + " and MaU=" + MaNV;
+            return LinQ_ExecuteNonQuery(sql);
+        }
+
+        public bool suaPhuCap(int ID, int MaNV, string PhuCap)
+        {
+            string sql = "update ChamCong_ChiTiet set PhuCap=" + PhuCap + ",ModifyBy=" + CNguoiDung.MaU + ",ModifyDate=getdate() where ID=" + ID + " and MaU=" + MaNV;
             return LinQ_ExecuteNonQuery(sql);
         }
 

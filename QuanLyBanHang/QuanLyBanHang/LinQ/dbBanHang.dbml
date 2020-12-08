@@ -35,8 +35,6 @@
       <Column Name="GioiTinh" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="Hinh" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="Luong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="PhuCap" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -81,6 +79,21 @@
       <Column Name="N29" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="N30" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="N31" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="LuongCoBan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LuongKhoan" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TamUng1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TamUng2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TamUng3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BoiDuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThuongDotXuat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThuongLe" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThuongThang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThuongQuy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThuongNam" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PhuCapXang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PhuCapDienThoai" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TienCom1Ngay" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LuongThucLanh" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />

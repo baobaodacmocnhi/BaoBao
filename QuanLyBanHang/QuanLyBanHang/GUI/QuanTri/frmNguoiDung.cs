@@ -84,14 +84,14 @@ namespace QuanLyBanHang.GUI.QuanTri
             if (en.NgaySinh != null)
                 dateNgaySinh.Value = en.NgaySinh.Value;
             txtDiaChi.Text = en.DiaChi;
-            if (en.Luong != null)
-                txtLuong.Text = en.Luong.Value.ToString();
-            else
-                txtLuong.Text = "";
-            if (en.PhuCap != null)
-                txtPhuCap.Text = en.PhuCap.Value.ToString();
-            else
-                txtPhuCap.Text = "";
+            //if (en.Luong != null)
+            //    txtLuong.Text = en.Luong.Value.ToString();
+            //else
+            //    txtLuong.Text = "";
+            //if (en.PhuCap != null)
+            //    txtPhuCap.Text = en.PhuCap.Value.ToString();
+            //else
+            //    txtPhuCap.Text = "";
             txtDienThoai.Text = en.DienThoai;
             txtTaiKhoan.Text = en.TaiKhoan;
             txtMatKhau.Text = en.MatKhau;
@@ -128,10 +128,10 @@ namespace QuanLyBanHang.GUI.QuanTri
                             nguoidung.GioiTinh = false;
                         nguoidung.NgaySinh = dateNgaySinh.Value;
                         nguoidung.DiaChi = txtDiaChi.Text.Trim();
-                        if (txtLuong.Text.Trim() != "")
-                            nguoidung.Luong = int.Parse(txtLuong.Text.Trim());
-                        if (txtPhuCap.Text.Trim() != "")
-                            nguoidung.PhuCap = int.Parse(txtPhuCap.Text.Trim());
+                        //if (txtLuong.Text.Trim() != "")
+                        //    nguoidung.Luong = int.Parse(txtLuong.Text.Trim());
+                        //if (txtPhuCap.Text.Trim() != "")
+                        //    nguoidung.PhuCap = int.Parse(txtPhuCap.Text.Trim());
                         nguoidung.DienThoai = txtDienThoai.Text.Trim();
                         nguoidung.TaiKhoan = txtTaiKhoan.Text.Trim();
                         nguoidung.MatKhau = txtMatKhau.Text.Trim();

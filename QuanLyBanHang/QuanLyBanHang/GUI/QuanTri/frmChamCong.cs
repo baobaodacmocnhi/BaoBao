@@ -8,6 +8,9 @@ using System.Text;
 using System.Windows.Forms;
 using QuanLyBanHang.DAL.QuanTri;
 using QuanLyBanHang.LinQ;
+using QuanLyBanHang.BaoCao;
+using QuanLyBanHang.BaoCao.QuanTri;
+using QuanLyBanHang.GUI.BaoCao;
 
 
 namespace QuanLyBanHang.GUI.QuanTri
@@ -17,6 +20,7 @@ namespace QuanLyBanHang.GUI.QuanTri
         string _mnu = "mnuChamCong";
         CChamCong _cChamCong = new CChamCong();
         CNguoiDung _cNguoiDung = new CNguoiDung();
+        ChamCong _en = null;
         string[] _ngays = { "N1", "N2", "N3", "N4", "N5", "N6", "N7", "N8", "N9", "N10", "N11", "N12", "N13", "N14", "N15", "N16", "N17", "N18", "N19", "N20", "N21", "N22", "N23", "N24", "N25", "N26", "N27", "N28", "N29", "N30", "N31" };
 
         public frmChamCong()
@@ -27,6 +31,7 @@ namespace QuanLyBanHang.GUI.QuanTri
         private void frmChamCong_Load(object sender, EventArgs e)
         {
             dgvChamCong_ChiTiet.AutoGenerateColumns = false;
+            dgvChamCong_TinhLuong.AutoGenerateColumns = false;
 
             if (!_cChamCong.CheckExist(DateTime.Now.Month, DateTime.Now.Year))
                 if (CNguoiDung.CheckQuyen(_mnu, "Them"))
@@ -273,112 +278,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             dgvChamCong.DataSource = _cChamCong.getDS();
         }
 
-        public int GetTongNgay(int Thang, int Nam)
-        {
-            switch (Thang)
-            {
-                case 1:
-                case 3:
-                case 5:
-                case 7:
-                case 8:
-                case 10:
-                case 12:
-                    return 31;
-                case 4:
-                case 6:
-                case 9:
-                case 11:
-                    return 30;
-                case 2:
-                    if (Nam % 400 == 0 || (Nam % 4 == 0 && Nam % 100 != 0))
-                        return 29;
-                    else
-                        return 28;
-                default:
-                    return 0;
-            }
-        }
 
-        private void dgvChamCong_ChiTiet_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
-                {
-                    if (_cChamCong.CheckExist_Chot(int.Parse(dgvChamCong_ChiTiet["IDCT", e.RowIndex].Value.ToString())) == true)
-                    {
-                        MessageBox.Show(dgvChamCong["ThoiGian", e.RowIndex].Value.ToString()+" đã Chốt", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    _cChamCong.ChamCong(int.Parse(dgvChamCong_ChiTiet["IDCT", e.RowIndex].Value.ToString()), int.Parse(dgvChamCong_ChiTiet["MaU", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name, bool.Parse(dgvChamCong_ChiTiet[e.ColumnIndex, e.RowIndex].Value.ToString()));
-                }
-                else
-                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void dgvChamCong_ChiTiet_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            using (SolidBrush b = new SolidBrush(dgvChamCong_ChiTiet.RowHeadersDefaultCellStyle.ForeColor))
-            {
-                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 10, e.RowBounds.Location.Y + 4);
-            }
-        }
-
-        private void btnTinhLuong_Click(object sender, EventArgs e)
-        {
-            //dsBaoCao ds = new dsBaoCao();
-            //foreach (DataGridViewRow item in dgvChamCong.Rows)
-            //{
-            //    DataRow dr = ds.Tables["ChamCong"].NewRow();
-            //    dr["ThoiGian"] = dateChamCong.Value.ToString("MM/yyyy");
-            //    dr["HoTen"] = item.Cells["HoTen"].Value;
-            //    dr["N1"] = item.Cells["N1"].Value;
-            //    dr["N2"] = item.Cells["N2"].Value;
-            //    dr["N3"] = item.Cells["N3"].Value;
-            //    dr["N4"] = item.Cells["N4"].Value;
-            //    dr["N5"] = item.Cells["N5"].Value;
-            //    dr["N6"] = item.Cells["N6"].Value;
-            //    dr["N7"] = item.Cells["N7"].Value;
-            //    dr["N8"] = item.Cells["N8"].Value;
-            //    dr["N9"] = item.Cells["N9"].Value;
-            //    dr["N10"] = item.Cells["N10"].Value;
-            //    dr["N11"] = item.Cells["N11"].Value;
-            //    dr["N12"] = item.Cells["N12"].Value;
-            //    dr["N13"] = item.Cells["N13"].Value;
-            //    dr["N14"] = item.Cells["N14"].Value;
-            //    dr["N15"] = item.Cells["N15"].Value;
-            //    dr["N16"] = item.Cells["N16"].Value;
-            //    dr["N17"] = item.Cells["N17"].Value;
-            //    dr["N18"] = item.Cells["N18"].Value;
-            //    dr["N19"] = item.Cells["N19"].Value;
-            //    dr["N20"] = item.Cells["N20"].Value;
-            //    dr["N21"] = item.Cells["N21"].Value;
-            //    dr["N22"] = item.Cells["N22"].Value;
-            //    dr["N23"] = item.Cells["N23"].Value;
-            //    dr["N24"] = item.Cells["N24"].Value;
-            //    dr["N25"] = item.Cells["N25"].Value;
-            //    dr["N26"] = item.Cells["N26"].Value;
-            //    dr["N27"] = item.Cells["N27"].Value;
-            //    dr["N28"] = item.Cells["N28"].Value;
-            //    dr["N29"] = item.Cells["N29"].Value;
-            //    dr["N30"] = item.Cells["N30"].Value;
-            //    dr["N31"] = item.Cells["N31"].Value;
-            //    dr["Nghi"] = item.Cells["Nghi"].Value;
-            //    dr["XS"] = item.Cells["XS"].Value;
-            //    dr["KK"] = item.Cells["KK"].Value;
-            //    ds.Tables["ChamCong"].Rows.Add(dr);
-            //}
-            //rptChamCong rpt = new rptChamCong();
-            //rpt.SetDataSource(ds);
-            //frmBaoCao frm = new frmBaoCao(rpt);
-            //frm.ShowDialog();
-        }
 
         private void dgvChamCong_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -420,11 +320,12 @@ namespace QuanLyBanHang.GUI.QuanTri
 
                 #endregion
 
-                dgvChamCong_ChiTiet.DataSource = _cChamCong.getDS_ChiTiet(int.Parse(dgvChamCong["ID", e.RowIndex].Value.ToString()));
+                _en = _cChamCong.get(int.Parse(dgvChamCong["ID", e.RowIndex].Value.ToString()));
+                dgvChamCong_ChiTiet.DataSource = _cChamCong.getDS_ChiTiet(_en.ID);
 
-                for (int i = 1; i <= GetTongNgay(int.Parse(dgvChamCong["Thang", e.RowIndex].Value.ToString()), int.Parse(dgvChamCong["Nam", e.RowIndex].Value.ToString())); i++)
+                for (int i = 1; i <= _cChamCong.getTongSoNgayTrongThang(_en.Thang.Value, _en.Nam.Value); i++)
                 {
-                    DateTime time = new DateTime(int.Parse(dgvChamCong["Nam", e.RowIndex].Value.ToString()), int.Parse(dgvChamCong["Thang", e.RowIndex].Value.ToString()), i);
+                    DateTime time = new DateTime(_en.Nam.Value, _en.Thang.Value, i);
 
                     if (time.DayOfWeek == DayOfWeek.Sunday)
                         dgvChamCong_ChiTiet.Columns["N" + i].DefaultCellStyle.BackColor = Color.Orange;
@@ -596,6 +497,7 @@ namespace QuanLyBanHang.GUI.QuanTri
                     //if (bool.Parse(item.Cells["ToTruong"].Value.ToString()) == true)
                     //    item.DefaultCellStyle.BackColor = Color.YellowGreen;
                 }
+                loaddgvChamCong_TinhLuong();
             }
             catch (Exception ex)
             {
@@ -609,9 +511,12 @@ namespace QuanLyBanHang.GUI.QuanTri
             {
                 if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
                 {
-                    ChamCong en = _cChamCong.get(int.Parse(dgvChamCong["ID",e.RowIndex].Value.ToString()));
-                    en.Chot = bool.Parse(dgvChamCong["Chot", e.RowIndex].Value.ToString());
-                    _cChamCong.Sua(en);
+                    if (dgvChamCong.Columns[e.ColumnIndex].Name == "Chot")
+                    {
+                        //ChamCong en = _cChamCong.get(int.Parse(dgvChamCong["ID",e.RowIndex].Value.ToString()));
+                        _en.Chot = bool.Parse(dgvChamCong["Chot", e.RowIndex].Value.ToString());
+                        _cChamCong.Sua(_en);
+                    }
                 }
                 else
                     MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -621,6 +526,254 @@ namespace QuanLyBanHang.GUI.QuanTri
                 MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvChamCong_ChiTiet_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
+                {
+                    if (_en.Chot == true)
+                    {
+                        MessageBox.Show(_en.Thang.Value + "/" + _en.Nam.Value + " đã Chốt", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    if (_ngays.Contains(dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name) == true)
+                        _cChamCong.suaChamCong(_en.ID, int.Parse(dgvChamCong_ChiTiet["MaU", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name, bool.Parse(dgvChamCong_ChiTiet[e.ColumnIndex, e.RowIndex].Value.ToString()));
+                    if (dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name == "PhuCap")
+                    {
+                        _cChamCong.suaPhuCap(_en.ID, int.Parse(dgvChamCong_ChiTiet["MaU", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet["PhuCap", e.RowIndex].Value.ToString());
+                    }
+                }
+                else
+                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvChamCong_ChiTiet_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dgvChamCong_ChiTiet.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 10, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        public void loaddgvChamCong_TinhLuong()
+        {
+            try
+            {
+                dgvChamCong_TinhLuong.DataSource = _cChamCong.getDS_ChiTiet(_en.ID);
+                if (_en.Chot == false)
+                {
+                    int Thang=_en.Thang.Value,Nam=_en.Nam.Value;
+                    if (Thang == 1)
+                    {
+                        Thang = 12;
+                        Nam -= 1;
+                    }
+                    else
+                        Thang -= 1;
+                    ChamCong enPrevious = _cChamCong.get(Thang, Nam);
+                    if (enPrevious != null)
+                    {
+                        foreach (DataGridViewRow item in dgvChamCong_TinhLuong.Rows)
+                        {
+                            ChamCong_ChiTiet enPrevious_CT=enPrevious.ChamCong_ChiTiets.SingleOrDefault(itemA=>itemA.ID==int.Parse(item.Cells["ID_TL"].Value.ToString())&&itemA.MaU==int.Parse(item.Cells["MaU_TL"].Value.ToString()));
+                            if(enPrevious_CT!=null)
+                            {
+                                item.Cells["LuongCoBan"].Value = enPrevious_CT.LuongCoBan;
+                                item.Cells["LuongKhoan"].Value = enPrevious_CT.LuongKhoan;
+                                item.Cells["TamUng1"].Value = enPrevious_CT.TamUng1;
+                                item.Cells["TamUng2"].Value = enPrevious_CT.TamUng2;
+                                item.Cells["TamUng3"].Value = enPrevious_CT.TamUng3;
+                                item.Cells["BoiDuong"].Value = enPrevious_CT.BoiDuong;
+                                item.Cells["ThuongDotXuat"].Value = enPrevious_CT.ThuongDotXuat;
+                                item.Cells["ThuongLe"].Value = enPrevious_CT.ThuongLe;
+                                item.Cells["ThuongThang"].Value = enPrevious_CT.ThuongThang;
+                                item.Cells["ThuongQuy"].Value = enPrevious_CT.ThuongQuy;
+                                item.Cells["ThuongNam"].Value = enPrevious_CT.ThuongNam;
+                                item.Cells["PhuCapXang"].Value = enPrevious_CT.PhuCapXang;
+                                item.Cells["PhuCapDienThoai"].Value = enPrevious_CT.PhuCapDienThoai;
+                                item.Cells["TienCom1Ngay"].Value = enPrevious_CT.TienCom1Ngay;
+                                //item.Cells["LuongThucLanh"].Value = enPrevious_CT.LuongThucLanh;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnLuuLuong_Click(object sender, EventArgs e)
+        {
+            //dsBaoCao ds = new dsBaoCao();
+            //foreach (DataGridViewRow item in dgvChamCong.Rows)
+            //{
+            //    DataRow dr = ds.Tables["ChamCong"].NewRow();
+            //    dr["ThoiGian"] = dateChamCong.Value.ToString("MM/yyyy");
+            //    dr["HoTen"] = item.Cells["HoTen"].Value;
+            //    dr["N1"] = item.Cells["N1"].Value;
+            //    dr["N2"] = item.Cells["N2"].Value;
+            //    dr["N3"] = item.Cells["N3"].Value;
+            //    dr["N4"] = item.Cells["N4"].Value;
+            //    dr["N5"] = item.Cells["N5"].Value;
+            //    dr["N6"] = item.Cells["N6"].Value;
+            //    dr["N7"] = item.Cells["N7"].Value;
+            //    dr["N8"] = item.Cells["N8"].Value;
+            //    dr["N9"] = item.Cells["N9"].Value;
+            //    dr["N10"] = item.Cells["N10"].Value;
+            //    dr["N11"] = item.Cells["N11"].Value;
+            //    dr["N12"] = item.Cells["N12"].Value;
+            //    dr["N13"] = item.Cells["N13"].Value;
+            //    dr["N14"] = item.Cells["N14"].Value;
+            //    dr["N15"] = item.Cells["N15"].Value;
+            //    dr["N16"] = item.Cells["N16"].Value;
+            //    dr["N17"] = item.Cells["N17"].Value;
+            //    dr["N18"] = item.Cells["N18"].Value;
+            //    dr["N19"] = item.Cells["N19"].Value;
+            //    dr["N20"] = item.Cells["N20"].Value;
+            //    dr["N21"] = item.Cells["N21"].Value;
+            //    dr["N22"] = item.Cells["N22"].Value;
+            //    dr["N23"] = item.Cells["N23"].Value;
+            //    dr["N24"] = item.Cells["N24"].Value;
+            //    dr["N25"] = item.Cells["N25"].Value;
+            //    dr["N26"] = item.Cells["N26"].Value;
+            //    dr["N27"] = item.Cells["N27"].Value;
+            //    dr["N28"] = item.Cells["N28"].Value;
+            //    dr["N29"] = item.Cells["N29"].Value;
+            //    dr["N30"] = item.Cells["N30"].Value;
+            //    dr["N31"] = item.Cells["N31"].Value;
+            //    dr["Nghi"] = item.Cells["Nghi"].Value;
+            //    dr["XS"] = item.Cells["XS"].Value;
+            //    dr["KK"] = item.Cells["KK"].Value;
+            //    ds.Tables["ChamCong"].Rows.Add(dr);
+            //}
+            //rptChamCong rpt = new rptChamCong();
+            //rpt.SetDataSource(ds);
+            //frmBaoCao frm = new frmBaoCao(rpt);
+            //frm.ShowDialog();
+            try
+            {
+                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
+                {
+                    if (_en.Chot == false)
+                    {
+                        MessageBox.Show(_en.Thang.Value + "/" + _en.Nam.Value + " chưa Chốt", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    int TongSoNgay = _cChamCong.getTongSoNgayTrongThang(_en.Thang.Value, _en.Nam.Value);
+                    int TongSoNgayCN = 0;
+                    for (int i = 1; i <= TongSoNgay; i++)
+                    {
+                        DateTime time = new DateTime(_en.Nam.Value, _en.Thang.Value, i);
+                        if (time.DayOfWeek == DayOfWeek.Sunday)
+                            TongSoNgayCN++;
+                    }
+                    dsBaoCao dsBaoCao = new dsBaoCao();
+                    foreach (ChamCong_ChiTiet item in _en.ChamCong_ChiTiets.ToList())
+                    {
+                        int TienLuong1Ngay = (int)Math.Round((double)0 / CNguoiDung.SoNgayTinhLuong);
+                        int TongSoNgayNghi = 0;
+                        DataRow dr = dsBaoCao.Tables["dtBaoCao"].NewRow();
+                        dr["PhongBan"] = item.User.PhongBan.HoTen;
+                        dr["NhanVien"] = item.User.HoTen;
+                        #region count Ngày Nghỉ
+
+                        if (item.N1 == true)
+                            TongSoNgayNghi++;
+                        if (item.N2 == true)
+                            TongSoNgayNghi++;
+                        if (item.N3 == true)
+                            TongSoNgayNghi++;
+                        if (item.N4 == true)
+                            TongSoNgayNghi++;
+                        if (item.N5 == true)
+                            TongSoNgayNghi++;
+                        if (item.N6 == true)
+                            TongSoNgayNghi++;
+                        if (item.N7 == true)
+                            TongSoNgayNghi++;
+                        if (item.N8 == true)
+                            TongSoNgayNghi++;
+                        if (item.N9 == true)
+                            TongSoNgayNghi++;
+                        if (item.N10 == true)
+                            TongSoNgayNghi++;
+                        if (item.N11 == true)
+                            TongSoNgayNghi++;
+                        if (item.N12 == true)
+                            TongSoNgayNghi++;
+                        if (item.N13 == true)
+                            TongSoNgayNghi++;
+                        if (item.N14 == true)
+                            TongSoNgayNghi++;
+                        if (item.N15 == true)
+                            TongSoNgayNghi++;
+                        if (item.N16 == true)
+                            TongSoNgayNghi++;
+                        if (item.N17 == true)
+                            TongSoNgayNghi++;
+                        if (item.N18 == true)
+                            TongSoNgayNghi++;
+                        if (item.N19 == true)
+                            TongSoNgayNghi++;
+                        if (item.N20 == true)
+                            TongSoNgayNghi++;
+                        if (item.N21 == true)
+                            TongSoNgayNghi++;
+                        if (item.N22 == true)
+                            TongSoNgayNghi++;
+                        if (item.N23 == true)
+                            TongSoNgayNghi++;
+                        if (item.N24 == true)
+                            TongSoNgayNghi++;
+                        if (item.N25 == true)
+                            TongSoNgayNghi++;
+                        if (item.N26 == true)
+                            TongSoNgayNghi++;
+                        if (item.N27 == true)
+                            TongSoNgayNghi++;
+                        if (item.N28 == true)
+                            TongSoNgayNghi++;
+                        if (item.N29 == true)
+                            TongSoNgayNghi++;
+                        if (item.N30 == true)
+                            TongSoNgayNghi++;
+                        if (item.N31 == true)
+                            TongSoNgayNghi++;
+                        #endregion
+                        dr["SoNgayNghi"] = TongSoNgayNghi;
+                        dr["SoNgayLamViec"] = TongSoNgay - TongSoNgayCN - TongSoNgayNghi;
+                        dr["Luong"] = TienLuong1Ngay * int.Parse(dr["SoNgayLamViec"].ToString());
+                        dsBaoCao.Tables["dtBaoCao"].Rows.Add(dr);
+                    }
+                    rptBangLuong rpt = new rptBangLuong();
+                    rpt.SetDataSource(dsBaoCao);
+                    frmBaoCao frm = new frmBaoCao(rpt);
+                    frm.Show();
+                }
+                else
+                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvChamCong_TinhLuong_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+
 
 
     }

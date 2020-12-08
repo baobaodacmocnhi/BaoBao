@@ -279,6 +279,14 @@ namespace QuanLyBanHang.DAL.QuanTri
                 return _db.Users.Max(item => item.STT).Value;
         }
 
+        //
+
+        private const int _SoNgayTinhLuong = 26;
+
+        public static int SoNgayTinhLuong
+        {
+            get { return _SoNgayTinhLuong; }
+        } 
 
     }
 }

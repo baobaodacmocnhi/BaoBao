@@ -177,6 +177,12 @@
     <Compile Include="GUI\QuanTri\frmPhongBan.Designer.cs">
       <DependentUpon>frmPhongBan.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\QuanTri\frmTinhLuong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\QuanTri\frmTinhLuong.Designer.cs">
+      <DependentUpon>frmTinhLuong.cs</DependentUpon>
+    </Compile>
     <Compile Include="LinQ\dbBanHang.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -230,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\QuanTri\frmPhongBan.resx">
       <DependentUpon>frmPhongBan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\QuanTri\frmTinhLuong.resx">
+      <DependentUpon>frmTinhLuong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
