@@ -55,7 +55,6 @@
             this.StripStatus_HoTen = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.mnuTinhLuong = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -122,8 +121,7 @@
             this.mnuChamCong,
             this.mnuNguoiDung,
             this.mnuNhom,
-            this.mnuPhongBan,
-            this.mnuTinhLuong});
+            this.mnuPhongBan});
             this.mnuQuanTri.Name = "mnuQuanTri";
             this.mnuQuanTri.Size = new System.Drawing.Size(63, 19);
             this.mnuQuanTri.Text = "Quản Trị";
@@ -257,12 +255,6 @@
             this.timer.Interval = 1200000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // mnuTinhLuong
-            // 
-            this.mnuTinhLuong.Name = "mnuTinhLuong";
-            this.mnuTinhLuong.Size = new System.Drawing.Size(152, 22);
-            this.mnuTinhLuong.Text = "Tính Lương";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,7 +311,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuBaoCao;
         private System.Windows.Forms.ToolStripMenuItem mnuPhongBan;
         private System.Windows.Forms.ToolStripMenuItem mnuChamCong;
-        private System.Windows.Forms.ToolStripMenuItem mnuTinhLuong;
     }
 }
 

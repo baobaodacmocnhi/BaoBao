@@ -455,6 +455,8 @@ namespace QuanLyBanHang.LinQ
 		
 		private System.Data.Linq.Binary _Hinh;
 		
+		private System.Nullable<System.DateTime> _NgayVaoLam;
+		
 		private System.Nullable<System.DateTime> _CreateDate;
 		
 		private System.Nullable<int> _CreateBy;
@@ -513,6 +515,8 @@ namespace QuanLyBanHang.LinQ
     partial void OnDiaChiChanged();
     partial void OnHinhChanging(System.Data.Linq.Binary value);
     partial void OnHinhChanged();
+    partial void OnNgayVaoLamChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayVaoLamChanged();
     partial void OnCreateDateChanging(System.Nullable<System.DateTime> value);
     partial void OnCreateDateChanged();
     partial void OnCreateByChanging(System.Nullable<int> value);
@@ -931,6 +935,26 @@ namespace QuanLyBanHang.LinQ
 					this._Hinh = value;
 					this.SendPropertyChanged("Hinh");
 					this.OnHinhChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayVaoLam", DbType="Date")]
+		public System.Nullable<System.DateTime> NgayVaoLam
+		{
+			get
+			{
+				return this._NgayVaoLam;
+			}
+			set
+			{
+				if ((this._NgayVaoLam != value))
+				{
+					this.OnNgayVaoLamChanging(value);
+					this.SendPropertyChanging();
+					this._NgayVaoLam = value;
+					this.SendPropertyChanged("NgayVaoLam");
+					this.OnNgayVaoLamChanged();
 				}
 			}
 		}

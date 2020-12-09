@@ -71,6 +71,11 @@ namespace QuanLyBanHang.DAL.QuanTri
             return _db.ChamCongs.Any(item => item.ID == ID && item.Chot == true);
         }
 
+        public int GetMaxID()
+        {
+            return _db.ChamCongs.Max(item => item.ID);
+        }
+
         public ChamCong get(int ID)
         {
             return _db.ChamCongs.SingleOrDefault(item => item.ID == ID);
@@ -93,6 +98,29 @@ namespace QuanLyBanHang.DAL.QuanTri
                             item.Chot,
                         };
             return LINQToDataTable(query);
+        }
+
+        ///////////////////
+
+        public bool Sua_ChiTiet(ChamCong_ChiTiet chamcong)
+        {
+            try
+            {
+                chamcong.ModifyBy = CNguoiDung.MaU;
+                chamcong.ModifyDate = DateTime.Now;
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public ChamCong_ChiTiet get_ChiTiet(int ID, int MaU)
+        {
+            return _db.ChamCong_ChiTiets.SingleOrDefault(item => item.ID == ID && item.MaU == MaU);
         }
 
         public DataTable getDS_ChiTiet(int ID)
@@ -162,15 +190,143 @@ namespace QuanLyBanHang.DAL.QuanTri
             return LinQ_ExecuteNonQuery(sql);
         }
 
-        public bool suaPhuCap(int ID, int MaNV, string PhuCap)
+
+
+        ///////////////////
+
+        public int getTongSoNgayTrongThang(int Thang, int Nam)
         {
-            string sql = "update ChamCong_ChiTiet set PhuCap=" + PhuCap + ",ModifyBy=" + CNguoiDung.MaU + ",ModifyDate=getdate() where ID=" + ID + " and MaU=" + MaNV;
-            return LinQ_ExecuteNonQuery(sql);
+            switch (Thang)
+            {
+                case 1:
+                case 3:
+                case 5:
+                case 7:
+                case 8:
+                case 10:
+                case 12:
+                    return 31;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    return 30;
+                case 2:
+                    if (Nam % 400 == 0 || (Nam % 4 == 0 && Nam % 100 != 0))
+                        return 29;
+                    else
+                        return 28;
+                default:
+                    return 0;
+            }
         }
 
-        public int GetMaxID()
+        public int getTongSoNgayCNTrongThang(int Thang, int Nam)
         {
-            return _db.ChamCongs.Max(item => item.ID);
+            int TongSoNgay = getTongSoNgayTrongThang(Thang, Nam);
+            int TongSoNgayCN = 0;
+            for (int i = 1; i <= TongSoNgay; i++)
+            {
+                DateTime time = new DateTime(Nam, Thang, i);
+                if (time.DayOfWeek == DayOfWeek.Sunday)
+                    TongSoNgayCN++;
+            }
+            return TongSoNgayCN;
+        }
+
+        public int getTongSoNgayNghiTrongThang(int Thang, int Nam, int MaU)
+        {
+            ChamCong_ChiTiet en = _db.ChamCong_ChiTiets.SingleOrDefault(item => item.ChamCong.Thang.Value == Thang && item.ChamCong.Nam.Value == Nam && item.MaU == MaU);
+            int count = 0;
+            if (en != null)
+            {
+                if (en.N1 == true)
+                    count++;
+                if (en.N2 == true)
+                    count++;
+                if (en.N3 == true)
+                    count++;
+                if (en.N4 == true)
+                    count++;
+                if (en.N5 == true)
+                    count++;
+                if (en.N6 == true)
+                    count++;
+                if (en.N7 == true)
+                    count++;
+                if (en.N8 == true)
+                    count++;
+                if (en.N9 == true)
+                    count++;
+                if (en.N10 == true)
+                    count++;
+                if (en.N11 == true)
+                    count++;
+                if (en.N12 == true)
+                    count++;
+                if (en.N13 == true)
+                    count++;
+                if (en.N14 == true)
+                    count++;
+                if (en.N15 == true)
+                    count++;
+                if (en.N16 == true)
+                    count++;
+                if (en.N17 == true)
+                    count++;
+                if (en.N18 == true)
+                    count++;
+                if (en.N19 == true)
+                    count++;
+                if (en.N20 == true)
+                    count++;
+                if (en.N21 == true)
+                    count++;
+                if (en.N22 == true)
+                    count++;
+                if (en.N23 == true)
+                    count++;
+                if (en.N24 == true)
+                    count++;
+                if (en.N25 == true)
+                    count++;
+                if (en.N26 == true)
+                    count++;
+                if (en.N27 == true)
+                    count++;
+                if (en.N28 == true)
+                    count++;
+                if (en.N29 == true)
+                    count++;
+                if (en.N30 == true)
+                    count++;
+                if (en.N31 == true)
+                    count++;
+            }
+            return count;
+        }
+
+        public int getTongSoNgayNghiDenThang(int Thang, int Nam, int MaU)
+        {
+            List<ChamCong_ChiTiet> lst = _db.ChamCong_ChiTiets.Where(item => item.ChamCong.Thang.Value < Thang && item.ChamCong.Nam.Value == Nam && item.MaU == MaU).ToList();
+            int count = 0;
+            if (lst.Count > 0)
+                foreach (ChamCong_ChiTiet item in lst)
+                {
+                    count += getTongSoNgayNghiTrongThang(item.ChamCong.Thang.Value, item.ChamCong.Nam.Value, item.MaU);
+                }
+            return count;
+        }
+
+        public int getTongSoNgayPhepTrongNam(int Nam, int MaU)
+        {
+            int count = 12;
+            CNguoiDung _cND = new CNguoiDung();
+            User user = _cND.GetByMaND(MaU);
+            if ((DateTime.Now.Month == user.NgayVaoLam.Value.Month && DateTime.Now.Day >= user.NgayVaoLam.Value.Day) || (DateTime.Now.Month > user.NgayVaoLam.Value.Month))
+                if (DateTime.Now.Year - user.NgayVaoLam.Value.Year > CNguoiDung.SoNamTangNgayNghi)
+                    count += (DateTime.Now.Year - user.NgayVaoLam.Value.Year) - CNguoiDung.SoNamTangNgayNghi;
+            return count;
         }
     }
 }

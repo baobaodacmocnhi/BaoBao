@@ -49,6 +49,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             txtHoTen.Text = "";
             radNam.Checked = true;
             dateNgaySinh.Value = DateTime.Now;
+            dateNgayVaoLam.Value = DateTime.Now;
             txtDiaChi.Text = "";
             txtLuong.Text = "";
             txtPhuCap.Text = "";
@@ -83,6 +84,8 @@ namespace QuanLyBanHang.GUI.QuanTri
                 radNu.Checked = true;
             if (en.NgaySinh != null)
                 dateNgaySinh.Value = en.NgaySinh.Value;
+            if (en.NgayVaoLam != null)
+                dateNgayVaoLam.Value = en.NgayVaoLam.Value;
             txtDiaChi.Text = en.DiaChi;
             //if (en.Luong != null)
             //    txtLuong.Text = en.Luong.Value.ToString();
@@ -127,6 +130,7 @@ namespace QuanLyBanHang.GUI.QuanTri
                         else
                             nguoidung.GioiTinh = false;
                         nguoidung.NgaySinh = dateNgaySinh.Value;
+                        nguoidung.NgayVaoLam = dateNgayVaoLam.Value;
                         nguoidung.DiaChi = txtDiaChi.Text.Trim();
                         //if (txtLuong.Text.Trim() != "")
                         //    nguoidung.Luong = int.Parse(txtLuong.Text.Trim());
@@ -179,13 +183,27 @@ namespace QuanLyBanHang.GUI.QuanTri
                         if (txtHoTen.Text.Trim() != "" && txtTaiKhoan.Text.Trim() != "" && txtMatKhau.Text.Trim() != "")
                         {
                             _user.HoTen = txtHoTen.Text.Trim();
+                            if (radNam.Checked == true)
+                                _user.GioiTinh = true;
+                            else
+                                _user.GioiTinh = false;
+                            _user.NgaySinh = dateNgaySinh.Value;
+                            _user.NgayVaoLam = dateNgayVaoLam.Value;
+                            _user.DiaChi = txtDiaChi.Text.Trim();
+                            //if (txtLuong.Text.Trim() != "")
+                            //    _user.Luong = int.Parse(txtLuong.Text.Trim());
+                            //if (txtPhuCap.Text.Trim() != "")
+                            //    _user.PhuCap = int.Parse(txtPhuCap.Text.Trim());
                             _user.DienThoai = txtDienThoai.Text.Trim();
                             _user.TaiKhoan = txtTaiKhoan.Text.Trim();
                             _user.MatKhau = txtMatKhau.Text.Trim();
+                            _user.STT = _cNguoiDung.GetMaxSTT() + 1;
                             if (cmbPhongBan.SelectedIndex != -1)
                                 _user.IDPhong = (int)cmbPhongBan.SelectedValue;
                             if (cmbNhom.SelectedIndex != -1)
                                 _user.MaNhom = (int)cmbNhom.SelectedValue;
+                            if (picHinh.Image != null)
+                                _user.Hinh = _cNguoiDung.imgToByteArray(picHinh.Image);
                             _user.An = chkAn.Checked;
                             _user.ChamCong = chkChamCong.Checked;
 

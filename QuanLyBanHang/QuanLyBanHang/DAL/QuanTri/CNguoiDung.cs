@@ -282,10 +282,15 @@ namespace QuanLyBanHang.DAL.QuanTri
         //
 
         private const int _SoNgayTinhLuong = 26;
-
         public static int SoNgayTinhLuong
         {
             get { return _SoNgayTinhLuong; }
+        }
+
+        private const int _SoNamTangNgayNghi = 2;
+        public static int SoNamTangNgayNghi
+        {
+            get { return _SoNamTangNgayNghi; }
         } 
 
     }
