@@ -89,7 +89,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DAL\CDAL.cs" />
-    <Compile Include="DAL\DanhMuc\CNhaCungCap.cs" />
+    <Compile Include="DAL\DanhMuc\CKhachHang.cs" />
     <Compile Include="DAL\DanhMuc\CSanPham.cs" />
     <Compile Include="DAL\NhapXuat\CNhapXuatKho.cs" />
     <Compile Include="DAL\QuanTri\CChamCong.cs" />
@@ -111,17 +111,23 @@
     <Compile Include="GUI\BaoCao\frmBaoCao.designer.cs">
       <DependentUpon>frmBaoCao.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\DanhMuc\frmNhaCungCap.cs">
+    <Compile Include="GUI\DanhMuc\frmKhachHang.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\DanhMuc\frmNhaCungCap.Designer.cs">
-      <DependentUpon>frmNhaCungCap.cs</DependentUpon>
+    <Compile Include="GUI\DanhMuc\frmKhachHang.Designer.cs">
+      <DependentUpon>frmKhachHang.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\DanhMuc\frmSanPham.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GUI\DanhMuc\frmSanPham.Designer.cs">
       <DependentUpon>frmSanPham.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DanhMuc\frmSanPhamNhom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DanhMuc\frmSanPhamNhom.Designer.cs">
+      <DependentUpon>frmSanPhamNhom.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\HeThong\frmAdmin.cs">
       <SubType>Form</SubType>
@@ -177,12 +183,6 @@
     <Compile Include="GUI\QuanTri\frmPhongBan.Designer.cs">
       <DependentUpon>frmPhongBan.cs</DependentUpon>
     </Compile>
-    <Compile Include="GUI\QuanTri\frmTinhLuong.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\QuanTri\frmTinhLuong.Designer.cs">
-      <DependentUpon>frmTinhLuong.cs</DependentUpon>
-    </Compile>
     <Compile Include="LinQ\dbBanHang.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -204,11 +204,14 @@
     <EmbeddedResource Include="GUI\BaoCao\frmBaoCao.resx">
       <DependentUpon>frmBaoCao.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GUI\DanhMuc\frmNhaCungCap.resx">
-      <DependentUpon>frmNhaCungCap.cs</DependentUpon>
+    <EmbeddedResource Include="GUI\DanhMuc\frmKhachHang.resx">
+      <DependentUpon>frmKhachHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\DanhMuc\frmSanPham.resx">
       <DependentUpon>frmSanPham.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\DanhMuc\frmSanPhamNhom.resx">
+      <DependentUpon>frmSanPhamNhom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\HeThong\frmAdmin.resx">
       <DependentUpon>frmAdmin.cs</DependentUpon>
@@ -236,9 +239,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\QuanTri\frmPhongBan.resx">
       <DependentUpon>frmPhongBan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\QuanTri\frmTinhLuong.resx">
-      <DependentUpon>frmTinhLuong.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

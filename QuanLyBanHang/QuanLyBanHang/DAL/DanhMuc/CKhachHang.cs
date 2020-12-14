@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using QuanLyBanHang.LinQ;
+using QuanLyBanHang.DAL.QuanTri;
 using System.Data;
 
-namespace QuanLyBanHang.DAL.QuanTri
+namespace QuanLyBanHang.DAL.DanhMuc
 {
-    class CPhongBan : CDAL
+    class CKhachHang:CDAL
     {
-        public bool Them(PhongBan en)
+        public bool Them(KhachHang en)
         {
             try
             {
-                if (_db.PhongBans.Count() == 0)
+                if (_db.KhachHangs.Count() == 0)
                     en.ID = 1;
                 else
-                    en.ID = _db.PhongBans.Max(item => item.ID) + 1;
+                    en.ID = _db.KhachHangs.Max(item => item.ID) + 1;
                 en.CreateDate = DateTime.Now;
                 en.CreateBy = CNguoiDung.MaU;
-                _db.PhongBans.InsertOnSubmit(en);
+                _db.KhachHangs.InsertOnSubmit(en);
                 _db.SubmitChanges();
                 return true;
             }
@@ -30,7 +31,7 @@ namespace QuanLyBanHang.DAL.QuanTri
             }
         }
 
-        public bool Sua(PhongBan en)
+        public bool Sua(KhachHang en)
         {
             try
             {
@@ -46,11 +47,11 @@ namespace QuanLyBanHang.DAL.QuanTri
             }
         }
 
-        public bool Xoa(PhongBan en)
+        public bool Xoa(KhachHang en)
         {
             try
             {
-                _db.PhongBans.DeleteOnSubmit(en);
+                _db.KhachHangs.DeleteOnSubmit(en);
                 _db.SubmitChanges();
                 return true;
             }
@@ -61,19 +62,34 @@ namespace QuanLyBanHang.DAL.QuanTri
             }
         }
 
-        public bool checkExists(string HoTen)
+        public bool checkExists_HoTen(string HoTen)
         {
-            return _db.PhongBans.Any(item => item.HoTen == HoTen);
+            return _db.KhachHangs.Any(item => item.HoTen == HoTen);
         }
 
-        public PhongBan get(int ID)
+        public bool checkExists_DiaChi(string DiaChi)
         {
-            return _db.PhongBans.SingleOrDefault(item => item.ID == ID);
+            return _db.KhachHangs.Any(item => item.DiaChi == DiaChi);
         }
 
-        public List<PhongBan> getDS()
+        public bool checkExists_DienThoai(string DienThoai)
         {
-            return _db.PhongBans.ToList();
+            return _db.KhachHangs.Any(item => item.DienThoai == DienThoai);
+        }
+
+        public bool checkExists_MST(string MST)
+        {
+            return _db.KhachHangs.Any(item => item.MST == MST);
+        }
+
+        public KhachHang get(int ID)
+        {
+            return _db.KhachHangs.SingleOrDefault(item => item.ID == ID);
+        }
+
+        public DataTable getDS()
+        {
+            return LINQToDataTable(_db.KhachHangs.ToList());
         }
     }
 }

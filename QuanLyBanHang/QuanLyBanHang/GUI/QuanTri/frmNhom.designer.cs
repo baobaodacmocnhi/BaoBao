@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
@@ -69,10 +70,9 @@
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(251, 118);
-            this.btnXoa.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnXoa.Location = new System.Drawing.Point(188, 96);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(100, 28);
+            this.btnXoa.Size = new System.Drawing.Size(75, 23);
             this.btnXoa.TabIndex = 11;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = true;
@@ -80,10 +80,9 @@
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(251, 82);
-            this.btnSua.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSua.Location = new System.Drawing.Point(188, 67);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(100, 28);
+            this.btnSua.Size = new System.Drawing.Size(75, 23);
             this.btnSua.TabIndex = 10;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = true;
@@ -91,10 +90,9 @@
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(251, 47);
-            this.btnThem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnThem.Location = new System.Drawing.Point(188, 38);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(100, 28);
+            this.btnThem.Size = new System.Drawing.Size(75, 23);
             this.btnThem.TabIndex = 9;
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
@@ -104,16 +102,23 @@
             // 
             this.dgvNhom.AllowUserToAddRows = false;
             this.dgvNhom.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvNhom.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvNhom.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvNhom.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaNhom,
             this.TenNhom});
-            this.dgvNhom.Location = new System.Drawing.Point(16, 47);
-            this.dgvNhom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvNhom.Location = new System.Drawing.Point(12, 38);
             this.dgvNhom.MultiSelect = false;
             this.dgvNhom.Name = "dgvNhom";
             this.dgvNhom.ReadOnly = true;
-            this.dgvNhom.Size = new System.Drawing.Size(227, 380);
+            this.dgvNhom.Size = new System.Drawing.Size(170, 309);
             this.dgvNhom.TabIndex = 8;
             this.dgvNhom.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvNhom_CellContentClick);
             this.dgvNhom.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvNhom_RowPostPaint);
@@ -135,28 +140,24 @@
             // 
             // txtTenNhom
             // 
-            this.txtTenNhom.Location = new System.Drawing.Point(104, 15);
-            this.txtTenNhom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtTenNhom.Location = new System.Drawing.Point(78, 12);
             this.txtTenNhom.Name = "txtTenNhom";
-            this.txtTenNhom.Size = new System.Drawing.Size(132, 22);
+            this.txtTenNhom.Size = new System.Drawing.Size(100, 20);
             this.txtTenNhom.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 18);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(12, 15);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.Size = new System.Drawing.Size(60, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "Tên Nhóm:";
             // 
             // gridControl
             // 
-            this.gridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.gridControl.Location = new System.Drawing.Point(8, 23);
+            this.gridControl.Location = new System.Drawing.Point(6, 19);
             this.gridControl.MainView = this.gridView;
-            this.gridControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.gridControl.Name = "gridControl";
             this.gridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1,
@@ -165,7 +166,7 @@
             this.repositoryItemCheckEdit4,
             this.repositoryItemCheckEdit5,
             this.repositoryItemCheckEdit6});
-            this.gridControl.Size = new System.Drawing.Size(687, 566);
+            this.gridControl.Size = new System.Drawing.Size(515, 460);
             this.gridControl.TabIndex = 12;
             this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView});
@@ -324,20 +325,18 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.gridControl);
-            this.groupBox1.Location = new System.Drawing.Point(359, 15);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Location = new System.Drawing.Point(269, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(704, 596);
+            this.groupBox1.Size = new System.Drawing.Size(528, 484);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Phân Quyền";
             // 
             // frmNhom
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1924, 790);
+            this.ClientSize = new System.Drawing.Size(1443, 642);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.btnSua);
@@ -345,7 +344,6 @@
             this.Controls.Add(this.dgvNhom);
             this.Controls.Add(this.txtTenNhom);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmNhom";
             this.Text = "Nhóm";
             this.Load += new System.EventHandler(this.frmNhom_Load);

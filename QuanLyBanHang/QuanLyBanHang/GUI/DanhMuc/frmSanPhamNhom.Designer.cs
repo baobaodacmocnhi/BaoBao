@@ -1,6 +1,6 @@
 ﻿namespace QuanLyBanHang.GUI.DanhMuc
 {
-    partial class frmNhaCungCap
+    partial class frmSanPhamNhom
     {
         /// <summary>
         /// Required designer variable.
@@ -30,13 +30,13 @@
         {
             this.SuspendLayout();
             // 
-            // frmNhaCungCap
+            // frmSanPhamNhom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Name = "frmNhaCungCap";
-            this.Text = "Nhà Cung Cấp";
+            this.ClientSize = new System.Drawing.Size(708, 517);
+            this.Name = "frmSanPhamNhom";
+            this.Text = "Sản Phẩm Nhóm";
             this.ResumeLayout(false);
 
         }

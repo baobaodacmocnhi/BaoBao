@@ -242,7 +242,7 @@ namespace QuanLyBanHang.GUI.QuanTri
         {
             if (CNguoiDung.CheckQuyen(_mnu, "Xoa"))
             {
-                if (MessageBox.Show("Bạn có chắc chắn xóa?", "Xác nhận xóa", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (MessageBox.Show("Bạn có chắc chắn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     if (_user != null)
                     {
                         ///xóa quan hệ 1 nhiều

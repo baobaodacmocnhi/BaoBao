@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace QuanLyBanHang.GUI.DanhMuc
 {
-    public partial class frmNhaCungCap : Form
+    public partial class frmSanPhamNhom : Form
     {
-        public frmNhaCungCap()
+        public frmSanPhamNhom()
         {
             InitializeComponent();
         }

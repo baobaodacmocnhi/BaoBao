@@ -59,7 +59,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             {
                 if (CNguoiDung.CheckQuyen(_mnu, "Them"))
                 {
-                    if (_cPB.checkExist(txtHoTen.Text.Trim()) == true)
+                    if (_cPB.checkExists(txtHoTen.Text.Trim()) == true)
                     {
                         MessageBox.Show("Đã Tồn Tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;

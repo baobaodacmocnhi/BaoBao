@@ -167,7 +167,7 @@ namespace QuanLyBanHang.DAL.QuanTri
                             item.N31,
                             Nghi = 0,
                             item.LuongCoBan,
-                            item.LuongThucLanh,
+                            item.LuongKhoan,
                             item.TamUng1,
                             item.TamUng2,
                             item.TamUng3,
@@ -180,6 +180,7 @@ namespace QuanLyBanHang.DAL.QuanTri
                             item.PhuCapXang,
                             item.PhuCapDienThoai,
                             item.TienCom1Ngay,
+                            item.LuongThucLanh,
                         };
             return LINQToDataTable(query);
         }

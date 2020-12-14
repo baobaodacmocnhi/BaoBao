@@ -537,7 +537,7 @@ namespace QuanLyBanHang.GUI.QuanTri
                         return;
                     }
                     if (_ngays.Contains(dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name) == true)
-                        _cChamCong.suaChamCong(_en.ID, int.Parse(dgvChamCong_ChiTiet["MaU", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name, bool.Parse(dgvChamCong_ChiTiet[e.ColumnIndex, e.RowIndex].Value.ToString()));
+                        _cChamCong.suaChamCong(_en.ID, int.Parse(dgvChamCong_ChiTiet["MaU_CC", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name, bool.Parse(dgvChamCong_ChiTiet[e.ColumnIndex, e.RowIndex].Value.ToString()));
                 }
                 else
                     MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -578,7 +578,7 @@ namespace QuanLyBanHang.GUI.QuanTri
                     {
                         foreach (DataGridViewRow item in dgvChamCong_TinhLuong.Rows)
                         {
-                            ChamCong_ChiTiet enPrevious_CT = enPrevious.ChamCong_ChiTiets.SingleOrDefault(itemA => itemA.ID == int.Parse(item.Cells["ID_TL"].Value.ToString()) && itemA.MaU == int.Parse(item.Cells["MaU_TL"].Value.ToString()));
+                            ChamCong_ChiTiet enPrevious_CT = enPrevious.ChamCong_ChiTiets.SingleOrDefault(itemA => itemA.MaU == int.Parse(item.Cells["MaU_TL"].Value.ToString()));
                             if (enPrevious_CT != null)
                             {
                                 item.Cells["LuongCoBan"].Value = enPrevious_CT.LuongCoBan;
@@ -599,7 +599,7 @@ namespace QuanLyBanHang.GUI.QuanTri
                             }
                         }
                     }
-
+                    tinhLuong();
                 }
             }
             catch (Exception ex)
@@ -619,10 +619,36 @@ namespace QuanLyBanHang.GUI.QuanTri
                 int TongSoNgayNghiDenThang = _cChamCong.getTongSoNgayNghiDenThang(_en.Thang.Value, _en.Nam.Value, int.Parse(item.Cells["MaU_TL"].Value.ToString()));
                 int TongSoNgayPhepTrongNam = _cChamCong.getTongSoNgayPhepTrongNam(_en.Nam.Value, int.Parse(item.Cells["MaU_TL"].Value.ToString()));
                 int TienLuong1Ngay = (int)Math.Round(double.Parse(item.Cells["LuongKhoan"].Value.ToString()) / CNguoiDung.SoNgayTinhLuong);
-                int SoNgayLamViec=TongSoNgay-TongSoNgayCN;
+                int SoNgayLamViec = TongSoNgay - TongSoNgayCN;
                 if ((TongSoNgayPhepTrongNam - TongSoNgayNghiDenThang - TongSoNgayNghiTrongThang) < 0)
-                    SoNgayLamViec -= (TongSoNgayPhepTrongNam - TongSoNgayNghiDenThang - TongSoNgayNghiTrongThang);
-
+                    SoNgayLamViec += (TongSoNgayPhepTrongNam - TongSoNgayNghiDenThang - TongSoNgayNghiTrongThang);
+                //làm ít
+                if (SoNgayLamViec < CNguoiDung.SoNgayTinhLuong)
+                {
+                    TienLuong = int.Parse(item.Cells["LuongKhoan"].Value.ToString()) * TienLuong1Ngay;
+                }
+                else
+                    //làm nhiều
+                    if (SoNgayLamViec > CNguoiDung.SoNgayTinhLuong)
+                    {
+                        TienLuong = int.Parse(item.Cells["LuongKhoan"].Value.ToString()) + ((SoNgayLamViec - CNguoiDung.SoNgayTinhLuong) * TienLuong1Ngay);
+                    }
+                    else//làm bằng
+                        TienLuong = int.Parse(item.Cells["LuongKhoan"].Value.ToString());
+                TienLuong = TienLuong
+                    - int.Parse(item.Cells["TamUng1"].Value.ToString())
+                    - int.Parse(item.Cells["TamUng2"].Value.ToString())
+                    - int.Parse(item.Cells["TamUng3"].Value.ToString())
+                    + int.Parse(item.Cells["BoiDuong"].Value.ToString())
+                    + int.Parse(item.Cells["ThuongDotXuat"].Value.ToString())
+                    + int.Parse(item.Cells["ThuongLe"].Value.ToString())
+                    + int.Parse(item.Cells["ThuongThang"].Value.ToString())
+                    + int.Parse(item.Cells["ThuongQuy"].Value.ToString())
+                    + int.Parse(item.Cells["ThuongNam"].Value.ToString())
+                    + int.Parse(item.Cells["PhuCapXang"].Value.ToString())
+                    + int.Parse(item.Cells["PhuCapDienThoai"].Value.ToString())
+                    + (int.Parse(item.Cells["TienCom1Ngay"].Value.ToString()) * SoNgayLamViec);
+                item.Cells["LuongThucLanh"].Value = TienLuong;
             }
         }
 
@@ -691,7 +717,6 @@ namespace QuanLyBanHang.GUI.QuanTri
                 MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
 
 
