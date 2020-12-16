@@ -238,18 +238,6 @@ namespace QuanLyBanHang
                 MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void mnuSanPhamNhom_Click(object sender, EventArgs e)
-        {
-            if (CNguoiDung.CheckQuyen("mnuSanPhamNhom", "Xem"))
-            {
-                frmSanPhamNhom frm = new frmSanPhamNhom();
-                OpenForm(frm);
-            }
-            else
-                MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-        }
-
         private void mnuKhachHang_Click(object sender, EventArgs e)
         {
             if (CNguoiDung.CheckQuyen("mnuKhachHang", "Xem"))

@@ -55,7 +55,6 @@
             this.StripStatus_HoTen = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.mnuSanPhamNhom = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -159,7 +158,6 @@
             // 
             this.mnuDanhMuc.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuSanPham,
-            this.mnuSanPhamNhom,
             this.mnuKhachHang});
             this.mnuDanhMuc.Name = "mnuDanhMuc";
             this.mnuDanhMuc.Size = new System.Drawing.Size(74, 19);
@@ -168,14 +166,14 @@
             // mnuSanPham
             // 
             this.mnuSanPham.Name = "mnuSanPham";
-            this.mnuSanPham.Size = new System.Drawing.Size(164, 22);
+            this.mnuSanPham.Size = new System.Drawing.Size(152, 22);
             this.mnuSanPham.Text = "Sản Phẩm";
             this.mnuSanPham.Click += new System.EventHandler(this.mnuSanPham_Click);
             // 
             // mnuKhachHang
             // 
             this.mnuKhachHang.Name = "mnuKhachHang";
-            this.mnuKhachHang.Size = new System.Drawing.Size(164, 22);
+            this.mnuKhachHang.Size = new System.Drawing.Size(152, 22);
             this.mnuKhachHang.Text = "Khách Hàng";
             this.mnuKhachHang.Click += new System.EventHandler(this.mnuKhachHang_Click);
             // 
@@ -259,13 +257,6 @@
             this.timer.Interval = 1200000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // mnuSanPhamNhom
-            // 
-            this.mnuSanPhamNhom.Name = "mnuSanPhamNhom";
-            this.mnuSanPhamNhom.Size = new System.Drawing.Size(164, 22);
-            this.mnuSanPhamNhom.Text = "Sản Phẩm Nhóm";
-            this.mnuSanPhamNhom.Click += new System.EventHandler(this.mnuSanPhamNhom_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -322,7 +313,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuBaoCao;
         private System.Windows.Forms.ToolStripMenuItem mnuPhongBan;
         private System.Windows.Forms.ToolStripMenuItem mnuChamCong;
-        private System.Windows.Forms.ToolStripMenuItem mnuSanPhamNhom;
     }
 }
 

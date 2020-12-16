@@ -10,7 +10,7 @@ namespace QuanLyBanHang.DAL.DanhMuc
 {
     class CSanPham:CDAL
     {
-        public bool Them(SanPham en)
+        public bool ThemSP(SanPham en)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace QuanLyBanHang.DAL.DanhMuc
             }
         }
 
-        public bool Sua(SanPham en)
+        public bool SuaSP(SanPham en)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace QuanLyBanHang.DAL.DanhMuc
             }
         }
 
-        public bool Xoa(SanPham en)
+        public bool XoaSP(SanPham en)
         {
             try
             {
@@ -62,19 +62,89 @@ namespace QuanLyBanHang.DAL.DanhMuc
             }
         }
 
-        public bool checkExists_HoTen(string HoTen)
+        public bool checkExists_SP_HoTen(string HoTen)
         {
             return _db.SanPhams.Any(item => item.HoTen == HoTen);
         }
 
-        public SanPham get(int ID)
+        public SanPham getSP(int ID)
         {
             return _db.SanPhams.SingleOrDefault(item => item.ID == ID);
         }
 
-        public DataTable getDS()
+        public DataTable getDS_SP()
         {
             return LINQToDataTable(_db.SanPhams.ToList());
         }
+
+        ////////////
+
+        public bool ThemBo(SanPham_Nhom en)
+        {
+            try
+            {
+                if (_db.SanPham_Nhoms.Count() == 0)
+                    en.ID = 1;
+                else
+                    en.ID = _db.SanPham_Nhoms.Max(item => item.ID) + 1;
+                en.CreateDate = DateTime.Now;
+                en.CreateBy = CNguoiDung.MaU;
+                _db.SanPham_Nhoms.InsertOnSubmit(en);
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public bool SuaBo(SanPham_Nhom en)
+        {
+            try
+            {
+                en.ModifyDate = DateTime.Now;
+                en.ModifyBy = CNguoiDung.MaU;
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public bool XoaBo(SanPham_Nhom en)
+        {
+            try
+            {
+                _db.SanPham_Nhoms.DeleteOnSubmit(en);
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public bool checkExists_Bo_HoTen(string HoTen)
+        {
+            return _db.SanPham_Nhoms.Any(item => item.HoTen == HoTen);
+        }
+
+        public SanPham_Nhom getBo(int ID)
+        {
+            return _db.SanPham_Nhoms.SingleOrDefault(item => item.ID == ID);
+        }
+
+        public DataTable getDS_Bo()
+        {
+            return LINQToDataTable(_db.SanPham_Nhoms.ToList());
+        }
+
     }
 }

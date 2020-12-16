@@ -4462,7 +4462,7 @@ namespace QuanLyBanHang.LinQ
 		
 		private string _HoTen;
 		
-		private System.Nullable<int> _DonGia;
+		private int _DonGia;
 		
 		private string _Model;
 		
@@ -4490,7 +4490,7 @@ namespace QuanLyBanHang.LinQ
     partial void OnIDChanged();
     partial void OnHoTenChanging(string value);
     partial void OnHoTenChanged();
-    partial void OnDonGiaChanging(System.Nullable<int> value);
+    partial void OnDonGiaChanging(int value);
     partial void OnDonGiaChanged();
     partial void OnModelChanging(string value);
     partial void OnModelChanged();
@@ -4556,8 +4556,8 @@ namespace QuanLyBanHang.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DonGia", DbType="Int")]
-		public System.Nullable<int> DonGia
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DonGia", DbType="Int NOT NULL")]
+		public int DonGia
 		{
 			get
 			{
@@ -4792,6 +4792,10 @@ namespace QuanLyBanHang.LinQ
 		
 		private string _HoTen;
 		
+		private int _DonGia;
+		
+		private int _STT;
+		
 		private bool _An;
 		
 		private System.Nullable<int> _CreateBy;
@@ -4812,6 +4816,10 @@ namespace QuanLyBanHang.LinQ
     partial void OnIDChanged();
     partial void OnHoTenChanging(string value);
     partial void OnHoTenChanged();
+    partial void OnDonGiaChanging(int value);
+    partial void OnDonGiaChanged();
+    partial void OnSTTChanging(int value);
+    partial void OnSTTChanged();
     partial void OnAnChanging(bool value);
     partial void OnAnChanged();
     partial void OnCreateByChanging(System.Nullable<int> value);
@@ -4866,6 +4874,46 @@ namespace QuanLyBanHang.LinQ
 					this._HoTen = value;
 					this.SendPropertyChanged("HoTen");
 					this.OnHoTenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DonGia", DbType="Int NOT NULL")]
+		public int DonGia
+		{
+			get
+			{
+				return this._DonGia;
+			}
+			set
+			{
+				if ((this._DonGia != value))
+				{
+					this.OnDonGiaChanging(value);
+					this.SendPropertyChanging();
+					this._DonGia = value;
+					this.SendPropertyChanged("DonGia");
+					this.OnDonGiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_STT", DbType="Int NOT NULL")]
+		public int STT
+		{
+			get
+			{
+				return this._STT;
+			}
+			set
+			{
+				if ((this._STT != value))
+				{
+					this.OnSTTChanging(value);
+					this.SendPropertyChanging();
+					this._STT = value;
+					this.SendPropertyChanged("STT");
+					this.OnSTTChanged();
 				}
 			}
 		}
@@ -5026,6 +5074,8 @@ namespace QuanLyBanHang.LinQ
 		
 		private int _IDSanPham_Nhom;
 		
+		private int _SoLuong;
+		
 		private System.Nullable<int> _CreateBy;
 		
 		private System.Nullable<System.DateTime> _CreateDate;
@@ -5042,6 +5092,8 @@ namespace QuanLyBanHang.LinQ
     partial void OnIDSanPhamChanged();
     partial void OnIDSanPham_NhomChanging(int value);
     partial void OnIDSanPham_NhomChanged();
+    partial void OnSoLuongChanging(int value);
+    partial void OnSoLuongChanged();
     partial void OnCreateByChanging(System.Nullable<int> value);
     partial void OnCreateByChanged();
     partial void OnCreateDateChanging(System.Nullable<System.DateTime> value);
@@ -5099,6 +5151,26 @@ namespace QuanLyBanHang.LinQ
 					this._IDSanPham_Nhom = value;
 					this.SendPropertyChanged("IDSanPham_Nhom");
 					this.OnIDSanPham_NhomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuong", DbType="Int NOT NULL")]
+		public int SoLuong
+		{
+			get
+			{
+				return this._SoLuong;
+			}
+			set
+			{
+				if ((this._SoLuong != value))
+				{
+					this.OnSoLuongChanging(value);
+					this.SendPropertyChanging();
+					this._SoLuong = value;
+					this.SendPropertyChanged("SoLuong");
+					this.OnSoLuongChanged();
 				}
 			}
 		}
