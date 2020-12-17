@@ -72,6 +72,11 @@ namespace QuanLyBanHang.DAL.DanhMuc
             return _db.SanPhams.SingleOrDefault(item => item.ID == ID);
         }
 
+        public SanPham getSP(string HoTen)
+        {
+            return _db.SanPhams.SingleOrDefault(item => item.HoTen == HoTen);
+        }
+
         public DataTable getDS_SP()
         {
             return LINQToDataTable(_db.SanPhams.ToList());
@@ -146,5 +151,54 @@ namespace QuanLyBanHang.DAL.DanhMuc
             return LINQToDataTable(_db.SanPham_Nhoms.ToList());
         }
 
+        ////////////
+
+        public bool ThemBoCT(SanPham_Nhom_ChiTiet en)
+        {
+            try
+            {
+                en.CreateDate = DateTime.Now;
+                en.CreateBy = CNguoiDung.MaU;
+                _db.SanPham_Nhom_ChiTiets.InsertOnSubmit(en);
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public bool SuaBoCT(SanPham_Nhom_ChiTiet en)
+        {
+            try
+            {
+                en.ModifyDate = DateTime.Now;
+                en.ModifyBy = CNguoiDung.MaU;
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public bool XoaBoCT(SanPham_Nhom_ChiTiet en)
+        {
+            try
+            {
+                _db.SanPham_Nhom_ChiTiets.DeleteOnSubmit(en);
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
     }
 }

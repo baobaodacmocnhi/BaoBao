@@ -202,6 +202,7 @@
       <Column Name="Serial" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="HangSanXuat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Hinh" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -230,6 +231,8 @@
       <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="SanPham_SanPham_Nhom_ChiTiet" Member="SanPham" ThisKey="IDSanPham" OtherKey="ID" Type="SanPham" IsForeignKey="true" />
       <Association Name="SanPham_Nhom_SanPham_Nhom_ChiTiet" Member="SanPham_Nhom" ThisKey="IDSanPham_Nhom" OtherKey="ID" Type="SanPham_Nhom" IsForeignKey="true" />
     </Type>

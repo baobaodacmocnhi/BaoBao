@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using QuanLyBanHang.DAL.DanhMuc;
 using QuanLyBanHang.LinQ;
 using QuanLyBanHang.DAL.QuanTri;
+using System.Transactions;
 
 namespace QuanLyBanHang.GUI.DanhMuc
 {
@@ -18,7 +19,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
         CSanPham _cSP = new CSanPham();
         SanPham _sp = null;
         SanPham_Nhom _spNhom = null;
-        AutoCompleteStringCollection autoHoTen_SP = null;
+        AutoCompleteStringCollection autoHoTen_SP = new AutoCompleteStringCollection();
 
         public frmSanPham()
         {
@@ -31,11 +32,6 @@ namespace QuanLyBanHang.GUI.DanhMuc
             dgvBo.AutoGenerateColumns = false;
             ClearSP();
             ClearBo();
-            DataTable dt = _cSP.getDS_SP();
-            foreach (DataRow item in dt.Rows)
-            {
-                autoHoTen_SP.Add(item["HoTen"].ToString());
-            }
         }
 
         public void ClearSP()
@@ -47,6 +43,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
             txtHangSanXuat.Text = "";
             _sp = null;
             dgvDanhSach.DataSource = _cSP.getDS_SP();
+            loadAutoCompleteSP();
         }
 
         public void loadEntity_SP(SanPham en)
@@ -201,6 +198,15 @@ namespace QuanLyBanHang.GUI.DanhMuc
 
         ////////////////////////////
 
+        public void loadAutoCompleteSP()
+        {
+            DataTable dt = _cSP.getDS_SP();
+            foreach (DataRow item in dt.Rows)
+            {
+                autoHoTen_SP.Add(item["HoTen"].ToString());
+            }
+        }
+
         public void ClearBo()
         {
             txtHoTen_Bo.Text = "";
@@ -248,13 +254,28 @@ namespace QuanLyBanHang.GUI.DanhMuc
                         MessageBox.Show("Họ Tên đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    SanPham_Nhom en = new SanPham_Nhom();
-                    en.HoTen = txtHoTen.Text.Trim();
-                    en.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
-                    if (_cSP.ThemBo(en) == true)
+                    SanPham_Nhom spBo = new SanPham_Nhom();
+                    spBo.HoTen = txtHoTen.Text.Trim();
+                    spBo.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
+                    var transactionOptions = new TransactionOptions();
+                    transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                     {
-                        MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ClearBo();
+                        if (_cSP.ThemBo(spBo) == true)
+                        {
+                            foreach (DataGridViewRow item in dgvBo_ChiTiet.Rows)
+                            {
+                                SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
+                                SanPham_Nhom_ChiTiet spBoCT = new SanPham_Nhom_ChiTiet();
+                                spBoCT.IDSanPham = sp.ID;
+                                spBoCT.IDSanPham_Nhom = spBo.ID;
+                                spBoCT.SoLuong = int.Parse(item.Cells["SoLuong_CT"].Value.ToString());
+                                _cSP.ThemBoCT(spBoCT);
+                            }
+                            scope.Complete();
+                            MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ClearBo();
+                        }
                     }
                 }
                 else
@@ -351,7 +372,6 @@ namespace QuanLyBanHang.GUI.DanhMuc
                     prodCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
                     prodCode.AutoCompleteCustomSource = autoHoTen_SP;
                     prodCode.AutoCompleteSource = AutoCompleteSource.CustomSource;
-
                 }
             }
             else
@@ -361,6 +381,14 @@ namespace QuanLyBanHang.GUI.DanhMuc
                 {
                     prodCode.AutoCompleteMode = AutoCompleteMode.None;
                 }
+            }
+        }
+
+        private void dgvBo_ChiTiet_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvBo_ChiTiet.Columns[e.ColumnIndex].Name == "HoTen_CT")
+            {
+                dgvBo_ChiTiet["SoLuong_CT", e.RowIndex].Value = 0;
             }
         }
     }
