@@ -179,7 +179,7 @@
             this.dgvChamCong.Size = new System.Drawing.Size(210, 100);
             this.dgvChamCong.TabIndex = 71;
             this.dgvChamCong.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_CellClick);
-            this.dgvChamCong.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_CellEndEdit);
+            this.dgvChamCong.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_CellValueChanged);
             // 
             // ID
             // 
@@ -634,7 +634,7 @@
             this.dgvChamCong_ChiTiet.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvChamCong_ChiTiet.Size = new System.Drawing.Size(1267, 425);
             this.dgvChamCong_ChiTiet.TabIndex = 70;
-            this.dgvChamCong_ChiTiet.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_ChiTiet_CellEndEdit);
+            this.dgvChamCong_ChiTiet.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_ChiTiet_CellValueChanged);
             this.dgvChamCong_ChiTiet.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvChamCong_ChiTiet_RowPostPaint);
             // 
             // ID_CC
@@ -942,7 +942,9 @@
             this.dgvChamCong_TinhLuong.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvChamCong_TinhLuong.Size = new System.Drawing.Size(1330, 427);
             this.dgvChamCong_TinhLuong.TabIndex = 71;
-            this.dgvChamCong_TinhLuong.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_TinhLuong_CellEndEdit);
+            this.dgvChamCong_TinhLuong.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvChamCong_TinhLuong_CellFormatting);
+            this.dgvChamCong_TinhLuong.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvChamCong_TinhLuong_CellValueChanged);
+            this.dgvChamCong_TinhLuong.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvChamCong_TinhLuong_RowPostPaint);
             // 
             // ID_TL
             // 

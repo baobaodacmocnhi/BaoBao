@@ -503,7 +503,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             }
         }
 
-        private void dgvChamCong_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgvChamCong_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -525,7 +525,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             }
         }
 
-        private void dgvChamCong_ChiTiet_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgvChamCong_ChiTiet_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -694,7 +694,7 @@ namespace QuanLyBanHang.GUI.QuanTri
             }
         }
 
-        private void dgvChamCong_TinhLuong_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgvChamCong_TinhLuong_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -717,6 +717,84 @@ namespace QuanLyBanHang.GUI.QuanTri
                 MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void dgvChamCong_TinhLuong_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "LuongCoBan" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "LuongKhoan" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "TamUng1" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "TamUng2" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "TamUng3" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "BoiDuong" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "ThuongDotXuat" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "ThuongLe" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "ThuongThang" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "ThuongQuy" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "ThuongNam" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "PhuCapXang" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "PhuCapDienThoai" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "TienCom1Ngay" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name == "LuongThucLanh" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+        }
+
+        private void dgvChamCong_TinhLuong_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dgvChamCong_TinhLuong.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 10, e.RowBounds.Location.Y + 4);
+            }
+        }
+
+        
+
+        
+
+        
 
 
 

@@ -18,7 +18,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
         string _mnu = "mnuSanPham";
         CSanPham _cSP = new CSanPham();
         SanPham _sp = null;
-        SanPham_Nhom _spNhom = null;
+        SanPham_Nhom _spBo = null;
         AutoCompleteStringCollection autoHoTen_SP = new AutoCompleteStringCollection();
 
         public frmSanPham()
@@ -170,6 +170,18 @@ namespace QuanLyBanHang.GUI.DanhMuc
             }
         }
 
+        private void dgvDanhSach_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvDanhSach.Columns[e.ColumnIndex].Name == "DonGia" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+            if (dgvDanhSach.Columns[e.ColumnIndex].Name == "SoLuong" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+        }
+
         private void dgvDanhSach_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dgvDanhSach.RowHeadersDefaultCellStyle.ForeColor))
@@ -211,7 +223,8 @@ namespace QuanLyBanHang.GUI.DanhMuc
         {
             txtHoTen_Bo.Text = "";
             txtDonGia_Bo.Text = "0";
-            _spNhom = null;
+            _spBo = null;
+            dgvBo_ChiTiet.Rows.Clear();
             dgvBo.DataSource = _cSP.getDS_Bo();
         }
 
@@ -225,7 +238,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
                 var index = dgvBo_ChiTiet.Rows.Add();
                 dgvBo_ChiTiet.Rows[index].Cells["IDSanPham"].Value = item.IDSanPham;
                 dgvBo_ChiTiet.Rows[index].Cells["IDSanPham_Nhom"].Value = item.IDSanPham_Nhom;
-                dgvBo_ChiTiet.Rows[index].Cells["HoTen_CT"].Value = item.SanPham_Nhom.HoTen;
+                dgvBo_ChiTiet.Rows[index].Cells["HoTen_CT"].Value = item.SanPham.HoTen;
                 dgvBo_ChiTiet.Rows[index].Cells["SoLuong_CT"].Value = item.SoLuong;
             }
         }
@@ -234,12 +247,28 @@ namespace QuanLyBanHang.GUI.DanhMuc
         {
             try
             {
-                _spNhom = _cSP.getBo(int.Parse(dgvBo.CurrentRow.Cells["ID_Bo"].Value.ToString()));
-                loadEntity_Bo(_spNhom);
+                _spBo = _cSP.getBo(int.Parse(dgvBo.CurrentRow.Cells["ID_Bo"].Value.ToString()));
+                loadEntity_Bo(_spBo);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvBo_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvBo.Columns[e.ColumnIndex].Name == "DonGia_Bo" && e.Value != null)
+            {
+                e.Value = String.Format("{0:0,0}", e.Value);
+            }
+        }
+
+        private void dgvBo_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            using (SolidBrush b = new SolidBrush(dgvBo.RowHeadersDefaultCellStyle.ForeColor))
+            {
+                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 10, e.RowBounds.Location.Y + 4);
             }
         }
 
@@ -255,7 +284,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
                         return;
                     }
                     SanPham_Nhom spBo = new SanPham_Nhom();
-                    spBo.HoTen = txtHoTen.Text.Trim();
+                    spBo.HoTen = txtHoTen_Bo.Text.Trim();
                     spBo.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
                     var transactionOptions = new TransactionOptions();
                     transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
@@ -264,15 +293,17 @@ namespace QuanLyBanHang.GUI.DanhMuc
                         if (_cSP.ThemBo(spBo) == true)
                         {
                             foreach (DataGridViewRow item in dgvBo_ChiTiet.Rows)
-                            {
-                                SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
-                                SanPham_Nhom_ChiTiet spBoCT = new SanPham_Nhom_ChiTiet();
-                                spBoCT.IDSanPham = sp.ID;
-                                spBoCT.IDSanPham_Nhom = spBo.ID;
-                                spBoCT.SoLuong = int.Parse(item.Cells["SoLuong_CT"].Value.ToString());
-                                _cSP.ThemBoCT(spBoCT);
-                            }
+                                if (item.Cells["HoTen_CT"].Value != null && item.Cells["HoTen_CT"].Value.ToString() != "")
+                                {
+                                    SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
+                                    SanPham_Nhom_ChiTiet spBoCT = new SanPham_Nhom_ChiTiet();
+                                    spBoCT.IDSanPham = sp.ID;
+                                    spBoCT.IDSanPham_Nhom = spBo.ID;
+                                    spBoCT.SoLuong = int.Parse(item.Cells["SoLuong_CT"].Value.ToString());
+                                    _cSP.ThemBoCT(spBoCT);
+                                }
                             scope.Complete();
+                            scope.Dispose();
                             MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             ClearBo();
                         }
@@ -294,12 +325,12 @@ namespace QuanLyBanHang.GUI.DanhMuc
                 if (CNguoiDung.CheckQuyen(_mnu, "Xoa"))
                 {
                     if (MessageBox.Show("Bạn có chắc chắn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                        if (_spNhom != null)
+                        if (_spBo != null)
                         {
-                            if (_cSP.XoaBo(_spNhom) == true)
+                            if (_cSP.XoaBo(_spBo) == true)
                             {
                                 MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                ClearSP();
+                                ClearBo();
                             }
                         }
                 }
@@ -318,9 +349,9 @@ namespace QuanLyBanHang.GUI.DanhMuc
             {
                 if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
                 {
-                    if (_spNhom != null)
+                    if (_spBo != null)
                     {
-                        if (_spNhom.HoTen != txtHoTen.Text.Trim())
+                        if (_spBo.HoTen != txtHoTen_Bo.Text.Trim())
                         {
                             if (_cSP.checkExists_Bo_HoTen(txtHoTen_Bo.Text.Trim()) == true)
                             {
@@ -328,12 +359,23 @@ namespace QuanLyBanHang.GUI.DanhMuc
                                 return;
                             }
                         }
-                        _spNhom.HoTen = txtHoTen.Text.Trim();
-                        _spNhom.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
-                        if (_cSP.SuaBo(_spNhom) == true)
+                        _spBo.HoTen = txtHoTen_Bo.Text.Trim();
+                        _spBo.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
+                        _cSP.XoaBoCT(_spBo);
+                        foreach (DataGridViewRow item in dgvBo_ChiTiet.Rows)
+                            if (item.Cells["HoTen_CT"].Value != null && item.Cells["HoTen_CT"].Value.ToString() != "")
+                            {
+                                SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
+                                SanPham_Nhom_ChiTiet spBoCT = new SanPham_Nhom_ChiTiet();
+                                spBoCT.IDSanPham = sp.ID;
+                                spBoCT.IDSanPham_Nhom = _spBo.ID;
+                                spBoCT.SoLuong = int.Parse(item.Cells["SoLuong_CT"].Value.ToString());
+                                _cSP.ThemBoCT(spBoCT);
+                            }
+                        if (_cSP.SuaBo(_spBo) == true)
                         {
                             MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ClearSP();
+                            ClearBo();
                         }
                     }
                 }
@@ -349,14 +391,6 @@ namespace QuanLyBanHang.GUI.DanhMuc
         private void dgvBo_ChiTiet_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             using (SolidBrush b = new SolidBrush(dgvBo_ChiTiet.RowHeadersDefaultCellStyle.ForeColor))
-            {
-                e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 10, e.RowBounds.Location.Y + 4);
-            }
-        }
-
-        private void dgvBo_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            using (SolidBrush b = new SolidBrush(dgvBo.RowHeadersDefaultCellStyle.ForeColor))
             {
                 e.Graphics.DrawString((e.RowIndex + 1).ToString(), e.InheritedRowStyle.Font, b, e.RowBounds.Location.X + 10, e.RowBounds.Location.Y + 4);
             }
@@ -384,12 +418,16 @@ namespace QuanLyBanHang.GUI.DanhMuc
             }
         }
 
-        private void dgvBo_ChiTiet_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        private void dgvBo_ChiTiet_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvBo_ChiTiet.Columns[e.ColumnIndex].Name == "HoTen_CT")
             {
                 dgvBo_ChiTiet["SoLuong_CT", e.RowIndex].Value = 0;
             }
         }
+
+
+
+
     }
 }

@@ -125,6 +125,7 @@ namespace QuanLyBanHang.DAL.DanhMuc
         {
             try
             {
+                _db.SanPham_Nhom_ChiTiets.DeleteAllOnSubmit(en.SanPham_Nhom_ChiTiets.ToList());
                 _db.SanPham_Nhoms.DeleteOnSubmit(en);
                 _db.SubmitChanges();
                 return true;
@@ -191,6 +192,21 @@ namespace QuanLyBanHang.DAL.DanhMuc
             try
             {
                 _db.SanPham_Nhom_ChiTiets.DeleteOnSubmit(en);
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
+        }
+
+        public bool XoaBoCT(SanPham_Nhom en)
+        {
+            try
+            {
+                _db.SanPham_Nhom_ChiTiets.DeleteAllOnSubmit(en.SanPham_Nhom_ChiTiets.ToList());
                 _db.SubmitChanges();
                 return true;
             }

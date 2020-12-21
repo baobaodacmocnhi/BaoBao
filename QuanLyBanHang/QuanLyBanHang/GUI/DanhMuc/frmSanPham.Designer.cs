@@ -53,6 +53,7 @@
             this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Serial = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HangSanXuat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SoLuong = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -229,13 +230,15 @@
             this.DonGia,
             this.Model,
             this.Serial,
-            this.HangSanXuat});
+            this.HangSanXuat,
+            this.SoLuong});
             this.dgvDanhSach.Location = new System.Drawing.Point(12, 142);
             this.dgvDanhSach.MultiSelect = false;
             this.dgvDanhSach.Name = "dgvDanhSach";
-            this.dgvDanhSach.Size = new System.Drawing.Size(573, 400);
+            this.dgvDanhSach.Size = new System.Drawing.Size(671, 400);
             this.dgvDanhSach.TabIndex = 47;
             this.dgvDanhSach.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDanhSach_CellClick);
+            this.dgvDanhSach.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvDanhSach_CellFormatting);
             this.dgvDanhSach.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvDanhSach_RowPostPaint);
             // 
             // ID
@@ -278,6 +281,12 @@
             this.HangSanXuat.HeaderText = "Hãng";
             this.HangSanXuat.Name = "HangSanXuat";
             // 
+            // SoLuong
+            // 
+            this.SoLuong.DataPropertyName = "SoLuong";
+            this.SoLuong.HeaderText = "Số Lượng";
+            this.SoLuong.Name = "SoLuong";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label9);
@@ -291,7 +300,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtHoTen_Bo);
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Location = new System.Drawing.Point(591, 12);
+            this.groupBox1.Location = new System.Drawing.Point(689, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(395, 530);
             this.groupBox1.TabIndex = 48;
@@ -369,6 +378,7 @@
             this.dgvBo.Size = new System.Drawing.Size(290, 284);
             this.dgvBo.TabIndex = 49;
             this.dgvBo.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBo_CellClick);
+            this.dgvBo.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvBo_CellFormatting);
             this.dgvBo.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvBo_RowPostPaint);
             // 
             // ID_Bo
@@ -414,7 +424,7 @@
             this.dgvBo_ChiTiet.Name = "dgvBo_ChiTiet";
             this.dgvBo_ChiTiet.Size = new System.Drawing.Size(290, 150);
             this.dgvBo_ChiTiet.TabIndex = 48;
-            this.dgvBo_ChiTiet.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBo_ChiTiet_CellEndEdit);
+            this.dgvBo_ChiTiet.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBo_ChiTiet_CellValueChanged);
             this.dgvBo_ChiTiet.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.dgvBo_ChiTiet_EditingControlShowing);
             this.dgvBo_ChiTiet.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvBo_ChiTiet_RowPostPaint);
             // 
@@ -532,12 +542,6 @@
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.DataGridView dgvDanhSach;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HoTen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Model;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Serial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn HangSanXuat;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvBo;
         private System.Windows.Forms.DataGridView dgvBo_ChiTiet;
@@ -557,5 +561,12 @@
         private System.Windows.Forms.Button btnThemBo;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HoTen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DonGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Model;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Serial;
+        private System.Windows.Forms.DataGridViewTextBoxColumn HangSanXuat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SoLuong;
     }
 }
