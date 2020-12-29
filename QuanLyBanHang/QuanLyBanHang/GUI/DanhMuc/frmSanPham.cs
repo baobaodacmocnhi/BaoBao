@@ -18,7 +18,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
         string _mnu = "mnuSanPham";
         CSanPham _cSP = new CSanPham();
         SanPham _sp = null;
-        SanPham_Nhom _spBo = null;
+        SanPham _spBo = null;
         AutoCompleteStringCollection autoHoTen_SP = new AutoCompleteStringCollection();
 
         public frmSanPham()
@@ -228,17 +228,17 @@ namespace QuanLyBanHang.GUI.DanhMuc
             dgvBo.DataSource = _cSP.getDS_Bo();
         }
 
-        public void loadEntity_Bo(SanPham_Nhom en)
+        public void loadEntity_Bo(SanPham en)
         {
             txtHoTen_Bo.Text = en.HoTen;
             txtDonGia_Bo.Text = en.DonGia.ToString();
             dgvBo_ChiTiet.Rows.Clear();
-            foreach (SanPham_Nhom_ChiTiet item in en.SanPham_Nhom_ChiTiets.ToList())
+            foreach (SanPham_Bo item in en.SanPham_Bos.ToList())
             {
                 var index = dgvBo_ChiTiet.Rows.Add();
-                dgvBo_ChiTiet.Rows[index].Cells["IDSanPham"].Value = item.IDSanPham;
-                dgvBo_ChiTiet.Rows[index].Cells["IDSanPham_Nhom"].Value = item.IDSanPham_Nhom;
-                dgvBo_ChiTiet.Rows[index].Cells["HoTen_CT"].Value = item.SanPham.HoTen;
+                dgvBo_ChiTiet.Rows[index].Cells["ID_BoCT"].Value = item.ID_Bo;
+                dgvBo_ChiTiet.Rows[index].Cells["ID_SanPham"].Value = item.ID_SanPham;
+                dgvBo_ChiTiet.Rows[index].Cells["HoTen_CT"].Value = item.SanPham1.HoTen;
                 dgvBo_ChiTiet.Rows[index].Cells["SoLuong_CT"].Value = item.SoLuong;
             }
         }
@@ -278,27 +278,28 @@ namespace QuanLyBanHang.GUI.DanhMuc
             {
                 if (CNguoiDung.CheckQuyen(_mnu, "Them"))
                 {
-                    if (_cSP.checkExists_Bo_HoTen(txtHoTen_Bo.Text.Trim()) == true)
+                    if (_cSP.checkExists_SP_HoTen(txtHoTen_Bo.Text.Trim()) == true)
                     {
                         MessageBox.Show("Họ Tên đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    SanPham_Nhom spBo = new SanPham_Nhom();
+                    SanPham spBo = new SanPham();
                     spBo.HoTen = txtHoTen_Bo.Text.Trim();
                     spBo.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
+                    spBo.Bo = true;
                     var transactionOptions = new TransactionOptions();
                     transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
                     using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                     {
-                        if (_cSP.ThemBo(spBo) == true)
+                        if (_cSP.ThemSP(spBo) == true)
                         {
                             foreach (DataGridViewRow item in dgvBo_ChiTiet.Rows)
                                 if (item.Cells["HoTen_CT"].Value != null && item.Cells["HoTen_CT"].Value.ToString() != "")
                                 {
                                     SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
-                                    SanPham_Nhom_ChiTiet spBoCT = new SanPham_Nhom_ChiTiet();
-                                    spBoCT.IDSanPham = sp.ID;
-                                    spBoCT.IDSanPham_Nhom = spBo.ID;
+                                    SanPham_Bo spBoCT = new SanPham_Bo();
+                                    spBoCT.ID_Bo = spBo.ID;
+                                    spBoCT.ID_SanPham = sp.ID;
                                     spBoCT.SoLuong = int.Parse(item.Cells["SoLuong_CT"].Value.ToString());
                                     _cSP.ThemBoCT(spBoCT);
                                 }
@@ -327,7 +328,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
                     if (MessageBox.Show("Bạn có chắc chắn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                         if (_spBo != null)
                         {
-                            if (_cSP.XoaBo(_spBo) == true)
+                            if (_cSP.XoaSP(_spBo) == true)
                             {
                                 MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 ClearBo();
@@ -353,7 +354,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
                     {
                         if (_spBo.HoTen != txtHoTen_Bo.Text.Trim())
                         {
-                            if (_cSP.checkExists_Bo_HoTen(txtHoTen_Bo.Text.Trim()) == true)
+                            if (_cSP.checkExists_SP_HoTen(txtHoTen_Bo.Text.Trim()) == true)
                             {
                                 MessageBox.Show("Họ Tên đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
@@ -366,13 +367,13 @@ namespace QuanLyBanHang.GUI.DanhMuc
                             if (item.Cells["HoTen_CT"].Value != null && item.Cells["HoTen_CT"].Value.ToString() != "")
                             {
                                 SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
-                                SanPham_Nhom_ChiTiet spBoCT = new SanPham_Nhom_ChiTiet();
-                                spBoCT.IDSanPham = sp.ID;
-                                spBoCT.IDSanPham_Nhom = _spBo.ID;
+                                SanPham_Bo spBoCT = new SanPham_Bo();
+                                spBoCT.ID_Bo = _spBo.ID;
+                                spBoCT.ID_SanPham = sp.ID;
                                 spBoCT.SoLuong = int.Parse(item.Cells["SoLuong_CT"].Value.ToString());
                                 _cSP.ThemBoCT(spBoCT);
                             }
-                        if (_cSP.SuaBo(_spBo) == true)
+                        if (_cSP.SuaSP(_spBo) == true)
                         {
                             MessageBox.Show("Thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             ClearBo();

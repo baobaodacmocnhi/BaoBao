@@ -13,36 +13,17 @@
       <Association Name="ChamCong_ChamCong_ChiTiet" Member="ChamCong_ChiTiets" ThisKey="ID" OtherKey="ID" Type="ChamCong_ChiTiet" />
     </Type>
   </Table>
-  <Table Name="dbo.[User]" Member="Users">
-    <Type Name="User">
-      <Column Name="MaU" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="STT" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="HoTen" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="DienThoai" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="TaiKhoan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="MatKhau" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="LoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="Admin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="GiamDoc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="PhoGiamDoc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="TruongPhong" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="PhoPhong" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ChamCong" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="An" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="MaNhom" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IDPhong" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="GioiTinh" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="Hinh" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
-      <Column Name="NgayVaoLam" Type="System.DateTime" DbType="Date" CanBeNull="true" />
-      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+  <Table Name="dbo.SanPham_Bo" Member="SanPham_Bos">
+    <Type Name="SanPham_Bo">
+      <Column Name="ID_Bo" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID_SanPham" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_ChamCong_ChiTiet" Member="ChamCong_ChiTiets" ThisKey="MaU" OtherKey="MaU" Type="ChamCong_ChiTiet" />
-      <Association Name="User_PhanQuyenNguoiDung" Member="PhanQuyenNguoiDungs" ThisKey="MaU" OtherKey="MaU" Type="PhanQuyenNguoiDung" />
-      <Association Name="PhongBan_User" Member="PhongBan" ThisKey="IDPhong" OtherKey="ID" Type="PhongBan" IsForeignKey="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="SanPham_SanPham_Bo" Member="SanPham" ThisKey="ID_Bo" OtherKey="ID" Type="SanPham" IsForeignKey="true" />
+      <Association Name="SanPham_SanPham_Bo1" Member="SanPham1" ThisKey="ID_SanPham" OtherKey="ID" Type="SanPham" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ChamCong_ChiTiet" Member="ChamCong_ChiTiets">
@@ -117,6 +98,7 @@
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="KhachHang_NhapKho" Member="NhapKhos" ThisKey="ID" OtherKey="ID_KhachHang" Type="NhapKho" />
     </Type>
   </Table>
   <Table Name="dbo.Menu" Member="Menus">
@@ -133,6 +115,44 @@
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Menu_PhanQuyenNguoiDung" Member="PhanQuyenNguoiDungs" ThisKey="MaMenu" OtherKey="MaMenu" Type="PhanQuyenNguoiDung" />
       <Association Name="Menu_PhanQuyenNhom" Member="PhanQuyenNhoms" ThisKey="MaMenu" OtherKey="MaMenu" Type="PhanQuyenNhom" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhapKho" Member="NhapKhos">
+    <Type Name="NhapKho">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID_KhachHang" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NgayLap" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ID_NhanVien" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NhanVien_GiuTien" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="NhanVien_SoTien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CoHoaDon" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TongCong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="NhapKho_NhapKho_ChiTiet" Member="NhapKho_ChiTiets" ThisKey="ID" OtherKey="ID_NhapKho" Type="NhapKho_ChiTiet" />
+      <Association Name="KhachHang_NhapKho" Member="KhachHang" ThisKey="ID_KhachHang" OtherKey="ID" Type="KhachHang" IsForeignKey="true" />
+      <Association Name="User_NhapKho" Member="User" ThisKey="ID_NhanVien" OtherKey="MaU" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.NhapKho_ChiTiet" Member="NhapKho_ChiTiets">
+    <Type Name="NhapKho_ChiTiet">
+      <Column Name="ID_NhapKho" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ID_SanPham" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaNiemYet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaNCC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaThatMua" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaGiamTrucTiep" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaGiamTyLe" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TongCong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="NhapKho_NhapKho_ChiTiet" Member="NhapKho" ThisKey="ID_NhapKho" OtherKey="ID" Type="NhapKho" IsForeignKey="true" />
+      <Association Name="SanPham_NhapKho_ChiTiet" Member="SanPham" ThisKey="ID_SanPham" OtherKey="ID" Type="SanPham" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Nhom" Member="Nhoms">
@@ -203,38 +223,47 @@
       <Column Name="HangSanXuat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Hinh" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Bo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SanPham_SanPham_Nhom_ChiTiet" Member="SanPham_Nhom_ChiTiets" ThisKey="ID" OtherKey="IDSanPham" Type="SanPham_Nhom_ChiTiet" />
+      <Association Name="SanPham_SanPham_Bo" Member="SanPham_Bos" ThisKey="ID" OtherKey="ID_Bo" Type="SanPham_Bo" />
+      <Association Name="SanPham_SanPham_Bo1" Member="SanPham_Bos1" ThisKey="ID" OtherKey="ID_SanPham" Type="SanPham_Bo" />
+      <Association Name="SanPham_NhapKho_ChiTiet" Member="NhapKho_ChiTiets" ThisKey="ID" OtherKey="ID_SanPham" Type="NhapKho_ChiTiet" />
     </Type>
   </Table>
-  <Table Name="dbo.SanPham_Nhom" Member="SanPham_Nhoms">
-    <Type Name="SanPham_Nhom">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="MaU" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="STT" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
-      <Column Name="DonGia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="STT" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DienThoai" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="TaiKhoan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MatKhau" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="LoginDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Admin" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="GiamDoc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PhoGiamDoc" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TruongPhong" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="PhoPhong" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ChamCong" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="An" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaNhom" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IDPhong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NgaySinh" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="GioiTinh" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Hinh" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="NgayVaoLam" Type="System.DateTime" DbType="Date" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SanPham_Nhom_SanPham_Nhom_ChiTiet" Member="SanPham_Nhom_ChiTiets" ThisKey="ID" OtherKey="IDSanPham_Nhom" Type="SanPham_Nhom_ChiTiet" />
-    </Type>
-  </Table>
-  <Table Name="dbo.SanPham_Nhom_ChiTiet" Member="SanPham_Nhom_ChiTiets">
-    <Type Name="SanPham_Nhom_ChiTiet">
-      <Column Name="IDSanPham" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="IDSanPham_Nhom" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="SanPham_SanPham_Nhom_ChiTiet" Member="SanPham" ThisKey="IDSanPham" OtherKey="ID" Type="SanPham" IsForeignKey="true" />
-      <Association Name="SanPham_Nhom_SanPham_Nhom_ChiTiet" Member="SanPham_Nhom" ThisKey="IDSanPham_Nhom" OtherKey="ID" Type="SanPham_Nhom" IsForeignKey="true" />
+      <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_ChamCong_ChiTiet" Member="ChamCong_ChiTiets" ThisKey="MaU" OtherKey="MaU" Type="ChamCong_ChiTiet" />
+      <Association Name="User_NhapKho" Member="NhapKhos" ThisKey="MaU" OtherKey="ID_NhanVien" Type="NhapKho" />
+      <Association Name="User_PhanQuyenNguoiDung" Member="PhanQuyenNguoiDungs" ThisKey="MaU" OtherKey="MaU" Type="PhanQuyenNguoiDung" />
+      <Association Name="PhongBan_User" Member="PhongBan" ThisKey="IDPhong" OtherKey="ID" Type="PhongBan" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
