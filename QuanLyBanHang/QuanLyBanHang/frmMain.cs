@@ -10,6 +10,7 @@ using QuanLyBanHang.GUI.HeThong;
 using QuanLyBanHang.GUI.QuanTri;
 using QuanLyBanHang.DAL.QuanTri;
 using QuanLyBanHang.GUI.DanhMuc;
+using QuanLyBanHang.GUI.NhapXuat;
 
 namespace QuanLyBanHang
 {
@@ -251,10 +252,28 @@ namespace QuanLyBanHang
 
         #endregion
 
+        #region Danh Mục
+
+        private void mnuNhapKho_Click(object sender, EventArgs e)
+        {
+            if (CNguoiDung.CheckQuyen("mnuNhapKho", "Xem"))
+            {
+                frmNhapKho frm = new frmNhapKho();
+                OpenForm(frm);
+            }
+            else
+                MessageBox.Show("Bạn không có quyền Xem Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        #endregion
+
+
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
 
         }
+
+        
 
     }
 }

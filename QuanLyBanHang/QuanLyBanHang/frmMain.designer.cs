@@ -166,14 +166,14 @@
             // mnuSanPham
             // 
             this.mnuSanPham.Name = "mnuSanPham";
-            this.mnuSanPham.Size = new System.Drawing.Size(152, 22);
+            this.mnuSanPham.Size = new System.Drawing.Size(139, 22);
             this.mnuSanPham.Text = "Sản Phẩm";
             this.mnuSanPham.Click += new System.EventHandler(this.mnuSanPham_Click);
             // 
             // mnuKhachHang
             // 
             this.mnuKhachHang.Name = "mnuKhachHang";
-            this.mnuKhachHang.Size = new System.Drawing.Size(152, 22);
+            this.mnuKhachHang.Size = new System.Drawing.Size(139, 22);
             this.mnuKhachHang.Text = "Khách Hàng";
             this.mnuKhachHang.Click += new System.EventHandler(this.mnuKhachHang_Click);
             // 
@@ -189,13 +189,14 @@
             // mnuNhapKho
             // 
             this.mnuNhapKho.Name = "mnuNhapKho";
-            this.mnuNhapKho.Size = new System.Drawing.Size(127, 22);
+            this.mnuNhapKho.Size = new System.Drawing.Size(152, 22);
             this.mnuNhapKho.Text = "Nhập Kho";
+            this.mnuNhapKho.Click += new System.EventHandler(this.mnuNhapKho_Click);
             // 
             // mnuXuatKho
             // 
             this.mnuXuatKho.Name = "mnuXuatKho";
-            this.mnuXuatKho.Size = new System.Drawing.Size(127, 22);
+            this.mnuXuatKho.Size = new System.Drawing.Size(152, 22);
             this.mnuXuatKho.Text = "Xuất Kho";
             // 
             // mnuBaoCao
