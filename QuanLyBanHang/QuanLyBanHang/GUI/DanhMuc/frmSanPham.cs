@@ -20,6 +20,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
         SanPham _sp = null;
         SanPham _spBo = null;
         AutoCompleteStringCollection autoHoTen_SP = new AutoCompleteStringCollection();
+        AutoCompleteStringCollection autoKyHieu_SP = new AutoCompleteStringCollection();
 
         public frmSanPham()
         {
@@ -30,14 +31,17 @@ namespace QuanLyBanHang.GUI.DanhMuc
         {
             dgvDanhSach.AutoGenerateColumns = false;
             dgvBo.AutoGenerateColumns = false;
+            dgvBo_ChiTiet.AutoGenerateColumns = false;
             ClearSP();
             ClearBo();
         }
 
         public void ClearSP()
         {
+            txtKyHieu.Text = "";
             txtHoTen.Text = "";
             txtDonGia.Text = "0";
+            txtTyLeGiamGia.Text = "0";
             txtModel.Text = "";
             txtSerial.Text = "";
             txtHangSanXuat.Text = "";
@@ -50,6 +54,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
         {
             txtHoTen.Text = en.HoTen;
             txtDonGia.Text = en.DonGia.ToString();
+            txtTyLeGiamGia.Text = en.TyLeGiamGia.ToString();
             txtModel.Text = en.Model;
             txtSerial.Text = en.Serial;
             txtHangSanXuat.Text = en.HangSanXuat;
@@ -65,14 +70,22 @@ namespace QuanLyBanHang.GUI.DanhMuc
             {
                 if (CNguoiDung.CheckQuyen(_mnu, "Them"))
                 {
+                    if (_cSP.checkExists_SP_KyHieu(txtKyHieu.Text.Trim()) == true)
+                    {
+                        MessageBox.Show("Ký Hiệu đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     if (_cSP.checkExists_SP_HoTen(txtHoTen.Text.Trim()) == true)
                     {
                         MessageBox.Show("Họ Tên đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+
                     SanPham en = new SanPham();
+                    en.KyHieu = txtKyHieu.Text.Trim();
                     en.HoTen = txtHoTen.Text.Trim();
                     en.DonGia = int.Parse(txtDonGia.Text.Trim());
+                    en.TyLeGiamGia = int.Parse(txtTyLeGiamGia.Text.Trim());
                     en.Model = txtModel.Text.Trim();
                     en.Serial = txtSerial.Text.Trim();
                     en.HangSanXuat = txtHangSanXuat.Text.Trim();
@@ -126,6 +139,14 @@ namespace QuanLyBanHang.GUI.DanhMuc
                 {
                     if (_sp != null)
                     {
+                        if (_sp.KyHieu != txtKyHieu.Text.Trim())
+                        {
+                            if (_cSP.checkExists_SP_KyHieu(txtKyHieu.Text.Trim()) == true)
+                            {
+                                MessageBox.Show("Ký Hiệu đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
                         if (_sp.HoTen != txtHoTen.Text.Trim())
                         {
                             if (_cSP.checkExists_SP_HoTen(txtHoTen.Text.Trim()) == true)
@@ -134,8 +155,10 @@ namespace QuanLyBanHang.GUI.DanhMuc
                                 return;
                             }
                         }
+                        _sp.KyHieu = txtKyHieu.Text.Trim();
                         _sp.HoTen = txtHoTen.Text.Trim();
                         _sp.DonGia = int.Parse(txtDonGia.Text.Trim());
+                        _sp.TyLeGiamGia = int.Parse(txtTyLeGiamGia.Text.Trim());
                         _sp.Model = txtModel.Text.Trim();
                         _sp.Serial = txtSerial.Text.Trim();
                         _sp.HangSanXuat = txtHangSanXuat.Text.Trim();
@@ -215,6 +238,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
             DataTable dt = _cSP.getDS_SP();
             foreach (DataRow item in dt.Rows)
             {
+                autoKyHieu_SP.Add(item["KyHieu"].ToString());
                 autoHoTen_SP.Add(item["HoTen"].ToString());
             }
         }
@@ -223,6 +247,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
         {
             txtHoTen_Bo.Text = "";
             txtDonGia_Bo.Text = "0";
+            txtTyLeGiamGia_Bo.Text = "0";
             _spBo = null;
             dgvBo_ChiTiet.Rows.Clear();
             dgvBo.DataSource = _cSP.getDS_Bo();
@@ -230,14 +255,17 @@ namespace QuanLyBanHang.GUI.DanhMuc
 
         public void loadEntity_Bo(SanPham en)
         {
+            txtKyHieu_Bo.Text = en.KyHieu;
             txtHoTen_Bo.Text = en.HoTen;
             txtDonGia_Bo.Text = en.DonGia.ToString();
+            txtTyLeGiamGia_Bo.Text = en.TyLeGiamGia.ToString();
             dgvBo_ChiTiet.Rows.Clear();
             foreach (SanPham_Bo item in en.SanPham_Bos.ToList())
             {
                 var index = dgvBo_ChiTiet.Rows.Add();
                 dgvBo_ChiTiet.Rows[index].Cells["ID_BoCT"].Value = item.ID_Bo;
                 dgvBo_ChiTiet.Rows[index].Cells["ID_SanPham"].Value = item.ID_SanPham;
+                dgvBo_ChiTiet.Rows[index].Cells["KyHieu_CT"].Value = item.SanPham1.KyHieu;
                 dgvBo_ChiTiet.Rows[index].Cells["HoTen_CT"].Value = item.SanPham1.HoTen;
                 dgvBo_ChiTiet.Rows[index].Cells["SoLuong_CT"].Value = item.SoLuong;
             }
@@ -278,14 +306,21 @@ namespace QuanLyBanHang.GUI.DanhMuc
             {
                 if (CNguoiDung.CheckQuyen(_mnu, "Them"))
                 {
+                    if (_cSP.checkExists_SP_KyHieu(txtKyHieu_Bo.Text.Trim()) == true)
+                    {
+                        MessageBox.Show("Ký Hiệu đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
                     if (_cSP.checkExists_SP_HoTen(txtHoTen_Bo.Text.Trim()) == true)
                     {
                         MessageBox.Show("Họ Tên đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     SanPham spBo = new SanPham();
+                    spBo.KyHieu = txtKyHieu_Bo.Text.Trim();
                     spBo.HoTen = txtHoTen_Bo.Text.Trim();
                     spBo.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
+                    spBo.TyLeGiamGia = int.Parse(txtTyLeGiamGia_Bo.Text.Trim());
                     spBo.Bo = true;
                     var transactionOptions = new TransactionOptions();
                     transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
@@ -296,7 +331,7 @@ namespace QuanLyBanHang.GUI.DanhMuc
                             foreach (DataGridViewRow item in dgvBo_ChiTiet.Rows)
                                 if (item.Cells["HoTen_CT"].Value != null && item.Cells["HoTen_CT"].Value.ToString() != "")
                                 {
-                                    SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
+                                    SanPham sp = _cSP.getSP_HoTen(item.Cells["HoTen_CT"].Value.ToString());
                                     SanPham_Bo spBoCT = new SanPham_Bo();
                                     spBoCT.ID_Bo = spBo.ID;
                                     spBoCT.ID_SanPham = sp.ID;
@@ -352,6 +387,14 @@ namespace QuanLyBanHang.GUI.DanhMuc
                 {
                     if (_spBo != null)
                     {
+                        if (_spBo.KyHieu != txtKyHieu_Bo.Text.Trim())
+                        {
+                            if (_cSP.checkExists_SP_KyHieu(txtKyHieu_Bo.Text.Trim()) == true)
+                            {
+                                MessageBox.Show("Ký Hiệu đã tồn tại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        }
                         if (_spBo.HoTen != txtHoTen_Bo.Text.Trim())
                         {
                             if (_cSP.checkExists_SP_HoTen(txtHoTen_Bo.Text.Trim()) == true)
@@ -360,13 +403,15 @@ namespace QuanLyBanHang.GUI.DanhMuc
                                 return;
                             }
                         }
+                        _spBo.KyHieu = txtKyHieu_Bo.Text.Trim();
                         _spBo.HoTen = txtHoTen_Bo.Text.Trim();
                         _spBo.DonGia = int.Parse(txtDonGia_Bo.Text.Trim());
+                        _spBo.TyLeGiamGia = int.Parse(txtTyLeGiamGia_Bo.Text.Trim());
                         _cSP.XoaBoCT(_spBo);
                         foreach (DataGridViewRow item in dgvBo_ChiTiet.Rows)
                             if (item.Cells["HoTen_CT"].Value != null && item.Cells["HoTen_CT"].Value.ToString() != "")
                             {
-                                SanPham sp = _cSP.getSP(item.Cells["HoTen_CT"].Value.ToString());
+                                SanPham sp = _cSP.getSP_HoTen(item.Cells["HoTen_CT"].Value.ToString());
                                 SanPham_Bo spBoCT = new SanPham_Bo();
                                 spBoCT.ID_Bo = _spBo.ID;
                                 spBoCT.ID_SanPham = sp.ID;
@@ -399,32 +444,54 @@ namespace QuanLyBanHang.GUI.DanhMuc
 
         private void dgvBo_ChiTiet_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
-            if (dgvBo_ChiTiet.Columns[dgvBo_ChiTiet.CurrentCell.ColumnIndex].Name == "HoTen_CT")
+            if (dgvBo_ChiTiet.Columns[dgvBo_ChiTiet.CurrentCell.ColumnIndex].Name == "KyHieu_CT")
             {
                 TextBox prodCode = e.Control as TextBox;
                 if (prodCode != null)
                 {
                     prodCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-                    prodCode.AutoCompleteCustomSource = autoHoTen_SP;
+                    prodCode.AutoCompleteCustomSource = autoKyHieu_SP;
                     prodCode.AutoCompleteSource = AutoCompleteSource.CustomSource;
                 }
             }
             else
-            {
-                TextBox prodCode = e.Control as TextBox;
-                if (prodCode != null)
+                if (dgvBo_ChiTiet.Columns[dgvBo_ChiTiet.CurrentCell.ColumnIndex].Name == "HoTen_CT")
                 {
-                    prodCode.AutoCompleteMode = AutoCompleteMode.None;
+                    TextBox prodCode = e.Control as TextBox;
+                    if (prodCode != null)
+                    {
+                        prodCode.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                        prodCode.AutoCompleteCustomSource = autoHoTen_SP;
+                        prodCode.AutoCompleteSource = AutoCompleteSource.CustomSource;
+                    }
                 }
-            }
+            //else
+            //{
+            //    TextBox prodCode = e.Control as TextBox;
+            //    if (prodCode != null)
+            //    {
+            //        prodCode.AutoCompleteMode = AutoCompleteMode.None;
+            //    }
+            //}
         }
 
         private void dgvBo_ChiTiet_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvBo_ChiTiet.Columns[e.ColumnIndex].Name == "HoTen_CT")
+            if (dgvBo_ChiTiet.Columns[e.ColumnIndex].Name == "KyHieu_CT")
             {
+                SanPham sp = _cSP.getSP_KyHieu(dgvBo_ChiTiet["KyHieu_CT", e.RowIndex].Value.ToString());
+                dgvBo_ChiTiet["KyHieu_CT", e.RowIndex].Value = sp.KyHieu;
+                dgvBo_ChiTiet["HoTen_CT", e.RowIndex].Value = sp.HoTen;
                 dgvBo_ChiTiet["SoLuong_CT", e.RowIndex].Value = 0;
             }
+            else
+                if (dgvBo_ChiTiet.Columns[e.ColumnIndex].Name == "HoTen_CT")
+                {
+                    SanPham sp = _cSP.getSP_HoTen(dgvBo_ChiTiet["HoTen_CT", e.RowIndex].Value.ToString());
+                    dgvBo_ChiTiet["KyHieu_CT", e.RowIndex].Value = sp.KyHieu;
+                    dgvBo_ChiTiet["HoTen_CT", e.RowIndex].Value = sp.HoTen;
+                    dgvBo_ChiTiet["SoLuong_CT", e.RowIndex].Value = 0;
+                }
         }
 
 

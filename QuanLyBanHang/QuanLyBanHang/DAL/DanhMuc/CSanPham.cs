@@ -67,14 +67,24 @@ namespace QuanLyBanHang.DAL.DanhMuc
             return _db.SanPhams.Any(item => item.HoTen == HoTen);
         }
 
+        public bool checkExists_SP_KyHieu(string KyHieu)
+        {
+            return _db.SanPhams.Any(item => item.KyHieu == KyHieu);
+        }
+
         public SanPham getSP(int ID)
         {
             return _db.SanPhams.SingleOrDefault(item => item.ID == ID && item.Bo == false);
         }
 
-        public SanPham getSP(string HoTen)
+        public SanPham getSP_HoTen(string HoTen)
         {
-            return _db.SanPhams.SingleOrDefault(item => item.HoTen == HoTen && item.Bo == false);
+            return _db.SanPhams.SingleOrDefault(item => item.HoTen == HoTen);
+        }
+
+        public SanPham getSP_KyHieu(string KyHieu)
+        {
+            return _db.SanPhams.SingleOrDefault(item => item.KyHieu == KyHieu);
         }
 
         public DataTable getDS_SP()
@@ -87,11 +97,6 @@ namespace QuanLyBanHang.DAL.DanhMuc
         public SanPham getBo(int ID)
         {
             return _db.SanPhams.SingleOrDefault(item => item.ID == ID && item.Bo == true);
-        }
-
-        public SanPham getBo(string HoTen)
-        {
-            return _db.SanPhams.SingleOrDefault(item => item.HoTen == HoTen && item.Bo == true);
         }
 
         public DataTable getDS_Bo()
