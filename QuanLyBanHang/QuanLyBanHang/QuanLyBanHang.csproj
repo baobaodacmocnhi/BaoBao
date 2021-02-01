@@ -92,7 +92,7 @@
     <Compile Include="DAL\CDAL.cs" />
     <Compile Include="DAL\DanhMuc\CKhachHang.cs" />
     <Compile Include="DAL\DanhMuc\CSanPham.cs" />
-    <Compile Include="DAL\NhapXuat\CNhapXuatKho.cs" />
+    <Compile Include="DAL\NhapXuat\CNhapKho.cs" />
     <Compile Include="DAL\QuanTri\CChamCong.cs" />
     <Compile Include="DAL\QuanTri\CMenu.cs" />
     <Compile Include="DAL\QuanTri\CNguoiDung.cs" />
