@@ -3313,6 +3313,10 @@ namespace QuanLyBanHang.LinQ
 		
 		private System.Nullable<System.DateTime> _ModifyDate;
 		
+		private bool _ChuyenKhoan;
+		
+		private int _ThucTra;
+		
 		private EntitySet<NhapKho_ChiTiet> _NhapKho_ChiTiets;
 		
 		private EntityRef<KhachHang> _KhachHang;
@@ -3347,6 +3351,10 @@ namespace QuanLyBanHang.LinQ
     partial void OnModifyByChanged();
     partial void OnModifyDateChanging(System.Nullable<System.DateTime> value);
     partial void OnModifyDateChanged();
+    partial void OnChuyenKhoanChanging(bool value);
+    partial void OnChuyenKhoanChanged();
+    partial void OnThucTraChanging(int value);
+    partial void OnThucTraChanged();
     #endregion
 		
 		public NhapKho()
@@ -3605,6 +3613,46 @@ namespace QuanLyBanHang.LinQ
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChuyenKhoan", DbType="Bit NOT NULL")]
+		public bool ChuyenKhoan
+		{
+			get
+			{
+				return this._ChuyenKhoan;
+			}
+			set
+			{
+				if ((this._ChuyenKhoan != value))
+				{
+					this.OnChuyenKhoanChanging(value);
+					this.SendPropertyChanging();
+					this._ChuyenKhoan = value;
+					this.SendPropertyChanged("ChuyenKhoan");
+					this.OnChuyenKhoanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThucTra", DbType="Int NOT NULL")]
+		public int ThucTra
+		{
+			get
+			{
+				return this._ThucTra;
+			}
+			set
+			{
+				if ((this._ThucTra != value))
+				{
+					this.OnThucTraChanging(value);
+					this.SendPropertyChanging();
+					this._ThucTra = value;
+					this.SendPropertyChanged("ThucTra");
+					this.OnThucTraChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="NhapKho_NhapKho_ChiTiet", Storage="_NhapKho_ChiTiets", ThisKey="ID", OtherKey="ID_NhapKho")]
 		public EntitySet<NhapKho_ChiTiet> NhapKho_ChiTiets
 		{
@@ -3737,7 +3785,7 @@ namespace QuanLyBanHang.LinQ
 		
 		private int _GiaGiamTrucTiep;
 		
-		private int _GiaGiamTyLe;
+		private float _GiaGiamTyLe;
 		
 		private int _TongCong;
 		
@@ -3748,6 +3796,8 @@ namespace QuanLyBanHang.LinQ
 		private System.Nullable<int> _ModifyBy;
 		
 		private System.Nullable<System.DateTime> _ModifyDate;
+		
+		private int _ThucTra;
 		
 		private EntityRef<NhapKho> _NhapKho;
 		
@@ -3769,7 +3819,7 @@ namespace QuanLyBanHang.LinQ
     partial void OnGiaNCCChanged();
     partial void OnGiaGiamTrucTiepChanging(int value);
     partial void OnGiaGiamTrucTiepChanged();
-    partial void OnGiaGiamTyLeChanging(int value);
+    partial void OnGiaGiamTyLeChanging(float value);
     partial void OnGiaGiamTyLeChanged();
     partial void OnTongCongChanging(int value);
     partial void OnTongCongChanged();
@@ -3781,6 +3831,8 @@ namespace QuanLyBanHang.LinQ
     partial void OnModifyByChanged();
     partial void OnModifyDateChanging(System.Nullable<System.DateTime> value);
     partial void OnModifyDateChanged();
+    partial void OnThucTraChanging(int value);
+    partial void OnThucTraChanged();
     #endregion
 		
 		public NhapKho_ChiTiet()
@@ -3919,7 +3971,7 @@ namespace QuanLyBanHang.LinQ
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaGiamTyLe", DbType="Int NOT NULL")]
-		public int GiaGiamTyLe
+		public float GiaGiamTyLe
 		{
 			get
 			{
@@ -4034,6 +4086,26 @@ namespace QuanLyBanHang.LinQ
 					this._ModifyDate = value;
 					this.SendPropertyChanged("ModifyDate");
 					this.OnModifyDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThucTra", DbType="Int NOT NULL")]
+		public int ThucTra
+		{
+			get
+			{
+				return this._ThucTra;
+			}
+			set
+			{
+				if ((this._ThucTra != value))
+				{
+					this.OnThucTraChanging(value);
+					this.SendPropertyChanging();
+					this._ThucTra = value;
+					this.SendPropertyChanged("ThucTra");
+					this.OnThucTraChanged();
 				}
 			}
 		}

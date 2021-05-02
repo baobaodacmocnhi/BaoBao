@@ -51,8 +51,8 @@ namespace QuanLyBanHang.GUI.NhapXuat
         public void loadEntity(NhapKho en)
         {
             dateNgayLap.Value = en.NgayLap.Value;
-            if(en.ID_KhachHang!=null)
-            cmbKhachHang.SelectedValue = en.ID_KhachHang;
+            if (en.ID_KhachHang != null)
+                cmbKhachHang.SelectedValue = en.ID_KhachHang;
             if (en.ID_NhanVien != null)
                 cmbNhanVien.SelectedValue = en.ID_NhanVien;
             chkCoHoaDon.Checked = en.CoHoaDon;
@@ -140,40 +140,71 @@ namespace QuanLyBanHang.GUI.NhapXuat
 
         private void dgvSanPham_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvSanPham.Columns[e.ColumnIndex].Name == "KyHieu")
+            try
             {
-                for (int i = 0; i < dgvSanPham.Rows.Count - 2; i++)
-                    if (i != e.RowIndex && dgvSanPham["KyHieu", i].Value != null && dgvSanPham["KyHieu", i].Value.ToString() != "" && dgvSanPham["KyHieu", i].Value.ToString() == dgvSanPham["KyHieu", e.RowIndex].Value.ToString())
-                    {
-                        MessageBox.Show("Sản Phẩm đã nhập rồi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                SanPham sp = _cSP.getSP_KyHieu(dgvSanPham["KyHieu", e.RowIndex].Value.ToString());
-                dgvSanPham["KyHieu", e.RowIndex].Value = sp.KyHieu;
-                dgvSanPham["HoTen", e.RowIndex].Value = sp.HoTen;
-                dgvSanPham["SoLuong", e.RowIndex].Value = 0;
-                dgvSanPham["GiaNiemYet", e.RowIndex].Value = sp.DonGia;
-            }
-            else
-                if (dgvSanPham.Columns[e.ColumnIndex].Name == "HoTen")
+                if (dgvSanPham.Columns[e.ColumnIndex].Name == "KyHieu")
                 {
                     for (int i = 0; i < dgvSanPham.Rows.Count - 2; i++)
-                        if (i != e.RowIndex && dgvSanPham["HoTen", i].Value != null && dgvSanPham["HoTen", i].Value.ToString() != "" && dgvSanPham["HoTen", i].Value.ToString() == dgvSanPham["HoTen", e.RowIndex].Value.ToString())
+                        if (i != e.RowIndex && dgvSanPham["KyHieu", i].Value != null && dgvSanPham["KyHieu", i].Value.ToString() != "" && dgvSanPham["KyHieu", i].Value.ToString() == dgvSanPham["KyHieu", e.RowIndex].Value.ToString())
                         {
                             MessageBox.Show("Sản Phẩm đã nhập rồi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
-                    SanPham sp = _cSP.getSP_HoTen(dgvSanPham["HoTen", e.RowIndex].Value.ToString());
+                    SanPham sp = _cSP.getSP_KyHieu(dgvSanPham["KyHieu", e.RowIndex].Value.ToString());
                     dgvSanPham["KyHieu", e.RowIndex].Value = sp.KyHieu;
                     dgvSanPham["HoTen", e.RowIndex].Value = sp.HoTen;
                     dgvSanPham["SoLuong", e.RowIndex].Value = 0;
+                    dgvSanPham["GiaNCC", e.RowIndex].Value = 0;
                     dgvSanPham["GiaNiemYet", e.RowIndex].Value = sp.DonGia;
+                    dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value = 0;
+                    dgvSanPham["GiaGiamTyLe", e.RowIndex].Value = 0;
                 }
                 else
-                    if (dgvSanPham.Columns[e.ColumnIndex].Name == "HoTen" && dgvSanPham.Columns[e.ColumnIndex].Name == "HoTen")
+                    if (dgvSanPham.Columns[e.ColumnIndex].Name == "HoTen")
                     {
-
+                        for (int i = 0; i < dgvSanPham.Rows.Count - 2; i++)
+                            if (i != e.RowIndex && dgvSanPham["HoTen", i].Value != null && dgvSanPham["HoTen", i].Value.ToString() != "" && dgvSanPham["HoTen", i].Value.ToString() == dgvSanPham["HoTen", e.RowIndex].Value.ToString())
+                            {
+                                MessageBox.Show("Sản Phẩm đã nhập rồi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                        SanPham sp = _cSP.getSP_HoTen(dgvSanPham["HoTen", e.RowIndex].Value.ToString());
+                        dgvSanPham["KyHieu", e.RowIndex].Value = sp.KyHieu;
+                        dgvSanPham["HoTen", e.RowIndex].Value = sp.HoTen;
+                        dgvSanPham["SoLuong", e.RowIndex].Value = 0;
+                        dgvSanPham["GiaNCC", e.RowIndex].Value = 0;
+                        dgvSanPham["GiaNiemYet", e.RowIndex].Value = sp.DonGia;
+                        dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value = 0;
+                        dgvSanPham["GiaGiamTyLe", e.RowIndex].Value = 0;
                     }
+                    else
+                        if (dgvSanPham.Columns[e.ColumnIndex].Name == "SoLuong" || dgvSanPham.Columns[e.ColumnIndex].Name == "GiaNCC")
+                        {
+                            int SoLuong = 0, GiaNCC = 0;
+                            if (dgvSanPham["SoLuong", e.RowIndex].Value != null)
+                                SoLuong = int.Parse(dgvSanPham["SoLuong", e.RowIndex].Value.ToString());
+                            if (dgvSanPham["GiaNCC", e.RowIndex].Value != null)
+                                GiaNCC = int.Parse(dgvSanPham["GiaNCC", e.RowIndex].Value.ToString());
+                            long value = SoLuong * GiaNCC;
+                            dgvSanPham["TongCong", e.RowIndex].Value = dgvSanPham["ThucTra", e.RowIndex].Value = value;
+                        }
+                        else
+                            if (dgvSanPham.Columns[e.ColumnIndex].Name == "GiaGiamTrucTiep" || dgvSanPham.Columns[e.ColumnIndex].Name == "GiaGiamTyLe")
+                            {
+                                int GiaGiamTrucTiep = 0;
+                                double GiaGiamTyLe = 0;
+                                if (dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value != null)
+                                    GiaGiamTrucTiep = int.Parse(dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value.ToString());
+                                if (dgvSanPham["GiaGiamTyLe", e.RowIndex].Value != null)
+                                    GiaGiamTyLe = int.Parse(dgvSanPham["GiaGiamTyLe", e.RowIndex].Value.ToString());
+                                double value = double.Parse(dgvSanPham["TongCong", e.RowIndex].Value.ToString()) - GiaGiamTrucTiep - (double.Parse(dgvSanPham["TongCong", e.RowIndex].Value.ToString()) * GiaGiamTyLe / 100);
+                                dgvSanPham["ThucTra", e.RowIndex].Value = Math.Round(value);
+                            }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -189,6 +220,30 @@ namespace QuanLyBanHang.GUI.NhapXuat
                     if (cmbNhanVien.SelectedIndex >= 0)
                         en.ID_NhanVien = (int)cmbNhanVien.SelectedValue;
                     en.CoHoaDon = chkCoHoaDon.Checked;
+                    int TongCong = 0, ThucTra = 0;
+                    foreach (DataGridViewRow item in dgvSanPham.Rows)
+                    {
+                        SanPham sp = _cSP.getSP_KyHieu(item.Cells["KyHieu"].Value.ToString());
+                        NhapKho_ChiTiet enCT = new NhapKho_ChiTiet();
+                        enCT.ID_SanPham = sp.ID;
+                        enCT.SoLuong = int.Parse(item.Cells["SoLuong"].Value.ToString());
+                        enCT.GiaNCC = int.Parse(item.Cells["GiaNCC"].Value.ToString());
+                        enCT.GiaNiemYet = int.Parse(item.Cells["GiaNiemYet"].Value.ToString());
+                        enCT.GiaGiamTrucTiep = int.Parse(item.Cells["GiaGiamTrucTiep"].Value.ToString());
+                        enCT.GiaGiamTyLe = int.Parse(item.Cells["GiaGiamTyLe"].Value.ToString());
+                        enCT.TongCong = int.Parse(item.Cells["TongCong"].Value.ToString());
+                        enCT.ThucTra = int.Parse(item.Cells["ThucTra"].Value.ToString());
+                        en.NhapKho_ChiTiets.Add(enCT);
+                        TongCong += enCT.TongCong;
+                        ThucTra += enCT.ThucTra;
+                    }
+                    if (chkChuyenKhoan.Checked == true)
+                    {
+                        en.ChuyenKhoan = true;
+                        en.TongCong = TongCong;
+                        en.ThucTra = ThucTra;
+                        en.NhanVien_SoTien=
+                    }
                 }
                 else
                     MessageBox.Show("Bạn không có quyền Thêm Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -259,5 +314,6 @@ namespace QuanLyBanHang.GUI.NhapXuat
         {
             dgvSanPham.DataSource = _cNK.getDS(dateTu.Value, dateDen.Value);
         }
+
     }
 }
