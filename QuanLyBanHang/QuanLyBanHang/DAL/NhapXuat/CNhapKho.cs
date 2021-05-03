@@ -14,10 +14,10 @@ namespace QuanLyBanHang.DAL.NhapXuat
         {
             try
             {
-                if (_db.SanPhams.Count() == 0)
+                if (_db.NhapKhos.Count() == 0)
                     en.ID = 1;
                 else
-                    en.ID = _db.SanPhams.Max(item => item.ID) + 1;
+                    en.ID = _db.NhapKhos.Max(item => item.ID) + 1;
                 en.CreateDate = DateTime.Now;
                 en.CreateBy = CNguoiDung.MaU;
                 _db.NhapKhos.InsertOnSubmit(en);
@@ -62,9 +62,31 @@ namespace QuanLyBanHang.DAL.NhapXuat
             }
         }
 
+        public NhapKho get(int ID)
+        {
+            return _db.NhapKhos.SingleOrDefault(item => item.ID == ID);
+        }
+
         public DataTable getDS(DateTime FromCreateDate,DateTime ToCreateDate)
         {
             return LINQToDataTable(_db.NhapKhos.Where(item => item.NgayLap.Value.Date >= FromCreateDate.Date && item.NgayLap.Value.Date <= ToCreateDate.Date).ToList());
+        }
+
+        //////////
+
+        public bool XoaCT(NhapKho en)
+        {
+            try
+            {
+                _db.NhapKho_ChiTiets.DeleteAllOnSubmit(en.NhapKho_ChiTiets.ToList());
+                _db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Refresh();
+                throw ex;
+            }
         }
     }
 }
