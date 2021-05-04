@@ -3303,7 +3303,11 @@ namespace QuanLyBanHang.LinQ
 		
 		private bool _CoHoaDon;
 		
-		private int _TongCong;
+		private bool _ChuyenKhoan;
+		
+		private decimal _TongCong;
+		
+		private decimal _ThucTra;
 		
 		private System.Nullable<int> _CreateBy;
 		
@@ -3312,10 +3316,6 @@ namespace QuanLyBanHang.LinQ
 		private System.Nullable<int> _ModifyBy;
 		
 		private System.Nullable<System.DateTime> _ModifyDate;
-		
-		private bool _ChuyenKhoan;
-		
-		private int _ThucTra;
 		
 		private EntitySet<NhapKho_ChiTiet> _NhapKho_ChiTiets;
 		
@@ -3341,8 +3341,12 @@ namespace QuanLyBanHang.LinQ
     partial void OnNhanVien_SoTienChanged();
     partial void OnCoHoaDonChanging(bool value);
     partial void OnCoHoaDonChanged();
-    partial void OnTongCongChanging(int value);
+    partial void OnChuyenKhoanChanging(bool value);
+    partial void OnChuyenKhoanChanged();
+    partial void OnTongCongChanging(decimal value);
     partial void OnTongCongChanged();
+    partial void OnThucTraChanging(decimal value);
+    partial void OnThucTraChanged();
     partial void OnCreateByChanging(System.Nullable<int> value);
     partial void OnCreateByChanged();
     partial void OnCreateDateChanging(System.Nullable<System.DateTime> value);
@@ -3351,10 +3355,6 @@ namespace QuanLyBanHang.LinQ
     partial void OnModifyByChanged();
     partial void OnModifyDateChanging(System.Nullable<System.DateTime> value);
     partial void OnModifyDateChanged();
-    partial void OnChuyenKhoanChanging(bool value);
-    partial void OnChuyenKhoanChanged();
-    partial void OnThucTraChanging(int value);
-    partial void OnThucTraChanged();
     #endregion
 		
 		public NhapKho()
@@ -3513,8 +3513,28 @@ namespace QuanLyBanHang.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongCong", DbType="Int NOT NULL")]
-		public int TongCong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChuyenKhoan", DbType="Bit NOT NULL")]
+		public bool ChuyenKhoan
+		{
+			get
+			{
+				return this._ChuyenKhoan;
+			}
+			set
+			{
+				if ((this._ChuyenKhoan != value))
+				{
+					this.OnChuyenKhoanChanging(value);
+					this.SendPropertyChanging();
+					this._ChuyenKhoan = value;
+					this.SendPropertyChanged("ChuyenKhoan");
+					this.OnChuyenKhoanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongCong", DbType="Decimal(18,0) NOT NULL")]
+		public decimal TongCong
 		{
 			get
 			{
@@ -3529,6 +3549,26 @@ namespace QuanLyBanHang.LinQ
 					this._TongCong = value;
 					this.SendPropertyChanged("TongCong");
 					this.OnTongCongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThucTra", DbType="Decimal(18,0) NOT NULL")]
+		public decimal ThucTra
+		{
+			get
+			{
+				return this._ThucTra;
+			}
+			set
+			{
+				if ((this._ThucTra != value))
+				{
+					this.OnThucTraChanging(value);
+					this.SendPropertyChanging();
+					this._ThucTra = value;
+					this.SendPropertyChanged("ThucTra");
+					this.OnThucTraChanged();
 				}
 			}
 		}
@@ -3609,46 +3649,6 @@ namespace QuanLyBanHang.LinQ
 					this._ModifyDate = value;
 					this.SendPropertyChanged("ModifyDate");
 					this.OnModifyDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ChuyenKhoan", DbType="Bit NOT NULL")]
-		public bool ChuyenKhoan
-		{
-			get
-			{
-				return this._ChuyenKhoan;
-			}
-			set
-			{
-				if ((this._ChuyenKhoan != value))
-				{
-					this.OnChuyenKhoanChanging(value);
-					this.SendPropertyChanging();
-					this._ChuyenKhoan = value;
-					this.SendPropertyChanged("ChuyenKhoan");
-					this.OnChuyenKhoanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThucTra", DbType="Int NOT NULL")]
-		public int ThucTra
-		{
-			get
-			{
-				return this._ThucTra;
-			}
-			set
-			{
-				if ((this._ThucTra != value))
-				{
-					this.OnThucTraChanging(value);
-					this.SendPropertyChanging();
-					this._ThucTra = value;
-					this.SendPropertyChanged("ThucTra");
-					this.OnThucTraChanged();
 				}
 			}
 		}
@@ -3785,9 +3785,11 @@ namespace QuanLyBanHang.LinQ
 		
 		private int _GiaGiamTrucTiep;
 		
-		private float _GiaGiamTyLe;
+		private double _GiaGiamTyLe;
 		
 		private int _TongCong;
+		
+		private int _ThucTra;
 		
 		private System.Nullable<int> _CreateBy;
 		
@@ -3796,8 +3798,6 @@ namespace QuanLyBanHang.LinQ
 		private System.Nullable<int> _ModifyBy;
 		
 		private System.Nullable<System.DateTime> _ModifyDate;
-		
-		private int _ThucTra;
 		
 		private EntityRef<NhapKho> _NhapKho;
 		
@@ -3819,10 +3819,12 @@ namespace QuanLyBanHang.LinQ
     partial void OnGiaNCCChanged();
     partial void OnGiaGiamTrucTiepChanging(int value);
     partial void OnGiaGiamTrucTiepChanged();
-    partial void OnGiaGiamTyLeChanging(float value);
+    partial void OnGiaGiamTyLeChanging(double value);
     partial void OnGiaGiamTyLeChanged();
     partial void OnTongCongChanging(int value);
     partial void OnTongCongChanged();
+    partial void OnThucTraChanging(int value);
+    partial void OnThucTraChanged();
     partial void OnCreateByChanging(System.Nullable<int> value);
     partial void OnCreateByChanged();
     partial void OnCreateDateChanging(System.Nullable<System.DateTime> value);
@@ -3831,8 +3833,6 @@ namespace QuanLyBanHang.LinQ
     partial void OnModifyByChanged();
     partial void OnModifyDateChanging(System.Nullable<System.DateTime> value);
     partial void OnModifyDateChanged();
-    partial void OnThucTraChanging(int value);
-    partial void OnThucTraChanged();
     #endregion
 		
 		public NhapKho_ChiTiet()
@@ -3970,8 +3970,8 @@ namespace QuanLyBanHang.LinQ
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaGiamTyLe", DbType="Int NOT NULL")]
-		public float GiaGiamTyLe
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaGiamTyLe", DbType="Float NOT NULL")]
+		public double GiaGiamTyLe
 		{
 			get
 			{
@@ -4006,6 +4006,26 @@ namespace QuanLyBanHang.LinQ
 					this._TongCong = value;
 					this.SendPropertyChanged("TongCong");
 					this.OnTongCongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThucTra", DbType="Int NOT NULL")]
+		public int ThucTra
+		{
+			get
+			{
+				return this._ThucTra;
+			}
+			set
+			{
+				if ((this._ThucTra != value))
+				{
+					this.OnThucTraChanging(value);
+					this.SendPropertyChanging();
+					this._ThucTra = value;
+					this.SendPropertyChanged("ThucTra");
+					this.OnThucTraChanged();
 				}
 			}
 		}
@@ -4086,26 +4106,6 @@ namespace QuanLyBanHang.LinQ
 					this._ModifyDate = value;
 					this.SendPropertyChanged("ModifyDate");
 					this.OnModifyDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ThucTra", DbType="Int NOT NULL")]
-		public int ThucTra
-		{
-			get
-			{
-				return this._ThucTra;
-			}
-			set
-			{
-				if ((this._ThucTra != value))
-				{
-					this.OnThucTraChanging(value);
-					this.SendPropertyChanging();
-					this._ThucTra = value;
-					this.SendPropertyChanged("ThucTra");
-					this.OnThucTraChanged();
 				}
 			}
 		}
@@ -5461,6 +5461,8 @@ namespace QuanLyBanHang.LinQ
 		
 		private int _SoLuong;
 		
+		private int _SoLuongHoaDon;
+		
 		private bool _Bo;
 		
 		private System.Nullable<int> _CreateBy;
@@ -5501,6 +5503,8 @@ namespace QuanLyBanHang.LinQ
     partial void OnHinhChanged();
     partial void OnSoLuongChanging(int value);
     partial void OnSoLuongChanged();
+    partial void OnSoLuongHoaDonChanging(int value);
+    partial void OnSoLuongHoaDonChanged();
     partial void OnBoChanging(bool value);
     partial void OnBoChanged();
     partial void OnCreateByChanging(System.Nullable<int> value);
@@ -5717,6 +5721,26 @@ namespace QuanLyBanHang.LinQ
 					this._SoLuong = value;
 					this.SendPropertyChanged("SoLuong");
 					this.OnSoLuongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoLuongHoaDon", DbType="Int NOT NULL")]
+		public int SoLuongHoaDon
+		{
+			get
+			{
+				return this._SoLuongHoaDon;
+			}
+			set
+			{
+				if ((this._SoLuongHoaDon != value))
+				{
+					this.OnSoLuongHoaDonChanging(value);
+					this.SendPropertyChanging();
+					this._SoLuongHoaDon = value;
+					this.SendPropertyChanged("SoLuongHoaDon");
+					this.OnSoLuongHoaDonChanged();
 				}
 			}
 		}

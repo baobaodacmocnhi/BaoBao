@@ -48,6 +48,7 @@ namespace QuanLyBanHang.GUI.NhapXuat
             chkChuyenKhoan.Checked = false;
             dgvSanPham.Rows.Clear();
             _nhapkho = null;
+            btnXem.PerformClick();
         }
 
         public void loadEntity(NhapKho en)
@@ -58,6 +59,10 @@ namespace QuanLyBanHang.GUI.NhapXuat
             if (en.ID_NhanVien != null)
                 cmbNhanVien.SelectedValue = en.ID_NhanVien;
             chkCoHoaDon.Checked = en.CoHoaDon;
+            chkChuyenKhoan.Checked = en.ChuyenKhoan;
+            txtNhanVienSoTien.Text = en.NhanVien_SoTien.ToString();
+            txtTongCong.Text = en.TongCong.ToString();
+            txtThucTra.Text = en.ThucTra.ToString();
             dgvSanPham.Rows.Clear();
             foreach (NhapKho_ChiTiet item in en.NhapKho_ChiTiets.ToList())
             {
@@ -149,33 +154,17 @@ namespace QuanLyBanHang.GUI.NhapXuat
         {
             try
             {
-                if (dgvSanPham.Columns[e.ColumnIndex].Name == "KyHieu")
+                if (dgvSanPham.Rows.Count > 0)
                 {
-                    for (int i = 0; i < dgvSanPham.Rows.Count - 2; i++)
-                        if (i != e.RowIndex && dgvSanPham["KyHieu", i].Value != null && dgvSanPham["KyHieu", i].Value.ToString() != "" && dgvSanPham["KyHieu", i].Value.ToString() == dgvSanPham["KyHieu", e.RowIndex].Value.ToString())
-                        {
-                            MessageBox.Show("Sản Phẩm đã nhập rồi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                    SanPham sp = _cSP.getSP_KyHieu(dgvSanPham["KyHieu", e.RowIndex].Value.ToString());
-                    dgvSanPham["KyHieu", e.RowIndex].Value = sp.KyHieu;
-                    dgvSanPham["HoTen", e.RowIndex].Value = sp.HoTen;
-                    dgvSanPham["SoLuong", e.RowIndex].Value = 0;
-                    dgvSanPham["GiaNCC", e.RowIndex].Value = 0;
-                    dgvSanPham["GiaNiemYet", e.RowIndex].Value = sp.DonGia;
-                    dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value = 0;
-                    dgvSanPham["GiaGiamTyLe", e.RowIndex].Value = 0;
-                }
-                else
-                    if (dgvSanPham.Columns[e.ColumnIndex].Name == "HoTen")
+                    if (dgvSanPham.Columns[e.ColumnIndex].Name == "KyHieu")
                     {
                         for (int i = 0; i < dgvSanPham.Rows.Count - 2; i++)
-                            if (i != e.RowIndex && dgvSanPham["HoTen", i].Value != null && dgvSanPham["HoTen", i].Value.ToString() != "" && dgvSanPham["HoTen", i].Value.ToString() == dgvSanPham["HoTen", e.RowIndex].Value.ToString())
+                            if (i != e.RowIndex && dgvSanPham["KyHieu", i].Value != null && dgvSanPham["KyHieu", i].Value.ToString() != "" && dgvSanPham["KyHieu", i].Value.ToString() == dgvSanPham["KyHieu", e.RowIndex].Value.ToString())
                             {
                                 MessageBox.Show("Sản Phẩm đã nhập rồi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 return;
                             }
-                        SanPham sp = _cSP.getSP_HoTen(dgvSanPham["HoTen", e.RowIndex].Value.ToString());
+                        SanPham sp = _cSP.getSP_KyHieu(dgvSanPham["KyHieu", e.RowIndex].Value.ToString());
                         dgvSanPham["KyHieu", e.RowIndex].Value = sp.KyHieu;
                         dgvSanPham["HoTen", e.RowIndex].Value = sp.HoTen;
                         dgvSanPham["SoLuong", e.RowIndex].Value = 0;
@@ -185,28 +174,47 @@ namespace QuanLyBanHang.GUI.NhapXuat
                         dgvSanPham["GiaGiamTyLe", e.RowIndex].Value = 0;
                     }
                     else
-                        if (dgvSanPham.Columns[e.ColumnIndex].Name == "SoLuong" || dgvSanPham.Columns[e.ColumnIndex].Name == "GiaNCC")
+                        if (dgvSanPham.Columns[e.ColumnIndex].Name == "HoTen")
                         {
-                            int SoLuong = 0, GiaNCC = 0;
-                            if (dgvSanPham["SoLuong", e.RowIndex].Value != null)
-                                SoLuong = int.Parse(dgvSanPham["SoLuong", e.RowIndex].Value.ToString());
-                            if (dgvSanPham["GiaNCC", e.RowIndex].Value != null)
-                                GiaNCC = int.Parse(dgvSanPham["GiaNCC", e.RowIndex].Value.ToString());
-                            long value = SoLuong * GiaNCC;
-                            dgvSanPham["TongCong", e.RowIndex].Value = dgvSanPham["ThucTra", e.RowIndex].Value = value;
+                            for (int i = 0; i < dgvSanPham.Rows.Count - 2; i++)
+                                if (i != e.RowIndex && dgvSanPham["HoTen", i].Value != null && dgvSanPham["HoTen", i].Value.ToString() != "" && dgvSanPham["HoTen", i].Value.ToString() == dgvSanPham["HoTen", e.RowIndex].Value.ToString())
+                                {
+                                    MessageBox.Show("Sản Phẩm đã nhập rồi", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            SanPham sp = _cSP.getSP_HoTen(dgvSanPham["HoTen", e.RowIndex].Value.ToString());
+                            dgvSanPham["KyHieu", e.RowIndex].Value = sp.KyHieu;
+                            dgvSanPham["HoTen", e.RowIndex].Value = sp.HoTen;
+                            dgvSanPham["SoLuong", e.RowIndex].Value = 0;
+                            dgvSanPham["GiaNCC", e.RowIndex].Value = 0;
+                            dgvSanPham["GiaNiemYet", e.RowIndex].Value = sp.DonGia;
+                            dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value = 0;
+                            dgvSanPham["GiaGiamTyLe", e.RowIndex].Value = 0;
                         }
                         else
-                            if (dgvSanPham.Columns[e.ColumnIndex].Name == "GiaGiamTrucTiep" || dgvSanPham.Columns[e.ColumnIndex].Name == "GiaGiamTyLe")
+                            if (dgvSanPham.Columns[e.ColumnIndex].Name == "SoLuong" || dgvSanPham.Columns[e.ColumnIndex].Name == "GiaNCC")
                             {
-                                int GiaGiamTrucTiep = 0;
-                                double GiaGiamTyLe = 0;
-                                if (dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value != null)
-                                    GiaGiamTrucTiep = int.Parse(dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value.ToString());
-                                if (dgvSanPham["GiaGiamTyLe", e.RowIndex].Value != null)
-                                    GiaGiamTyLe = int.Parse(dgvSanPham["GiaGiamTyLe", e.RowIndex].Value.ToString());
-                                double value = double.Parse(dgvSanPham["TongCong", e.RowIndex].Value.ToString()) - GiaGiamTrucTiep - (double.Parse(dgvSanPham["TongCong", e.RowIndex].Value.ToString()) * GiaGiamTyLe / 100);
-                                dgvSanPham["ThucTra", e.RowIndex].Value = Math.Round(value);
+                                int SoLuong = 0, GiaNCC = 0;
+                                if (dgvSanPham["SoLuong", e.RowIndex].Value != null)
+                                    SoLuong = int.Parse(dgvSanPham["SoLuong", e.RowIndex].Value.ToString());
+                                if (dgvSanPham["GiaNCC", e.RowIndex].Value != null)
+                                    GiaNCC = int.Parse(dgvSanPham["GiaNCC", e.RowIndex].Value.ToString());
+                                long value = SoLuong * GiaNCC;
+                                dgvSanPham["TongCong", e.RowIndex].Value = dgvSanPham["ThucTra", e.RowIndex].Value = value;
                             }
+                            else
+                                if (dgvSanPham.Columns[e.ColumnIndex].Name == "GiaGiamTrucTiep" || dgvSanPham.Columns[e.ColumnIndex].Name == "GiaGiamTyLe")
+                                {
+                                    int GiaGiamTrucTiep = 0;
+                                    double GiaGiamTyLe = 0;
+                                    if (dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value != null)
+                                        GiaGiamTrucTiep = int.Parse(dgvSanPham["GiaGiamTrucTiep", e.RowIndex].Value.ToString());
+                                    if (dgvSanPham["GiaGiamTyLe", e.RowIndex].Value != null)
+                                        GiaGiamTyLe = int.Parse(dgvSanPham["GiaGiamTyLe", e.RowIndex].Value.ToString());
+                                    double value = double.Parse(dgvSanPham["TongCong", e.RowIndex].Value.ToString()) - GiaGiamTrucTiep - (double.Parse(dgvSanPham["TongCong", e.RowIndex].Value.ToString()) * GiaGiamTyLe / 100);
+                                    dgvSanPham["ThucTra", e.RowIndex].Value = Math.Round(value);
+                                }
+                }
             }
             catch (Exception ex)
             {

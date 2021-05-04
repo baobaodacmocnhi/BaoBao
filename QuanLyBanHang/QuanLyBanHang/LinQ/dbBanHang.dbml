@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QuanLyBanHang" Class="dbBanHangDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=113.161.88.180,1133;Initial Catalog=QuanLyBanHang;User ID=sa" SettingsObjectName="QuanLyBanHang.Properties.Settings" SettingsPropertyName="QuanLyBanHangConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=serverg8-01;Initial Catalog=QuanLyBanHang;Persist Security Info=True;User ID=sa" SettingsObjectName="QuanLyBanHang.Properties.Settings" SettingsPropertyName="QuanLyBanHangConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.ChamCong" Member="ChamCongs">
     <Type Name="ChamCong">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -146,13 +146,13 @@
       <Column Name="NhanVien_GiuTien" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="NhanVien_SoTien" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CoHoaDon" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="TongCong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ChuyenKhoan" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TongCong" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="ThucTra" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ChuyenKhoan" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="ThucTra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="NhapKho_NhapKho_ChiTiet" Member="NhapKho_ChiTiets" ThisKey="ID" OtherKey="ID_NhapKho" Type="NhapKho_ChiTiet" />
       <Association Name="KhachHang_NhapKho" Member="KhachHang" ThisKey="ID_KhachHang" OtherKey="ID" Type="KhachHang" IsForeignKey="true" />
       <Association Name="User_NhapKho" Member="User" ThisKey="ID_NhanVien" OtherKey="MaU" Type="User" IsForeignKey="true" />
@@ -166,13 +166,13 @@
       <Column Name="GiaNiemYet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="GiaNCC" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="GiaGiamTrucTiep" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="GiaGiamTyLe" Type="System.Single" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaGiamTyLe" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Column Name="TongCong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ThucTra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ModifyBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="ModifyDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="ThucTra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="NhapKho_NhapKho_ChiTiet" Member="NhapKho" ThisKey="ID_NhapKho" OtherKey="ID" Type="NhapKho" IsForeignKey="true" />
       <Association Name="SanPham_NhapKho_ChiTiet" Member="SanPham" ThisKey="ID_SanPham" OtherKey="ID" Type="SanPham" IsForeignKey="true" />
     </Type>
@@ -247,6 +247,7 @@
       <Column Name="HangSanXuat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Hinh" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="SoLuong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuongHoaDon" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Bo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="CreateBy" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />

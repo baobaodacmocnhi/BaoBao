@@ -507,17 +507,18 @@ namespace QuanLyBanHang.GUI.QuanTri
         {
             try
             {
-                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
-                {
-                    if (dgvChamCong.Columns[e.ColumnIndex].Name == "Chot")
+                if (dgvChamCong.Rows.Count > 0)
+                    if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
                     {
-                        //ChamCong en = _cChamCong.get(int.Parse(dgvChamCong["ID",e.RowIndex].Value.ToString()));
-                        _en.Chot = bool.Parse(dgvChamCong["Chot", e.RowIndex].Value.ToString());
-                        _cChamCong.Sua(_en);
+                        if (dgvChamCong.Columns[e.ColumnIndex].Name == "Chot")
+                        {
+                            //ChamCong en = _cChamCong.get(int.Parse(dgvChamCong["ID",e.RowIndex].Value.ToString()));
+                            _en.Chot = bool.Parse(dgvChamCong["Chot", e.RowIndex].Value.ToString());
+                            _cChamCong.Sua(_en);
+                        }
                     }
-                }
-                else
-                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -529,18 +530,19 @@ namespace QuanLyBanHang.GUI.QuanTri
         {
             try
             {
-                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
-                {
-                    if (_en.Chot == true)
+                if (dgvChamCong_ChiTiet.Rows.Count > 0)
+                    if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
                     {
-                        MessageBox.Show(_en.Thang.Value + "/" + _en.Nam.Value + " đã Chốt", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        if (_en.Chot == true)
+                        {
+                            MessageBox.Show(_en.Thang.Value + "/" + _en.Nam.Value + " đã Chốt", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        if (_ngays.Contains(dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name) == true)
+                            _cChamCong.suaChamCong(_en.ID, int.Parse(dgvChamCong_ChiTiet["MaU_CC", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name, bool.Parse(dgvChamCong_ChiTiet[e.ColumnIndex, e.RowIndex].Value.ToString()));
                     }
-                    if (_ngays.Contains(dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name) == true)
-                        _cChamCong.suaChamCong(_en.ID, int.Parse(dgvChamCong_ChiTiet["MaU_CC", e.RowIndex].Value.ToString()), dgvChamCong_ChiTiet.Columns[e.ColumnIndex].Name, bool.Parse(dgvChamCong_ChiTiet[e.ColumnIndex, e.RowIndex].Value.ToString()));
-                }
-                else
-                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -698,19 +700,20 @@ namespace QuanLyBanHang.GUI.QuanTri
         {
             try
             {
-                if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
-                {
-                    if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name.Contains("TamUng") == true)
+                if (dgvChamCong_TinhLuong.Rows.Count > 0)
+                    if (CNguoiDung.CheckQuyen(_mnu, "Sua"))
                     {
-                        ChamCong_ChiTiet en = _cChamCong.get_ChiTiet(int.Parse(dgvChamCong_TinhLuong["ID_TL", e.RowIndex].Value.ToString()), int.Parse(dgvChamCong_TinhLuong["MaU_TL", e.RowIndex].Value.ToString()));
-                        en.TamUng1 = int.Parse(dgvChamCong_TinhLuong["TamUng1", e.RowIndex].Value.ToString());
-                        en.TamUng2 = int.Parse(dgvChamCong_TinhLuong["TamUng2", e.RowIndex].Value.ToString());
-                        en.TamUng3 = int.Parse(dgvChamCong_TinhLuong["TamUng3", e.RowIndex].Value.ToString());
-                        _cChamCong.Sua_ChiTiet(en);
+                        if (dgvChamCong_TinhLuong.Columns[e.ColumnIndex].Name.Contains("TamUng") == true)
+                        {
+                            ChamCong_ChiTiet en = _cChamCong.get_ChiTiet(int.Parse(dgvChamCong_TinhLuong["ID_TL", e.RowIndex].Value.ToString()), int.Parse(dgvChamCong_TinhLuong["MaU_TL", e.RowIndex].Value.ToString()));
+                            en.TamUng1 = int.Parse(dgvChamCong_TinhLuong["TamUng1", e.RowIndex].Value.ToString());
+                            en.TamUng2 = int.Parse(dgvChamCong_TinhLuong["TamUng2", e.RowIndex].Value.ToString());
+                            en.TamUng3 = int.Parse(dgvChamCong_TinhLuong["TamUng3", e.RowIndex].Value.ToString());
+                            _cChamCong.Sua_ChiTiet(en);
+                        }
                     }
-                }
-                else
-                    MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    else
+                        MessageBox.Show("Bạn không có quyền Sửa Form này", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
@@ -790,11 +793,11 @@ namespace QuanLyBanHang.GUI.QuanTri
             }
         }
 
-        
 
-        
 
-        
+
+
+
 
 
 

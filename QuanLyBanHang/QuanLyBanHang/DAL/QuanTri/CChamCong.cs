@@ -89,6 +89,7 @@ namespace QuanLyBanHang.DAL.QuanTri
         public DataTable getDS()
         {
             var query = from item in _db.ChamCongs
+                        orderby item.CreateDate descending
                         select new
                         {
                             item.ID,

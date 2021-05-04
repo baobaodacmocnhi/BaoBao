@@ -8,7 +8,7 @@ using System.Data;
 
 namespace QuanLyBanHang.DAL.NhapXuat
 {
-    class CNhapKho:CDAL
+    class CNhapKho : CDAL
     {
         public bool Them(NhapKho en)
         {
@@ -51,6 +51,7 @@ namespace QuanLyBanHang.DAL.NhapXuat
         {
             try
             {
+                _db.NhapKho_ChiTiets.DeleteAllOnSubmit(en.NhapKho_ChiTiets.ToList());
                 _db.NhapKhos.DeleteOnSubmit(en);
                 _db.SubmitChanges();
                 return true;
@@ -67,9 +68,19 @@ namespace QuanLyBanHang.DAL.NhapXuat
             return _db.NhapKhos.SingleOrDefault(item => item.ID == ID);
         }
 
-        public DataTable getDS(DateTime FromCreateDate,DateTime ToCreateDate)
+        public DataTable getDS(DateTime FromCreateDate, DateTime ToCreateDate)
         {
-            return LINQToDataTable(_db.NhapKhos.Where(item => item.NgayLap.Value.Date >= FromCreateDate.Date && item.NgayLap.Value.Date <= ToCreateDate.Date).ToList());
+            var query = from item in _db.NhapKhos
+                        where item.NgayLap.Value.Date >= FromCreateDate.Date && item.NgayLap.Value.Date <= ToCreateDate.Date
+                        select new
+                        {
+                            item.ID,
+                            KhachHang = item.KhachHang.HoTen,
+                            item.NgayLap,
+                            item.TongCong,
+                            item.ThucTra,
+                        };
+            return LINQToDataTable(query.ToList());
         }
 
         //////////
