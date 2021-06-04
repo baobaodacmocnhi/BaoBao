@@ -192,6 +192,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="app.config" />
+    <None Include="Copy of app.config" />
     <None Include="LinQ\dbBanHang.dbml.layout">
       <DependentUpon>dbBanHang.dbml</DependentUpon>
     </None>
