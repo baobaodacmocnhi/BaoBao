@@ -25,13 +25,13 @@
         public string Name { get; set; }
 
         [Display(Name = "Giá tiền")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         [DataType(DataType.Currency)]
-        //[DisplayFormat(DataFormatString = "{0:#,##}", ApplyFormatInEditMode = true)]
         public int? GiaTien { get; set; }
 
         [Display(Name = "Tiền cọc")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         [DataType(DataType.Currency)]
-        //[DisplayFormat(DataFormatString = "{0:#,##}", ApplyFormatInEditMode = true)]
         public int? TienCoc { get; set; }
 
         [Display(Name = "Thuê")]
@@ -57,13 +57,18 @@
         public int? ChiSoNuoc { get; set; }
 
         [Display(Name = "Ngày Đăng Ký Tạm Trú")]
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayDangKyTamTru { get; set; }
 
         [Display(Name = "Ngày tạo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CreateDate { get; set; }
 
         [Display(Name = "Ngày cập nhật")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ModifyDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

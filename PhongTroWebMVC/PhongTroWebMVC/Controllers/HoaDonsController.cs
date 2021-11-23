@@ -70,7 +70,8 @@ namespace PhongTroWebMVC.Controllers
                     return View(hoaDon);
 
                 string ChiTietDien = "";
-                int TienDien = TinhTienDien(SoNKDien, TieuThuDien, out ChiTietDien);
+                //int TienDien = TinhTienDien(SoNKDien, TieuThuDien, out ChiTietDien);
+                int TienDien = TinhTienDien1Gia(TieuThuDien, out ChiTietDien);
 
                 int DinhMucNuoc = db.Phongs.SingleOrDefault(item => item.ID == hoaDon.IDPhong).SoNKNuoc.Value * 4;
                 int ChiSoNuocOld = db.Phongs.SingleOrDefault(item => item.ID == hoaDon.IDPhong).ChiSoNuoc.Value;
@@ -79,7 +80,8 @@ namespace PhongTroWebMVC.Controllers
                     return View(hoaDon);
 
                 string ChiTietNuoc = "";
-                int TienNuoc = TinhTienNuoc(DinhMucNuoc, TieuThuNuoc, out ChiTietNuoc);
+                //int TienNuoc = TinhTienNuoc(DinhMucNuoc, TieuThuNuoc, out ChiTietNuoc);
+                int TienNuoc = TinhTienNuoc1Gia(TieuThuNuoc, out ChiTietNuoc);
 
                 if (db.HoaDons.Count() == 0)
                     hoaDon.ID = 1;
@@ -154,7 +156,8 @@ namespace PhongTroWebMVC.Controllers
                     return View(hoaDon);
 
                 string ChiTietDien = "";
-                int TienDien = TinhTienDien(SoNKDien, TieuThuDien, out ChiTietDien);
+                //int TienDien = TinhTienDien(SoNKDien, TieuThuDien, out ChiTietDien);
+                int TienDien = TinhTienDien1Gia(TieuThuDien, out ChiTietDien);
 
                 int DinhMucNuoc = db.Phongs.SingleOrDefault(item => item.ID == hoaDon.IDPhong).SoNKNuoc.Value * 4;
                 int TieuThuNuoc = hoaDon.ChiSoNuocNew.Value - hoaDon.ChiSoNuocOld.Value;
@@ -162,7 +165,8 @@ namespace PhongTroWebMVC.Controllers
                     return View(hoaDon);
 
                 string ChiTietNuoc = "";
-                int TienNuoc = TinhTienNuoc(DinhMucNuoc, TieuThuNuoc, out ChiTietNuoc);
+                //int TienNuoc = TinhTienNuoc(DinhMucNuoc, TieuThuNuoc, out ChiTietNuoc);
+                int TienNuoc = TinhTienNuoc1Gia(TieuThuNuoc, out ChiTietNuoc);
 
                 hoaDon.TieuThuDien = TieuThuDien;
                 hoaDon.TienDien = TienDien;
@@ -246,7 +250,7 @@ namespace PhongTroWebMVC.Controllers
         {
             List<GiaDien> dtGiaDien = db.GiaDiens.ToList();
             int B1 = (int)Math.Round(dtGiaDien[0].DinhMuc.Value * ((double)SoNKDien / 4), 1);
-            int B2 = (int)Math.Round((dtGiaDien[1].DinhMuc.Value- dtGiaDien[0].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
+            int B2 = (int)Math.Round((dtGiaDien[1].DinhMuc.Value - dtGiaDien[0].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
             int B3 = (int)Math.Round((dtGiaDien[2].DinhMuc.Value - dtGiaDien[1].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
             int B4 = (int)Math.Round((dtGiaDien[3].DinhMuc.Value - dtGiaDien[2].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
             int B5 = (int)Math.Round((dtGiaDien[4].DinhMuc.Value - dtGiaDien[3].DinhMuc.Value) * ((double)SoNKDien / 4), 1);
@@ -260,50 +264,50 @@ namespace PhongTroWebMVC.Controllers
                 ChiTiet = TieuThu + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien);
             }
             else
-                if (B1 < (TieuThu ) && (TieuThu - B1) <= B2)
-                {
+                if (B1 < (TieuThu) && (TieuThu - B1) <= B2)
+            {
                 TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + ((TieuThu - B1) * (int)dtGiaDien[1].GiaTien);
                 ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
                         + (TieuThu - B1).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien);
-                }
-                else
-                    if (B2 < (TieuThu - B1 ) && (TieuThu - B1 - B2) <= B3)
-                    {
-                        TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + ((TieuThu - B1 - B2) * (int)dtGiaDien[2].GiaTien);
-                        ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
-                                + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
-                                + (TieuThu - B1 - B2).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien);
-                    }
-                    else
-                        if (B3 < (TieuThu - B1 - B2 ) && (TieuThu - B1 - B2 - B3) <= B4)
-                        {
-                            TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + (B3 * (int)dtGiaDien[2].GiaTien) + ((TieuThu - B1 - B2 - B3) * (int)dtGiaDien[3].GiaTien);
-                            ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
-                                    + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
-                                    + B3 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien) + "\r\n"
-                                    + (TieuThu - B1 - B2 - B3).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[3].GiaTien);
-                        }
-                        else
-                            if (B4 < (TieuThu - B1 - B2 - B3 ) && (TieuThu - B1 - B2 - B3 - B4) <= B5)
-                            {
-                                TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + (B3 * (int)dtGiaDien[2].GiaTien) + (B4 * (int)dtGiaDien[3].GiaTien) + ((TieuThu - B1 - B2 - B3 - B4) * (int)dtGiaDien[4].GiaTien);
-                                ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
-                                        + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
-                                        + B3 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien) + "\r\n"
-                                        + B4 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[3].GiaTien) + "\r\n"
-                                        + (TieuThu - B1 - B2 - B3 - B4).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[4].GiaTien);
-                            }
-                            else
-                                if (B5 < (TieuThu - B1 - B2 - B3 - B4 ))
-                                {
-                                    TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + (B3 * (int)dtGiaDien[2].GiaTien) + (B4 * (int)dtGiaDien[3].GiaTien) + (B5 * (int)dtGiaDien[4].GiaTien) + ((TieuThu - B1 - B2 - B3 - B4 - B5) * (int)dtGiaDien[5].GiaTien);
-                                    ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
-                                             + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
-                                             + B3 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien) + "\r\n"
-                                             + B4 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[3].GiaTien) + "\r\n"
-                                             + B5 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[4].GiaTien) + "\r\n"
-                                             + ((TieuThu - B1 - B2 - B3 - B4 - B5)).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[5].GiaTien);
-                                }
+            }
+            else
+                    if (B2 < (TieuThu - B1) && (TieuThu - B1 - B2) <= B3)
+            {
+                TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + ((TieuThu - B1 - B2) * (int)dtGiaDien[2].GiaTien);
+                ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
+                        + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
+                        + (TieuThu - B1 - B2).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien);
+            }
+            else
+                        if (B3 < (TieuThu - B1 - B2) && (TieuThu - B1 - B2 - B3) <= B4)
+            {
+                TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + (B3 * (int)dtGiaDien[2].GiaTien) + ((TieuThu - B1 - B2 - B3) * (int)dtGiaDien[3].GiaTien);
+                ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
+                        + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
+                        + B3 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien) + "\r\n"
+                        + (TieuThu - B1 - B2 - B3).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[3].GiaTien);
+            }
+            else
+                            if (B4 < (TieuThu - B1 - B2 - B3) && (TieuThu - B1 - B2 - B3 - B4) <= B5)
+            {
+                TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + (B3 * (int)dtGiaDien[2].GiaTien) + (B4 * (int)dtGiaDien[3].GiaTien) + ((TieuThu - B1 - B2 - B3 - B4) * (int)dtGiaDien[4].GiaTien);
+                ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
+                        + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
+                        + B3 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien) + "\r\n"
+                        + B4 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[3].GiaTien) + "\r\n"
+                        + (TieuThu - B1 - B2 - B3 - B4).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[4].GiaTien);
+            }
+            else
+                                if (B5 < (TieuThu - B1 - B2 - B3 - B4))
+            {
+                TienDien = (B1 * (int)dtGiaDien[0].GiaTien) + (B2 * (int)dtGiaDien[1].GiaTien) + (B3 * (int)dtGiaDien[2].GiaTien) + (B4 * (int)dtGiaDien[3].GiaTien) + (B5 * (int)dtGiaDien[4].GiaTien) + ((TieuThu - B1 - B2 - B3 - B4 - B5) * (int)dtGiaDien[5].GiaTien);
+                ChiTiet = B1 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[0].GiaTien) + "\r\n"
+                         + B2 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[1].GiaTien) + "\r\n"
+                         + B3 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[2].GiaTien) + "\r\n"
+                         + B4 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[3].GiaTien) + "\r\n"
+                         + B5 + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[4].GiaTien) + "\r\n"
+                         + ((TieuThu - B1 - B2 - B3 - B4 - B5)).ToString() + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaDien[5].GiaTien);
+            }
 
             ChiTiet += "\r\n= " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", TienDien);
             ChiTiet += "\r\nThuế 10% " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", ((int)(TienDien * 0.10)));
@@ -313,6 +317,15 @@ namespace PhongTroWebMVC.Controllers
             ChiTiet += "\r\nTỷ lệ hao hụt " + dtGiaDien[6].GiaTien.ToString() + "% " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)Math.Round(TienDien * double.Parse(dtGiaDien[6].GiaTien.ToString()) / 100));
             TienDien += (int)Math.Round(TienDien * double.Parse(dtGiaDien[6].GiaTien.ToString()) / 100);
             ChiTiet += "\r\n= " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", TienDien);
+            return TienDien;
+        }
+
+        public int TinhTienDien1Gia(int TieuThu, out string ChiTiet)
+        {
+            GiaDien gd = db.GiaDiens.OrderByDescending(item => item.ID).FirstOrDefault();
+            int TienDien = 0;
+            TienDien = TieuThu * (int)gd.GiaTien;
+            ChiTiet = TieuThu + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)gd.GiaTien);
             return TienDien;
         }
 
@@ -328,23 +341,23 @@ namespace PhongTroWebMVC.Controllers
             }
             else
                 if (TieuThu - DinhMuc <= Math.Round((double)DinhMuc / 2))
-                {
-                    TienNuoc = (DinhMuc * (int)dtGiaNuoc[0].GiaTien)
-                            + ((TieuThu - DinhMuc) * (int)dtGiaNuoc[1].GiaTien);
+            {
+                TienNuoc = (DinhMuc * (int)dtGiaNuoc[0].GiaTien)
+                        + ((TieuThu - DinhMuc) * (int)dtGiaNuoc[1].GiaTien);
 
-                    ChiTiet = DinhMuc + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[0].GiaTien) + "\r\n"
-                               + (TieuThu - DinhMuc) + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[1].GiaTien);
-                }
-                else
-                {
-                    TienNuoc = (DinhMuc * (int)dtGiaNuoc[0].GiaTien)
-                            + ((int)Math.Round((double)DinhMuc / 2) * (int)dtGiaNuoc[1].GiaTien)
-                            + ((TieuThu - DinhMuc - (int)Math.Round((double)DinhMuc / 2)) * (int)dtGiaNuoc[2].GiaTien);
+                ChiTiet = DinhMuc + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[0].GiaTien) + "\r\n"
+                           + (TieuThu - DinhMuc) + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[1].GiaTien);
+            }
+            else
+            {
+                TienNuoc = (DinhMuc * (int)dtGiaNuoc[0].GiaTien)
+                        + ((int)Math.Round((double)DinhMuc / 2) * (int)dtGiaNuoc[1].GiaTien)
+                        + ((TieuThu - DinhMuc - (int)Math.Round((double)DinhMuc / 2)) * (int)dtGiaNuoc[2].GiaTien);
 
-                    ChiTiet = DinhMuc + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[0].GiaTien) + "\r\n"
-                               + (int)Math.Round((double)DinhMuc / 2) + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[1].GiaTien) + "\r\n"
-                               + (TieuThu - DinhMuc - (int)Math.Round((double)DinhMuc / 2)) + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[2].GiaTien);
-                }
+                ChiTiet = DinhMuc + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[0].GiaTien) + "\r\n"
+                           + (int)Math.Round((double)DinhMuc / 2) + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[1].GiaTien) + "\r\n"
+                           + (TieuThu - DinhMuc - (int)Math.Round((double)DinhMuc / 2)) + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)dtGiaNuoc[2].GiaTien);
+            }
 
             ChiTiet += "\r\n= " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", TienNuoc);
             ChiTiet += "\r\nThuế 15% " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", ((int)(TienNuoc * 0.15)));
@@ -354,6 +367,15 @@ namespace PhongTroWebMVC.Controllers
             ChiTiet += "\r\nTỷ lệ hao hụt " + dtGiaNuoc[3].GiaTien.ToString() + "% " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)Math.Round(TienNuoc * double.Parse(dtGiaNuoc[3].GiaTien.ToString()) / 100));
             TienNuoc += (int)Math.Round(TienNuoc * double.Parse(dtGiaNuoc[3].GiaTien.ToString()) / 100);
             ChiTiet += "\r\n= " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", TienNuoc);
+            return TienNuoc;
+        }
+
+        public int TinhTienNuoc1Gia(int TieuThu, out string ChiTiet)
+        {
+            GiaNuoc gn = db.GiaNuocs.OrderByDescending(item => item.ID).FirstOrDefault();
+            int TienNuoc = 0;
+            TienNuoc = (TieuThu * (int)gn.GiaTien);
+            ChiTiet = TieuThu + " x " + String.Format(System.Globalization.CultureInfo.CreateSpecificCulture("vi-VN"), "{0:#,##}", (int)gn.GiaTien);
             return TienNuoc;
         }
     }

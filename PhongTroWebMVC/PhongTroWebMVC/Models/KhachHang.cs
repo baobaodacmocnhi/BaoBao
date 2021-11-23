@@ -30,7 +30,8 @@
         public bool GioiTinh { get; set; }
 
         [Display(Name = "Ngày sinh")]
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgaySinh { get; set; }
 
         [Display(Name = "Điện thoại")]
@@ -56,13 +57,18 @@
         public DateTime? NgayVao { get; set; }
 
         [Display(Name = "Ngày ra")]
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? NgayRa { get; set; }
 
         [Display(Name = "Ngày tạo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CreateDate { get; set; }
 
         [Display(Name = "Ngày cập nhật")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ModifyDate { get; set; }
 
         [Display(Name = "Hình ảnh")]

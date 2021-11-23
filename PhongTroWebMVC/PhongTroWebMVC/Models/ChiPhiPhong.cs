@@ -22,6 +22,8 @@
         public int IDChiPhiKhac { get; set; }
 
         [Display(Name = "Ngày tạo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CreateDate { get; set; }
 
         public virtual ChiPhiKhac ChiPhiKhac { get; set; }

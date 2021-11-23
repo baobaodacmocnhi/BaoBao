@@ -25,7 +25,8 @@
         public int? TieuThuDien { get; set; }
 
         [Display(Name = "Tiền điện")]
-        [DisplayFormat(DataFormatString = "{0:#,##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        [DataType(DataType.Currency)]
         public int? TienDien { get; set; }
 
         [Display(Name = "Chi tiết điện")]
@@ -43,7 +44,8 @@
         public int? TieuThuNuoc { get; set; }
 
         [Display(Name = "Tiền nước")]
-        [DisplayFormat(DataFormatString = "{0:#,##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        [DataType(DataType.Currency)]
         public int? TienNuoc { get; set; }
 
         [Display(Name = "Chi tiết nước")]
@@ -57,13 +59,18 @@
         public string ChiPhiKhac { get; set; }
 
         [Display(Name = "Tổng tiền")]
-        [DisplayFormat(DataFormatString = "{0:#,##}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        [DataType(DataType.Currency)]
         public int? TongTien { get; set; }
 
         [Display(Name = "Ngày tạo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CreateDate { get; set; }
 
         [Display(Name = "Ngày cập nhật")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? ModifyDate { get; set; }
 
         public virtual Phong Phong { get; set; }
